@@ -1,0 +1,12 @@
+bin
+temp
+tools/out
+out
+
+data/*.in
+data/*.out
+data/*.err
+
+*.pyc
+
+core

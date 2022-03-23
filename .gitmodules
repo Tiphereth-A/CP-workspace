@@ -1,0 +1,9 @@
+[submodule "lib/testlib"]
+	path = lib/testlib
+	url = git@github.com:MikeMirzayanov/testlib.git
+[submodule "lib/dbg-macro"]
+	path = lib/dbg-macro
+	url = git@github.com:sharkdp/dbg-macro.git
+[submodule "lib/ac-library"]
+	path = lib/ac-library
+	url = git@github.com:atcoder/ac-library.git

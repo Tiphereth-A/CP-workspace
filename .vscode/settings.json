@@ -1,0 +1,28 @@
+{
+    "files.defaultLanguage": "cpp",
+    "[cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "files.autoGuessEncoding": true,
+    "files.trimTrailingWhitespace": true,
+    "[markdown]": {
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": {
+            "comments": "on",
+            "strings": "on",
+            "other": "on"
+        }
+    },
+    "files.associations": {
+        "*.cpp": "cpp",
+        "*.m": "matlab",
+        "*.py": "python",
+        "*.out": "plaintext",
+        "*.in": "plaintext",
+        "*.hpp": "cpp",
+        "**/include/c++/**": "cpp",
+        "algorithm": "cpp"
+    },
+    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+    "C_Cpp.errorSquiggles": "enabled"
+}
