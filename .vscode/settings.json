@@ -24,8 +24,6 @@
         "**/.settings": true,
         "**/.factorypath": true
     },
-    "c-cpp-compile-run.cpp-flags": "--Wall -Wextra -D_LOCAL_ -O2 -std=c++17 -I .",
-    "c-cpp-compile-run.run-args": "< \"data\\in.in\" > \"data\\out.out\" 2> \"data\\err.err\" && del *.exe",
     "editor.detectIndentation": false,
     "C_Cpp.default.cppStandard": "c++17",
     "terminal.integrated.persistentSessionReviveProcess": "never",
