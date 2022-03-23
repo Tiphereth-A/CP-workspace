@@ -1,32 +1,22 @@
-# Prerequisites
-*.d
+*
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+!.vscode
+!template
+!tools
 
-# Precompiled Headers
-*.gch
-*.pch
+!.vscode/*.json
+!.vscode/*.bat
+!.vscode/*.code-snippets
+!tools/lib/*
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+!tools/lib-cpp/template/*
+!tools/*
 
-# Fortran module files
-*.mod
-*.smod
+!/*.ps1
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+!.clang-format
+!/.gitignore
+!LICENSE
+!main.cpp
+!main-fastIO.cpp
+!README.md

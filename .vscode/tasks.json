@@ -1,0 +1,66 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C++: Generate execute file for debug",
+            "command": "${env:CPPDBG_PATH}/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileBasenameNoExtension}.exe",
+                "-DLOCAL_",
+                "-D_DEBUG",
+                "-I",
+                "${workspaceFolder}/tools/lib-cpp",
+                "-std=c++17",
+                "-Wl,--stack=1073741824"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "cppbuild",
+            "label": "C++: Compile and run",
+            "command": "run_cpp.bat",
+            "args": [
+                "${fileDirname}",
+                "${fileBasenameNoExtension}",
+                "${workspaceFolder}\\data"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\.vscode"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "C++: Generate assembler code of current source file",
+            "command": "${env:CPPBIN_PATH}/g++",
+            "args": ["-S", "${file}"],
+            "problemMatcher": [],
+            "detail": "g++ -S"
+        },
+        {
+            "type": "shell",
+            "label": "C++: Expand current source file",
+            "command": "${env:CPPBIN_PATH}/g++",
+            "args": [
+                "${file}",
+                "-E",
+                ">",
+                "${fileDirname}\\out\\${fileBasenameNoExtension}_expand.txt"
+            ],
+            "problemMatcher": [],
+            "detail": "g++ -E"
+        }
+    ],
+    "version": "2.0.0"
+}

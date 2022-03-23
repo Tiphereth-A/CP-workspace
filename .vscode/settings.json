@@ -1,0 +1,40 @@
+{
+    "editor.smoothScrolling": true,
+    "files.defaultLanguage": "cpp",
+    "editor.suggestSelection": "first",
+    "[cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "tabnine.disable_file_regex": ["[.]out$", "[.]in$", "[.]err$"],
+    "files.autoGuessEncoding": true,
+    "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?·～！￥…（）—【】、；：‘’“”，。《》？ ",
+    "editor.minimap.maxColumn": 40,
+    "files.trimTrailingWhitespace": true,
+    "[markdown]": {
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": {
+            "comments": "on",
+            "strings": "on",
+            "other": "on"
+        }
+    },
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "editor.detectIndentation": false,
+    "C_Cpp.default.cppStandard": "c++17",
+    "terminal.integrated.persistentSessionReviveProcess": "never",
+    "C_Cpp.default.defines": ["_LOCAL_"],
+    "files.associations": {
+        "*.cpp": "cpp",
+        "*.m": "matlab",
+        "**/include/c++/**": "cpp",
+        "**/tools/lib-cpp/**": "cpp"
+    },
+    "C_Cpp.default.intelliSenseMode": "windows-gcc-x64",
+    "python.formatting.provider": "autopep8",
+    "C_Cpp.errorSquiggles": "Enabled"
+}

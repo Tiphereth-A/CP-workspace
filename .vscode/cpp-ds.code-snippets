@@ -1,0 +1,88 @@
+{
+    // Place your CP-workplace workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+    // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+    // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+    // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+    // Placeholders with the same ids are connected.
+    // Example:
+    // "Print to console": {
+    // 	"scope": "javascript,typescript",
+    // 	"prefix": "log",
+    // 	"body": [
+    // 		"console.log('$1');",
+    // 		"$2"
+    // 	],
+    // 	"description": "Log output to console"
+    // }
+    "dsu-basic": {
+        "scope": "cpp",
+        "prefix": "dsu_basic",
+        "body": [
+            "int  fa[N];",
+            "int  find(int x) { return x == fa[x] ? fa[x] : fa[x] = find(fa[x]); }",
+            "bool merge(int x, int y) { return find(x) == find(y) ? false : fa[find(x)] = find(y), true; }"
+        ]
+    },
+    "fenwick-tree": {
+        "scope": "cpp",
+        "prefix": ["fenwick", "fenwick-tree"],
+        "body": [
+            "template <size_t N, typename Tp>",
+            "class BIT {",
+            "protected:",
+            "\tTp tree[N];",
+            "\n\tconstexpr ptrdiff_t lowbit(ptrdiff_t x) const { return x & (-x); }",
+            "\npublic:",
+            "\tBIT() = default;",
+            "\n\tinline void clear() { memset(tree, 0, sizeof(tree)); }",
+            "\tinline void modify(ptrdiff_t pos, Tp val = 1) { for (ptrdiff_t i = std::clamp(pos, ptrdiff_t(0), ptrdiff_t(N) - 1); i < N; i += lowbit(i)) tree[i] += val; }",
+            "\tinline Tp query(ptrdiff_t pos) const {",
+            "\t\tTp ret = 0;",
+            "\t\tfor (ptrdiff_t i = std::clamp(pos, ptrdiff_t(0), ptrdiff_t(N) - 1); i; i = i - lowbit(i)) ret += tree[i];",
+            "\t\treturn ret;",
+            "\t}",
+            "};"
+        ]
+    },
+    "UDHeap": {
+        "scope": "cpp",
+        "prefix": "udheap",
+        "body": [
+            "template <class Tp>",
+            "class UDHeap {",
+            "private:",
+            "\tstd::priority_queue<Tp> dq;",
+            "\tstd::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>> uq;",
+            "\npublic:",
+            "\tusing self = UDHeap<Tp>;",
+            "\tUDHeap() {}",
+            "\tself &clear() {",
+            "\t\twhile (!dq.empty()) dq.pop();",
+            "\t\twhile (!uq.empty()) uq.pop();",
+            "\t\treturn *this;",
+            "\t}",
+            "\tinline self &insert(const Tp &x) {",
+            "\t\tif (dq.empty() && uq.empty()) {",
+            "\t\t\tdq.push(x);",
+            "\t\t\treturn *this;",
+            "\t\t}",
+            "\t\t(x > dq.top() ? uq.push(x) : dq.push(x));",
+            "\t\tif (uq.size() > dq.size() + 1) {",
+            "\t\t\tdq.push(uq.top());",
+            "\t\t\tuq.pop();",
+            "\t\t} else if (dq.size() > uq.size() + 1) {",
+            "\t\t\tuq.push(dq.top());",
+            "\t\t\tdq.pop();",
+            "\t\t}",
+            "\t\treturn *this;",
+            "\t}",
+            "\tinline Tp get_mid() const { return uq.size() > dq.size() ? uq.top() : dq.top(); }",
+            "\tinline self &pop_mid() {",
+            "\t\tuq.size() > dq.size() ? uq.pop() : dq.pop();",
+            "\t\treturn *this;",
+            "\t}",
+            "};"
+        ]
+    }
+}

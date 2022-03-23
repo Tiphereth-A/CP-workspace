@@ -1,0 +1,70 @@
+{
+    // Place your CP-workplace workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+    // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+    // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+    // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+    // Placeholders with the same ids are connected.
+    // Example:
+    // "Print to console": {
+    // 	"scope": "javascript,typescript",
+    // 	"prefix": "log",
+    // 	"body": [
+    // 		"console.log('$1');",
+    // 		"$2"
+    // 	],
+    // 	"description": "Log output to console"
+    // }
+    "init-cpp-simple": {
+        "scope": "cpp",
+        "prefix": ["iis", "init_simple"],
+        "body": [
+            "#include <bits/stdc++.h>",
+            "using namespace std;",
+            "using i64 = int64_t;",
+            "using u64 = uint64_t;",
+            "\nconst int N = 1e5 + 5;",
+            "\nint main() {",
+            "\t$0",
+            "\treturn 0;",
+            "}"
+        ]
+    },
+    "foreach": {
+        "scope": "cpp",
+        "prefix": ["fors", "foreach"],
+        "body": [
+            "#define for_(i, l, r, vars...) for (decltype(l + r) i = (l), i##end = (r), ##vars; i <= i##end; ++i)",
+            "#define rfor_(i, r, l, vars...) for (make_signed_t<decltype(r - l)> i = (r), i##end = (l), ##vars; i >= i##end; --i)",
+            "#define foreach_val_(i, container) for (auto i : container)",
+            "#define foreach_ref_(i, container) for (auto &i : container)",
+            "#define foreach_cref_(i, container) for (const auto &i : container)",
+            "#define foreach_rref_(i, container) for (auto &&i : container)",
+            "#define foreach_binding_(container, vars...) for (auto &&[vars] : container)",
+            "#define foreach_iter_(it, container) for (auto it = (container).begin(); it != (container).end(); ++it)",
+            "#define foreach_iter_range_(it, container, l, r) for (auto it = (container).begin() + l; it != (container).begin() + r; ++it)",
+            "#define foreach_riter_(it, container) for (auto it = (container).rbegin(); it != (container).rend(); ++it)",
+            "#define foreach_riter_range_(it, container, l, r) for (auto it = (container).rbegin() + l; it != (container).rbegin() + r; ++it)"
+        ]
+    },
+    "ostream-int128": {
+        "scope": "cpp",
+        "prefix": ["os128", "out128", "cout128"],
+        "body": [
+            "ostream& operator<<(ostream& os, i128 n) {",
+            "\tif (n < 0) {",
+            "\t\tos << '-';",
+            "\t\tn = -n;",
+            "\t}",
+            "\tif (n > 9) os << (i128)(n / 10);",
+            "\tos << (uint_fast16_t)(n % 10);",
+            "\treturn os;",
+            "}",
+            "ostream& operator<<(ostream& os, u128 n) {",
+            "\tif (n > 9) os << (u128)(n / 10);",
+            "\tos << (uint_fast16_t)(n % 10);",
+            "\treturn os;",
+            "}"
+        ]
+    }
+}

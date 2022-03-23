@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "",
+            "includePath": [
+                "${env:CPPLIB_PATH}/**",
+                "${workspaceFolder}/lib/testlib/**",
+                "${workspaceFolder}/tools/lib-cpp/**"
+            ],
+            "defines": ["LOCAL_"],
+            "intelliSenseMode": "${default}",
+            "cppStandard": "c++17",
+            "compilerPath": "${env:CPPBIN_PATH}/g++"
+        }
+    ],
+    "version": 4
+}
