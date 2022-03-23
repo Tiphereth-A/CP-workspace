@@ -9,7 +9,7 @@
 
 !template/*
 
-!tools/*.py
+!tools/*
 
 !.clang-format
 !.gitignore
