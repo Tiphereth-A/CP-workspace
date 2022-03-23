@@ -1,6 +1,8 @@
 # CP-workspace
 My VSCode workspace for Competitive Programming.
 
+[![GitHub license](https://img.shields.io/badge/license-%20GPL--3.0-informational?style=flat)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
 ## Usage
 - Clone this repo.
 - Add Environment `GCC_PATH`, set the value to two levels above your compiler directory.
