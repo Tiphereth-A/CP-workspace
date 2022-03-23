@@ -1,32 +1,11 @@
-# Prerequisites
-*.d
+atcoder/
+doc/
+data/
+out/
+tools/_deprecated_/
+unfin/
+template/unfin/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
 *.exe
-*.out
-*.app
+temp.cpp
+.vscode/c_cpp_properties.json
