@@ -1,12 +1,18 @@
-atcoder/
-doc/
-data/
-out/
-tools/.idea/
-tools/deprecated/
-unfin/
-template/unfin/
+*
 
-temp*
+!.vscode
+!template
+!tools
 
-*.exe
+!.vscode/**
+!tools/lib/**
+
+!template/*
+
+!tools/*.py
+
+!.clang-format
+!.gitignore
+!LICENSE
+!main.cpp
+!README.md
