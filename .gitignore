@@ -12,7 +12,7 @@
 !tools/*
 
 !.clang-format
-!.gitignore
+!/.gitignore
 !LICENSE
 !main.cpp
 !README.md
