@@ -28,7 +28,7 @@
         },
         {
             "type": "cppbuild",
-            "label": "C++: compile and run",
+            "label": "C++: Compile and run",
             "command": "run_cpp.bat",
             "args": [
                 "${fileDirname}",

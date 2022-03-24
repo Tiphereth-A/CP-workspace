@@ -2,7 +2,7 @@
     {
         "key": "f7",
         "command": "workbench.action.tasks.runTask",
-        "args": "C++: compile and run",
+        "args": "C++: Compile and run",
         "when": "editorTextFocus"
     }
 ]
