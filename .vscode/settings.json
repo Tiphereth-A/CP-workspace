@@ -32,7 +32,7 @@
     ],
     "files.associations": {
         "*.cpp": "cpp",
-        "${env:GCC_PATH}/include/c++/**": "cpp"
+        "**/include/c++/**": "cpp"
     },
     "C_Cpp.default.intelliSenseMode": "windows-gcc-x64",
     "python.formatting.provider": "autopep8"
