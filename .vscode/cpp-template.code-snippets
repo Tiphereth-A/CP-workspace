@@ -100,6 +100,7 @@
             "const double PI = acos(-1.0);",
             "const pii DIR4[4] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};",
             "const pii DIR8[8] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};",
+            "const int EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};",
             "\nconstexpr auto __STATIC__ = []() { return 0.0; }();",
             "\n#define MULTI_CASES",
             "inline auto solve() -> void {",
