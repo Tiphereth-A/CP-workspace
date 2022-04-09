@@ -4,7 +4,8 @@
 !template
 !tools
 
-!.vscode/**
+!.vscode/*.json
+!.vscode/*.bat
 !tools/lib/**
 
 !template/*
