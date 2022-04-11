@@ -6,6 +6,6 @@ using u64 = uint64_t;
 const int N = 1e5 + 5;
 
 int main() {
-    
+    cout << "Hello world" << endl;
     return 0;
 }
