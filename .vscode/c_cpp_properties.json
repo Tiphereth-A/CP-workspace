@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${env:GCC_PATH}/include/c++/**"
+                "${env:CPPLIB_PATH}/**"
             ],
             "defines": [
                 "_DEBUG",
@@ -12,9 +12,9 @@
                 "_UNICODE",
                 "_LOCAL_"
             ],
-            "intelliSenseMode": "gcc-x64",
+            "intelliSenseMode": "${default}",
             "cppStandard": "c++17",
-            "compilerPath": "${env:GCC_PATH}/bin/g++"
+            "compilerPath": "${env:CPPBIN_PATH}/g++"
         }
     ],
     "version": 4
