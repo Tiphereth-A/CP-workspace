@@ -2,8 +2,8 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C++: Generate execute file of current source file for debug",
-            "command": "g++",
+            "label": "C++: Generate execute file for debug",
+            "command": "${env:CPPBIN_PATH}/g++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -43,7 +43,7 @@
         {
             "type": "shell",
             "label": "C++: Generate assembler code of current source file",
-            "command": "g++",
+            "command": "${env:CPPBIN_PATH}/g++",
             "args": [
                 "-S",
                 "${file}",
@@ -54,7 +54,7 @@
         {
             "type": "shell",
             "label": "C++: Expand current source file",
-            "command": "g++",
+            "command": "${env:CPPBIN_PATH}/g++",
             "args": [
                 "${file}",
                 "-E",

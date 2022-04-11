@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++.exe - Generate and debug current file",
+            "name": "debug (GDB)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
@@ -15,7 +15,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "gdb",
+            "miDebuggerPath": "${env:CPPBIN_PATH}/gdb.exe",
             "setupCommands": [
                 {
                     "description": "Enable pretty printing for gdb",
@@ -23,7 +23,7 @@
                     "ignoreFailures": false
                 }
             ],
-            "preLaunchTask": "C++: Generate execute file of current source file for debug"
+            "preLaunchTask": "C++: Generate execute file for debug"
         }
     ]
 }
