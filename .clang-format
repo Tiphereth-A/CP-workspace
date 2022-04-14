@@ -82,6 +82,7 @@ ForEachMacros:
   - _foreach_ref
   - _foreach_rref
   - _foreach_val
+  - _for_graph
 IfMacros:
   - KJ_IF_MAYBE
 IncludeBlocks: Preserve
