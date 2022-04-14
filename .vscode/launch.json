@@ -2,9 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug (GDB)",
+            "name": "(gdb) Debug",
             "type": "cppdbg",
             "request": "launch",
+            "preLaunchTask": "C++: Generate execute file for debug",
             "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
             "args": [
                 "<",
@@ -18,12 +19,14 @@
             "miDebuggerPath": "${env:CPPBIN_PATH}/gdb.exe",
             "setupCommands": [
                 {
-                    "description": "Enable pretty printing for gdb",
+                    "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": false
                 }
             ],
-            "preLaunchTask": "C++: Generate execute file for debug"
+            "logging": {
+                "trace": true
+            }
         }
     ]
 }
