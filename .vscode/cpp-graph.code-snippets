@@ -281,11 +281,11 @@
             "}  // namespace SAT_2"
         ]
     },
-    "euler-path": {
+    "euler-path-digraph": {
         "scope": "cpp",
-        "prefix": "euler_path",
+        "prefix": "euler_path_digraph",
         "body": [
-            "namespace Euler_path {",
+            "namespace Euler_path_digraph {",
             "struct Edge {",
             "\tint to, next;",
             "\tEdge(int _to = 0, int _next = 0): to(_to), next(_next) {}",
@@ -340,8 +340,8 @@
             "\tdfs(start);",
             "\treturn true;",
             "}",
-            "}  // namespace Euler_path",
-            "using Euler_path::euler_path;"
+            "}  // namespace Euler_path_digraph",
+            "using Euler_path_digraph::euler_path;"
         ]
     }
 }
