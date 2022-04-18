@@ -35,6 +35,8 @@ Set _RESET=[0m
 
 %CPPBIN_PATH%\c++ -fdiagnostics-color=always "%1\%2.cpp" -o "%1\%2" -D_LOCAL_ -D_DEBUG -O2 -std=c++17 -iquote "%1\template" -I . -Wall -Wextra -Wconversion -Wpedantic -Wparentheses || goto end
 
+echo %_fBGreen%%_bBlack%compile finished%_RESET%
+
 "%1\%2" < "%3\in.in" > "%3\out.out" 2> "%3\err.err"
 
 if not %ERRORLEVEL% == 0 (
