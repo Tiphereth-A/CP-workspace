@@ -1,0 +1,158 @@
+{
+    // Place your CP-workplace workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+    // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+    // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+    // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+    // Placeholders with the same ids are connected.
+    // Example:
+    // "Print to console": {
+    // 	"scope": "javascript,typescript",
+    // 	"prefix": "log",
+    // 	"body": [
+    // 		"console.log('$1');",
+    // 		"$2"
+    // 	],
+    // 	"description": "Log output to console"
+    // }
+    "fast-IO": {
+        "scope": "cpp",
+        "prefix": "fastIO",
+        "body": [
+            "namespace FastIO {",
+            "char buf[1 << 21], buf2[1 << 21], a[20], *p1 = buf, *p2 = buf;",
+            "int p, p3 = -1;",
+            "inline char getc() { return p1 == p2 && (p2 = (p1 = buf) + fread(buf, 1, 1 << 21, stdin), p1 == p2) ? EOF : *p1++; }",
+            "inline void flush() { fwrite(buf2, 1, p3 + 1, stdout), p3 = -1; }",
+            "inline void read() {}",
+            "template <class T, typename std::enable_if<is_signed_v<T>>::type* = nullptr>",
+            "inline void read(T& x) {",
+            "\tint f = x = 0;",
+            "\tchar ch = getc();",
+            "\twhile (!isdigit(ch)) {",
+            "\t\tif (ch == '-') f = 1;",
+            "\t\tch = getc();",
+            "\t}",
+            "\twhile (isdigit(ch)) { x = x * 10 + (ch & 0x0f), ch = getc(); }",
+            "\tif (f) x = -x;",
+            "}",
+            "template <class T, typename std::enable_if<is_unsigned_v<T>>::type* = nullptr>",
+            "inline void read(T& x) {",
+            "\tx = 0;",
+            "\tchar ch = getc();",
+            "\twhile (!isdigit(ch)) ch = getc();",
+            "\twhile (isdigit(ch)) { x = x * 10 + (ch & 0x0f), ch = getc(); }",
+            "}",
+            "inline void read(char* str) {",
+            "\tchar ch = getc(), *now = str;",
+            "\twhile (!isprint(ch)) ch = getc();",
+            "\twhile (isprint(ch)) { *(now++) = ch, ch = getc(); }",
+            "\t*(now++) = '\\0';",
+            "}",
+            "inline void read(std::string& str) {",
+            "\tchar ch = getc();",
+            "\twhile (!isprint(ch)) ch = getc();",
+            "\twhile (isprint(ch)) { str.push_back(ch), ch = getc(); }",
+            "}",
+            "template <typename T, typename... T2, typename std::enable_if<is_signed_v<T> || is_unsigned_v<T> || is_same_v<T, char*> || is_same_v<T, string&>>::type* = nullptr>",
+            "inline void read(T& x, T2&... oth) {",
+            "\tread(x);",
+            "\tread(oth...);",
+            "}",
+            "inline void print() {}",
+            "inline void print(char a) { buf2[++p3] = a; }",
+            "template <class T, typename std::enable_if<is_signed_v<T>>::type* = nullptr>",
+            "inline void print(T x) {",
+            "\tif (x < 0) { buf2[++p3] = '-', x = -x; }",
+            "\tdo { a[++p] = x % 10 + 48; } while (x /= 10);",
+            "\tdo { buf2[++p3] = a[p]; } while (--p);",
+            "}",
+            "template <class T, typename std::enable_if<is_unsigned_v<T>>::type* = nullptr>",
+            "inline void print(T x) {",
+            "\tdo { a[++p] = x % 10 + 48; } while (x /= 10);",
+            "\tdo { buf2[++p3] = a[p]; } while (--p);",
+            "}",
+            "inline void print(const std::string& str) {",
+            "\tfor (char ch : str) {",
+            "\tif (p3 > 1 << 20) flush();",
+            "\tprint(ch);",
+            "\t}",
+            "}",
+            "template <typename T, typename... T2, typename std::enable_if<is_signed_v<T> || is_unsigned_v<T> || is_same_v<T, char> || is_same_v<T, string&> || is_same_v<T, const string&>>::type* = nullptr>",
+            "inline void print(T x, T2... oth) {",
+            "\tif (p3 > 1 << 20) flush();",
+            "\tprint(x);",
+            "\tprint(oth...);",
+            "}",
+            "}  // namespace FastIO",
+            "using FastIO::print;",
+            "using FastIO::read;",
+            "//======================================",
+        ]
+    },
+    "untie": {
+        "scope": "cpp",
+        "prefix": [
+            "fast_ios",
+            "fast_cin_cout"
+        ],
+        "body": [
+            "ios::sync_with_stdio(false);",
+            "cin.tie(nullptr);",
+            "cout.tie(nullptr);",
+        ]
+    },
+    "fast-max": {
+        "scope": "cpp",
+        "prefix": [
+            "max_fast",
+            "fast_max"
+        ],
+        "body": [
+            "int max(int x, int y) {",
+            "\tint m = (x - y) >> 31;",
+            "\treturn x & ~m | y & m;",
+            "}"
+        ]
+    },
+    "fast-min": {
+        "scope": "cpp",
+        "prefix": [
+            "min_fast",
+            "fast_min"
+        ],
+        "body": [
+            "int min(int x, int y) {",
+            "\tint m = (x - y) >> 31;",
+            "\treturn x & m | y & ~m;",
+            "}"
+        ]
+    },
+    "fast-str2uint": {
+        "scope": "cpp",
+        "prefix": [
+            "str2uint_fast",
+            "dec2uint_fast",
+            "fast_str2uint",
+            "fast_dec2uint"
+        ],
+        "body": [
+            "//! only works properly on little-endian CPU such as Intel CPU",
+            "//! works better on 64-bit CPU",
+            "inline constexpr uint64_t dec2uint_mod(const char* const num, const uint64_t mod) {",
+            "\tsize_t len = strlen(num);",
+            "\tif (len == 0) return 0;",
+            "\tu128 ans = 0;",
+            "\tfor (size_t i = 0; i + 8 <= len; i += 8) {",
+            "\t\tuint64_t res = *((uint64_t*)(num + i));",
+            "\t\tres = (res & 0x0F0F0F0F0F0F0F0F) * 2561 >> 8;",
+            "\t\tres = (res & 0x00FF00FF00FF00FF) * 6553601 >> 16;",
+            "\t\tres = (res & 0x0000FFFF0000FFFF) * 42949672960001 >> 32;",
+            "\t\tans = (ans * 100000000 + res) % mod;",
+            "\t}",
+            "\tfor (auto pch = num + (len / 8 * 8); pch < num + len;) ans = (ans * 10 + (*(pch++) & '\\x0f')) % mod;",
+            "\treturn ans;",
+            "}"
+        ]
+    }
+}

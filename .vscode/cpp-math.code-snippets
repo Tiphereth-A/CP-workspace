@@ -1,0 +1,209 @@
+{
+    // Place your CP-workplace workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+    // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+    // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+    // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+    // Placeholders with the same ids are connected.
+    // Example:
+    // "Print to console": {
+    // 	"scope": "javascript,typescript",
+    // 	"prefix": "log",
+    // 	"body": [
+    // 		"console.log('$1');",
+    // 		"$2"
+    // 	],
+    // 	"description": "Log output to console"
+    // }
+    "combination": {
+        "scope": "cpp",
+        "prefix": [
+            "comb",
+            "combination",
+            "m_choose_n"
+        ],
+        "body": "auto m_choose_n = [](int m, int n, i64 mod = MOD) -> i64 { return m < n ? 0 : fact[m] * inv_fact[n] % mod * inv_fact[m - n] % mod; };"
+    },
+    "factorial-and-inverse": {
+        "scope": "cpp",
+        "prefix": [
+            "fact",
+            "factorial"
+        ],
+        "body": [
+            "i64 fact[N * 2], inv_fact[N];",
+            "auto __STATIC__ = []() {",
+            "\tstatic i64 ffact[N];",
+            "\tffact[0] = fact[0] = inv_fact[0] = fact[1] = inv_fact[1] = 1;",
+            "\t_for(i, 2, N * 2 - 1) fact[i] = fact[i - 1] * i % MOD;",
+            "\t_for(i, 1, N - 1) ffact[i] = ffact[i - 1] * fact[i] % MOD;",
+            "\ti64 _ = qpow(ffact[N - 1]);",
+            "\t_rfor(i, N - 1, 2) {",
+            "\t\tinv_fact[i] = _ * ffact[i - 1] % MOD;",
+            "\t\t_ = _ * fact[i] % MOD;",
+            "\t}",
+            "\treturn 0.0;",
+            "}();",
+        ]
+    },
+    "gcd-lambda": {
+        "scope": "cpp",
+        "prefix": "gcd_lambda",
+        "body": [
+            "template <typename T>",
+            "auto gcd = [](T n, T m) -> T {",
+            "\twhile (m ^= n ^= m ^= n %= m)\n\t\t;",
+            "\treturn n;",
+            "};",
+        ]
+    },
+    "exgcd": {
+        "scope": "cpp",
+        "prefix": "exgcd",
+        "body": [
+            "template <typename T = i64>",
+            "T exgcd(T a, T b, T& x, T& y) {",
+            "\tif (b == 0) {",
+            "\t\tx = 1;",
+            "\t\ty = 0;",
+            "\t\treturn a;",
+            "\t}",
+            "\tT res = exgcd(b, a % b, y, x);",
+            "\ty -= a / b * x;",
+            "\treturn res;",
+            "}"
+        ]
+    },
+    "qwick-pow": {
+        "scope": "cpp",
+        "prefix": "qpow",
+        "body": [
+            "template <typename Tp = i64>",
+            "inline constexpr Tp qpow(Tp a, Tp b = MOD - 2, const Tp& mod = MOD) {",
+            "\tTp res(1);",
+            "\tfor (; b; b >>= 1, (a *= a) %= mod)",
+            "\t\tif (b & 1) (res *= a) %= mod;",
+            "\treturn res;",
+            "};"
+        ]
+    },
+    "mul_mod": {
+        "scope": "cpp",
+        "prefix": "mul_mod",
+        "body": [
+            "template <typename Tp = i64>",
+            "inline constexpr Tp mul_mod(Tp a, Tp b, const Tp& mod) {",
+            "\tTp d = floor(1.0l * a * b / mod + 0.5l), ret = a * b - d * mod;",
+            "\treturn ret < 0 ? ret + mod : ret;",
+            "}",
+        ]
+    },
+    "pow_mod": {
+        "scope": "cpp",
+        "prefix": "pow_mod",
+        "body": [
+            "template <typename Tp = i64>",
+            "inline constexpr Tp qpow(Tp a, Tp b, const Tp& mod = MOD) {",
+            "\tTp res(1);",
+            "\tfor (; b; b >>= 1, a = mul_mod(a, a, mod))",
+            "\t\tif (b & 1) res = mul_mod(res, a, mod);",
+            "\treturn res;",
+            "}"
+        ]
+    },
+    "euler_phi": {
+        "scope": "cpp",
+        "prefix": [
+            "phi",
+            "euler_phi"
+        ],
+        "body": [
+            "template <typename Tp = i64>",
+            "inline constexpr Tp euler_phi(Tp n) {",
+            "\tTp ans = n;",
+            "\tfor (Tp i = 2; i <= sqrt(n); ++i)",
+            "\t\tif (n % i == 0) {",
+            "\t\t\tans = ans / i * (i - 1);",
+            "\t\t\twhile (n % i == 0) n /= i;",
+            "\t\t}",
+            "\tif (n > 1) ans = ans / n * (n - 1);",
+            "\treturn ans;",
+            "}",
+        ]
+    },
+    "inverse": {
+        "scope": "cpp",
+        "prefix": [
+            "inv",
+            "inverse"
+        ],
+        "body": [
+            "template <class Tp = i64>",
+            "inline constexpr Tp inverse(make_signed_t<Tp> n, const Tp& mod) {",
+            "\tmake_signed_t<Tp> b = mod, m0 = 0;",
+            "\tfor (Tp q, m1 = 1; n;) {",
+            "\t\tq = b / n;",
+            "\t\tb -= n * q;",
+            "\t\tm0 -= m1 * q;",
+            "\t\tswap(n, b);",
+            "\t\tswap(m0, m1);",
+            "\t}",
+            "\treturn (m0 + (m0 < 0 ? mod / b : 0)) % mod;",
+            "}",
+        ]
+    },
+    "prime": {
+        "scope": "cpp",
+        "prefix": "prime",
+        "body": [
+            "const int N = 2e6 + 5, P = 1.5e5 + 5;",
+            "\nbool vis[N];",
+            "int prime[P], cnt_prime;",
+            "long long phi[N], mu[N];",
+            "inline void init_prime(const int& n = N - 1) {",
+            "\tphi[1] = mu[1] = 1;",
+            "\tfor (int i = 2; i <= n; ++i) {",
+            "\t\tif (!vis[i]) {",
+            "\t\t\tprime[++cnt_prime] = i;",
+            "\t\t\tmu[i] = -1;",
+            "\t\t\tphi[i] = i - 1;",
+            "\t\t}",
+            "\t\tfor (int j = 1; j <= cnt_prime && i * prime[j] <= n; ++j) {",
+            "\t\t\tvis[i * prime[j]] = 1;",
+            "\t\t\tphi[i * prime[j]] = phi[i] * prime[j];",
+            "\t\t\tif (i % prime[j] == 0) break;",
+            "\t\t\tphi[i * prime[j]] -= phi[i];",
+            "\t\t\tmu[i * prime[j]] = -mu[i];",
+            "\t\t}",
+            "\t}",
+            "}",
+        ]
+    },
+    "rpow": {
+        "scope": "cpp",
+        "prefix": "rpow",
+        "body": [
+            "template <typename Tp = i64>",
+            "class rpow final {",
+            "private:",
+            "\tuint32_t mod;",
+            "\tTp base;",
+            "\tstd::array<Tp, 65536> block1, block2;",
+            "\npublic:",
+            "\n\trpow() {}",
+            "\trpow(const Tp& _base, const uint32_t& _mod, Tp&& _1) { this->init(_base, _mod, _1); }",
+            "\tvoid init(const Tp& _base, const uint32_t& _mod, Tp&& _1) {",
+            "\t\tbase = _base;",
+            "\t\tmod = _mod;",
+            "\t\tblock1[0] = block2[0] = _1;",
+            "\t\tfor (uint32_t i = 1; i < 65536; i++) block1[i] = block1[i - 1] * base % mod;",
+            "\t\tTp _(block1.back() * base % mod);",
+            "\t\tfor (uint32_t i = 1; i < 65536; i++) block2[i] = block2[i - 1] * _ % mod;",
+            "\t}",
+            "\n\tTp&& get_base() { return std::move(base); }",
+            "\tuint32_t&& get_mod() { return std::move(mod); }",
+            "\n\tTp operator()(std::size_t exponent) { return block1[exponent & 65535] * block2[exponent >> 16] % mod; }",
+            "};"
+        ]
+    }
+}

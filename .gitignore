@@ -6,6 +6,7 @@
 
 !.vscode/*.json
 !.vscode/*.bat
+!.vscode/*.code-snippets
 !tools/lib/**
 
 !template/*
