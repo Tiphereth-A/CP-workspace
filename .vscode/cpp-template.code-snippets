@@ -686,7 +686,11 @@
     },
     "2-sat": {
         "scope": "cpp",
-        "prefix": ["2_sat","sat","sat_2"],
+        "prefix": [
+            "2_sat",
+            "sat",
+            "sat_2"
+        ],
         "body": [
             "namespace SAT_2 {",
             "struct Edge {",
@@ -729,7 +733,7 @@
             "\nint n;",
             "\n//! Must initialize only in once.",
             "// return true if the restricts is legel, otherwise illegel",
-            "bool init(int _n, int m, tuple<int, bool, int, bool> *restricts) {",
+            "bool init(int _n, int m, const tuple<int, bool, int, bool> *restricts) {",
             "\tn = _n;",
             "\tfor (int i = 1; i <= m; ++i) {",
             "\t\tauto &[x, bit_x, y, bit_y] = restricts[i];",
