@@ -3,9 +3,8 @@
         {
             "name": "",
             "includePath": [
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/tools/lib-cpp/**",
-                "${env:CPPLIB_PATH}/**"
+                "${env:CPPLIB_PATH}/**",
+                "${workspaceFolder}/tools/lib-cpp/**"
             ],
             "defines": [
                 "_DEBUG",
