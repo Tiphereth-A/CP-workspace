@@ -5,11 +5,7 @@
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format"
     },
-    "tabnine.disable_file_regex": [
-        "[.]out$",
-        "[.]in$",
-        "[.]err$"
-    ],
+    "tabnine.disable_file_regex": ["[.]out$", "[.]in$", "[.]err$"],
     "files.autoGuessEncoding": true,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?·～！￥…（）—【】、；：‘’“”，。《》？ ",
     "editor.minimap.maxColumn": 40,
@@ -27,9 +23,7 @@
     "editor.detectIndentation": false,
     "C_Cpp.default.cppStandard": "c++17",
     "terminal.integrated.persistentSessionReviveProcess": "never",
-    "C_Cpp.default.defines": [
-        "_LOCAL_"
-    ],
+    "C_Cpp.default.defines": ["_LOCAL_"],
     "files.associations": {
         "*.cpp": "cpp",
         "*.m": "matlab",

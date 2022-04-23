@@ -87,27 +87,21 @@
             "}  // namespace FastIO",
             "using FastIO::print;",
             "using FastIO::read;",
-            "//======================================",
+            "//======================================"
         ]
     },
     "untie": {
         "scope": "cpp",
-        "prefix": [
-            "fast_ios",
-            "fast_cin_cout"
-        ],
+        "prefix": ["fast_ios", "fast_cin_cout"],
         "body": [
             "ios::sync_with_stdio(false);",
             "cin.tie(nullptr);",
-            "cout.tie(nullptr);",
+            "cout.tie(nullptr);"
         ]
     },
     "fast-max": {
         "scope": "cpp",
-        "prefix": [
-            "max_fast",
-            "fast_max"
-        ],
+        "prefix": ["max_fast", "fast_max"],
         "body": [
             "int max(int x, int y) {",
             "\tint m = (x - y) >> 31;",
@@ -117,10 +111,7 @@
     },
     "fast-min": {
         "scope": "cpp",
-        "prefix": [
-            "min_fast",
-            "fast_min"
-        ],
+        "prefix": ["min_fast", "fast_min"],
         "body": [
             "int min(int x, int y) {",
             "\tint m = (x - y) >> 31;",

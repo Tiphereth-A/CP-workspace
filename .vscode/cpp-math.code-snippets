@@ -17,19 +17,12 @@
     // }
     "combination": {
         "scope": "cpp",
-        "prefix": [
-            "comb",
-            "combination",
-            "m_choose_n"
-        ],
+        "prefix": ["comb", "combination", "m_choose_n"],
         "body": "auto m_choose_n = [](int m, int n, i64 mod = MOD) -> i64 { return m < n ? 0 : fact[m] * inv_fact[n] % mod * inv_fact[m - n] % mod; };"
     },
     "factorial-and-inverse": {
         "scope": "cpp",
-        "prefix": [
-            "fact",
-            "factorial"
-        ],
+        "prefix": ["fact", "factorial"],
         "body": [
             "i64 fact[N * 2], inv_fact[N];",
             "auto __STATIC__ = []() {",
@@ -43,7 +36,7 @@
             "\t\t_ = _ * fact[i] % MOD;",
             "\t}",
             "\treturn 0.0;",
-            "}();",
+            "}();"
         ]
     },
     "gcd-lambda": {
@@ -54,7 +47,7 @@
             "auto gcd = [](T n, T m) -> T {",
             "\twhile (m ^= n ^= m ^= n %= m)\n\t\t;",
             "\treturn n;",
-            "};",
+            "};"
         ]
     },
     "exgcd": {
@@ -95,7 +88,7 @@
             "inline constexpr Tp mul_mod(Tp a, Tp b, const Tp& mod) {",
             "\tTp d = floor(1.0l * a * b / mod + 0.5l), ret = a * b - d * mod;",
             "\treturn ret < 0 ? ret + mod : ret;",
-            "}",
+            "}"
         ]
     },
     "pow_mod": {
@@ -113,10 +106,7 @@
     },
     "euler_phi": {
         "scope": "cpp",
-        "prefix": [
-            "phi",
-            "euler_phi"
-        ],
+        "prefix": ["phi", "euler_phi"],
         "body": [
             "template <typename Tp = i64>",
             "inline constexpr Tp euler_phi(Tp n) {",
@@ -128,15 +118,12 @@
             "\t\t}",
             "\tif (n > 1) ans = ans / n * (n - 1);",
             "\treturn ans;",
-            "}",
+            "}"
         ]
     },
     "inverse": {
         "scope": "cpp",
-        "prefix": [
-            "inv",
-            "inverse"
-        ],
+        "prefix": ["inv", "inverse"],
         "body": [
             "template <class Tp = i64>",
             "inline constexpr Tp inverse(make_signed_t<Tp> n, const Tp& mod) {",
@@ -149,7 +136,7 @@
             "\t\tswap(m0, m1);",
             "\t}",
             "\treturn (m0 + (m0 < 0 ? mod / b : 0)) % mod;",
-            "}",
+            "}"
         ]
     },
     "prime": {
@@ -176,7 +163,7 @@
             "\t\t\tmu[i * prime[j]] = -mu[i];",
             "\t\t}",
             "\t}",
-            "}",
+            "}"
         ]
     },
     "rpow": {

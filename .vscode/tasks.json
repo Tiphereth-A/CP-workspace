@@ -18,9 +18,7 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -44,10 +42,7 @@
             "type": "shell",
             "label": "C++: Generate assembler code of current source file",
             "command": "${env:CPPBIN_PATH}/g++",
-            "args": [
-                "-S",
-                "${file}",
-            ],
+            "args": ["-S", "${file}"],
             "problemMatcher": [],
             "detail": "g++ -S"
         },
@@ -59,7 +54,7 @@
                 "${file}",
                 "-E",
                 ">",
-                "${fileDirname}\\out\\${fileBasenameNoExtension}_expand.txt",
+                "${fileDirname}\\out\\${fileBasenameNoExtension}_expand.txt"
             ],
             "problemMatcher": [],
             "detail": "g++ -E"

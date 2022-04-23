@@ -7,10 +7,7 @@
             "request": "launch",
             "preLaunchTask": "C++: Generate execute file for debug",
             "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
-            "args": [
-                "<",
-                "${workspaceFolder}/src/in.in"
-            ],
+            "args": ["<", "${workspaceFolder}/src/in.in"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

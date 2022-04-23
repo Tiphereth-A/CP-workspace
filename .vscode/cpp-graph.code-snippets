@@ -17,10 +17,7 @@
     // }
     "graph": {
         "scope": "cpp",
-        "prefix": [
-            "graph",
-            "edges"
-        ],
+        "prefix": ["graph", "edges"],
         "body": [
             "struct Edge {",
             "\tint w, to, next;",
@@ -39,10 +36,7 @@
     },
     "dijkstra": {
         "scope": "cpp",
-        "prefix": [
-            "dijkstra",
-            "dijk"
-        ],
+        "prefix": ["dijkstra", "dijk"],
         "body": [
             "int  dis[N];",
             "void dijkstra(int s) {",
@@ -92,7 +86,7 @@
             "\t}",
             "\tif (cnt != n - k) throw \"No Answer\";",
             "\treturn ans;",
-            "}",
+            "}"
         ]
     },
     "johnson": {
@@ -181,10 +175,7 @@
     },
     "tarjan-scc": {
         "scope": "cpp",
-        "prefix": [
-            "scc",
-            "tarjan-scc"
-        ],
+        "prefix": ["scc", "tarjan-scc"],
         "body": [
             "int dfn[N], low[N], cnt_dfn;",
             "stack<int> stk;",
@@ -210,16 +201,12 @@
             "\t\tin_stk[stk.top()] = 0;",
             "\t\tstk.pop();",
             "\t}",
-            "}",
+            "}"
         ]
     },
     "2-sat": {
         "scope": "cpp",
-        "prefix": [
-            "2_sat",
-            "sat",
-            "sat_2"
-        ],
+        "prefix": ["2_sat", "sat", "sat_2"],
         "body": [
             "namespace SAT_2 {",
             "struct Edge {",
