@@ -4,6 +4,7 @@
             "name": "",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/tools/lib-cpp/**",
                 "${env:CPPLIB_PATH}/**"
             ],
             "defines": [
