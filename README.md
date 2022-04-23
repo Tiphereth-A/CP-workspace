@@ -1,18 +1,22 @@
 # CP-workspace
-My VSCode workspace for Competitive Programming.
 
-[![GitHub](https://img.shields.io/github/license/Tiphereth-A/CP-workspace)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+![GitHub](https://img.shields.io/github/license/Tiphereth-A/CP-workspace)
+
+My VSCode workspace for Competitive Programming.
 
 ## Features
 
 - C++ Compile & Debug
 - Useful C++ code snippets (see [Snippets](#Snippets))
-- Testcase generator & wrapper
-- Local judger
-- C++ lib expander (from [atcoder/ac-Library](https://github.com/atcoder/ac-library))
-- C++ macro expander
+- Useful tools
+  - Testcase generator & wrapper
+  - Local judger
+  - C++ lib expander (from [atcoder/ac-Library](https://github.com/atcoder/ac-library))
+  - C++ macro expander (lack of maintenance)
+- Including 3rd C++ library support (see [3rd library support](#3rd%20library%20support))
 
 ## Usage
+
 - Install VSCode and GCC (MinGW, Cygwin, ...)
 - Clone this repo.
 - Add environment `CPPBIN_PATH`, set the value to C++ compiler directory.
@@ -54,3 +58,32 @@ My VSCode workspace for Competitive Programming.
 | euler-path-graph      | `euler_path_graph`                                                 | Find Euler path (undirection graph)                     |
 | euler-path-digraph    | `euler_path_digraph`                                               | Find Euler path (digraph)                               |
 | dsu-basic             | `dsu_basic`                                                        | DSU                                                     |
+
+## 3rd library support
+
+Copy your library to `tools\lib-cpp` and start using it!
+
+Example:
+
+- AC-library
+
+  ```cpp
+  #include <iostream>
+  #include <atcoder/convolution>
+
+  int main() {
+      for (auto i : atcoder::convolution_ll({1, 1, 4}, {5, 1, 4}))
+          std::cout << i << std::endl;
+      return 0;
+  }
+  ```
+
+  output:
+
+  ```text
+  5
+  6
+  25
+  8
+  16
+  ```
