@@ -6,24 +6,24 @@ My VSCode workspace for Competitive Programming.
 
 ## Features
 
-- C++ Compile & Debug
-- Useful C++ code snippets (see [Snippets](#Snippets))
-- Useful tools
-  - Testcase generator & wrapper
-  - Local judger
-  - C++ lib expander (from [atcoder/ac-Library](https://github.com/atcoder/ac-library))
-  - C++ macro expander (lack of maintenance)
-- Including 3rd C++ library support (see [3rd library support](#3rd%20library%20support))
+-   C++ Compile & Debug
+-   Useful C++ code snippets (see [Snippets](#Snippets))
+-   Useful tools
+    -   Testcase generator & wrapper
+    -   Local judger
+    -   C++ lib expander (inspired by [atcoder/ac-Library](https://github.com/atcoder/ac-library))
+    -   C++ macro expander (lack of maintenance)
+-   Including 3rd C++ library support (see [3rd library support](#3rd%20library%20support))
 
 ## Usage
 
-- Install VSCode and GCC (MinGW, Cygwin, ...)
-- Clone this repo.
-- Add environment `CPPBIN_PATH`, set the value to C++ compiler directory.
-- Add environment `CPPLIB_PATH`, set the value to C++ standard library directory.
-- Open this folder with VSCode
-- (Optional) You can add key bindings by copying the contents of `.vscode/keybindings.json` into your `keybindings.json`.
-- Enjoy!
+-   Install VSCode and GCC (MinGW, Cygwin, ...)
+-   Clone this repo.
+-   Add environment `CPPBIN_PATH`, set the value to C++ compiler directory.
+-   Add environment `CPPLIB_PATH`, set the value to C++ standard library directory.
+-   Open this folder with VSCode
+-   (Optional) You can add key bindings by copying the contents of `.vscode/keybindings.json` into your `keybindings.json`.
+-   Enjoy!
 
 ## Snippets
 
@@ -65,25 +65,25 @@ Copy your library to `tools\lib-cpp` and start using it!
 
 Example:
 
-- AC-library
+-   AC-library
 
-  ```cpp
-  #include <iostream>
-  #include <atcoder/convolution>
+    ```cpp
+    #include <iostream>
+    #include <atcoder/convolution.hpp>
 
-  int main() {
-      for (auto i : atcoder::convolution_ll({1, 1, 4}, {5, 1, 4}))
-          std::cout << i << std::endl;
-      return 0;
-  }
-  ```
+    int main() {
+        for (auto i : atcoder::convolution_ll({1, 1, 4}, {5, 1, 4}))
+            std::cout << i << std::endl;
+        return 0;
+    }
+    ```
 
-  output:
+    output:
 
-  ```text
-  5
-  6
-  25
-  8
-  16
-  ```
+    ```text
+    5
+    6
+    25
+    8
+    16
+    ```
