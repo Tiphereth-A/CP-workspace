@@ -10,8 +10,9 @@
 !tools/lib/**
 
 !tools/lib-cpp/template/*
-
 !tools/*
+
+!/*.ps1
 
 !.clang-format
 !/.gitignore
