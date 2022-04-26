@@ -12,6 +12,8 @@
                 "${fileBasenameNoExtension}.exe",
                 "-D_LOCAL_",
                 "-D_DEBUG",
+                "-I",
+                "${workspaceFolder}/tools/lib-cpp",
                 "-std=c++17",
                 "-Wl,--stack=1073741824"
             ],
