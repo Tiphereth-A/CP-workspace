@@ -3,7 +3,7 @@ using namespace std;
 
 using i128 = __int128_t;
 using u128 = __uint128_t;
-ostream& operator<<(ostream& os, i128 n) {
+ostream &operator<<(ostream &os, i128 n) {
     if (n < 0) {
         os << '-';
         n = -n;
@@ -12,7 +12,7 @@ ostream& operator<<(ostream& os, i128 n) {
     os << (uint_fast8_t)(n % 10);
     return os;
 }
-ostream& operator<<(ostream& os, u128 n) {
+ostream &operator<<(ostream &os, u128 n) {
     if (n > 9) os << (u128)(n / 10);
     os << (uint_fast8_t)(n % 10);
     return os;
@@ -21,9 +21,9 @@ ostream& operator<<(ostream& os, u128 n) {
 #define _for(i, l, r, vals...) for (decltype(l + r) i = (l), i##end = (r), ##vals; i <= i##end; ++i)
 #define _rfor(i, r, l, vals...) for (make_signed_t<decltype(r - l)> i = (r), i##end = (l), ##vals; i >= i##end; --i)
 #define _foreach_val(i, container) for (auto i : container)
-#define _foreach_ref(i, container) for (auto& i : container)
-#define _foreach_cref(i, container) for (const auto& i : container)
-#define _foreach_rref(i, container) for (auto&& i : container)
+#define _foreach_ref(i, container) for (auto &i : container)
+#define _foreach_cref(i, container) for (const auto &i : container)
+#define _foreach_rref(i, container) for (auto &&i : container)
 #define _foreach_iter(it, container) for (auto it = (container).begin(); it != (container).end(); ++it)
 #define _foreach_iter_range(it, container, l, r) for (auto it = (container).begin() + l; it != (container).begin() + r; ++it)
 
@@ -31,7 +31,7 @@ ostream& operator<<(ostream& os, u128 n) {
 #define _UID0(type, x, number) uniform_int_distribution<type> u_##x##0(0, number)
 #define _UID_n1(type, x, number) uniform_int_distribution<type> u_##x##n1(-1, number)
 #define _UID_ratio(type, x, number, ratio) uniform_int_distribution<type> u_##x##ratio(number * 0.##ratio, number)
-#define _UID_nratio(type, x, number, ratio) uniform_int_distribution<type> u_##x##n##ratio(1, number*(1 - 0.##ratio))
+#define _UID_nratio(type, x, number, ratio) uniform_int_distribution<type> u_##x##n##ratio(1, number *(1 - 0.##ratio))
 
 #define _UID(type, x, number, ratio) \
     const type x = number;           \
@@ -71,7 +71,7 @@ namespace primes {
 const int N = 1e5 + 5, P = N;
 bool vis[N];
 int prime[P], cnt_prime;
-inline void init_prime(const int& n = N - 1) {
+inline void init_prime(const int &n = N - 1) {
     for (int i = 2; i <= n; ++i) {
         if (!vis[i]) prime[++cnt_prime] = i;
         for (int j = 1; j <= cnt_prime && i * prime[j] <= n; ++j) {
@@ -80,7 +80,7 @@ inline void init_prime(const int& n = N - 1) {
         }
     }
 }
-} // namespace primes
+}  // namespace primes
 
 const auto __STATIC__ = []() {
     primes::init_prime();
@@ -146,10 +146,10 @@ inline void main(const seed_type seed, [[maybe_unused]] const seed_type type) {
     }
 }
 
-} // namespace generetor
+}  // namespace generetor
 
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 #ifndef _CLI_
     srand(time(nullptr));
     const seed_type seed = rand(), type = 0;
@@ -159,22 +159,13 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    auto _get_seed = [](const char* const str) -> seed_type {
+    auto _get_seed = [](const char * const str) -> seed_type {
         auto ch = str;
         seed_type res = 0;
         while (*ch) {
             if (!isdigit(*ch)) continue;
             (res *= 10) += *(ch++) & 0x0f;
         }
-        return res;
-    };
-
-    //! only get exactly 8 digits, only works properly on little-endian CPU
-    auto _get_seed_fast = [](const char* const str) -> seed_type {
-        uint64_t res = *((uint64_t*)num);
-        res = (res & 0x0F0F0F0F0F0F0F0F) * 2561 >> 8;
-        res = (res & 0x00FF00FF00FF00FF) * 6553601 >> 16;
-        res = (res & 0x0000FFFF0000FFFF) * 42949672960001 >> 32;
         return res;
     };
 
@@ -187,7 +178,7 @@ int main(int argc, char** argv) {
 
     try {
         generetor::main(seed, type);
-    } catch (exception& e) {
+    } catch (exception &e) {
         cerr << e.what() << endl;
         return 2;
     }
