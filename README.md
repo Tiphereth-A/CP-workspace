@@ -65,7 +65,7 @@ Copy your library to `tools\lib-cpp` and start using it!
 
 Example:
 
--   AC-library
+-   [AC-library](https://github.com/atcoder/ac-library)
 
     ```cpp
     #include <iostream>
