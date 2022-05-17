@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "C++: Generate execute file for debug",
-            "command": "${env:CPPBIN_PATH}/g++",
+            "command": "${env:CPPDBG_PATH}/g++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",

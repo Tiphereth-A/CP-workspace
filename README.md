@@ -20,6 +20,7 @@ My VSCode workspace for Competitive Programming.
 -   Install VSCode and GCC (MinGW, Cygwin, ...)
 -   Clone this repo.
 -   Add environment `CPPBIN_PATH`, set the value to C++ compiler directory.
+-   Add environment `CPPDBG_PATH`, set the value to C++ debugger directory.
 -   Add environment `CPPLIB_PATH`, set the value to C++ standard library directory.
 -   Open this folder with VSCode
 -   (Optional) You can add key bindings by copying the contents of `.vscode/keybindings.json` into your `keybindings.json`.
