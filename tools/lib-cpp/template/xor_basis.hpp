@@ -4,10 +4,10 @@ namespace my_template {
 #include <cstddef>
 #include <type_traits>
 
-template <size_t _N = 64, std::enable_if_t<0 < _N && _N <= 64>* = nullptr>
+template <size_t N = 64, std::enable_if_t<0 < N && N <= 64>* = nullptr>
 class Xor_base {
   public:
-    using self = Xor_base<_N>;
+    using self = Xor_base<N>;
     using data_type = std::uint64_t;
     using size_type = size_t;
     using reference = self&;
@@ -22,7 +22,7 @@ class Xor_base {
     };
 
   protected:
-    data_type base[_N];
+    data_type base[N];
     static bool __deleted;
 
   public:
@@ -34,7 +34,7 @@ class Xor_base {
 
     constexpr void clear() noexcept { memset(this->base, 0, sizeof(this->base)); }
 
-    constexpr size_type get_len() const noexcept { return _N; }
+    constexpr size_type get_len() const noexcept { return N; }
 
     constexpr data_type& data(size_type index) noexcept { return this->base[index]; }
     constexpr data_type& data(size_type index) const noexcept { return const_cast<self* const>(this)->base[index]; }

@@ -3,7 +3,7 @@
 namespace my_template {
 #include <cstddef>
 
-template <size_t _N, char _str_begin = 'a', char _str_end = 'z' + 1, bool _clear = false>
+template <size_t N, char _str_begin = 'a', char _str_end = 'z' + 1, bool _clear = false>
 class Trie {
   protected:
     struct trie_t {
@@ -12,7 +12,7 @@ class Trie {
     };
 
     size_t cnt_data;
-    trie_t data[_N];
+    trie_t data[N];
 
   public:
     Trie() {

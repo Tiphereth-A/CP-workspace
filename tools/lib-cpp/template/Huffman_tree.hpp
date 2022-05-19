@@ -3,14 +3,14 @@
 namespace my_template {
 #include <cstddef>
 
-template <size_t _CHILD, size_t _N, typename Tp = size_t, bool _clear = false>
+template <size_t _CHILD, size_t N, typename Tp = size_t, bool _clear = false>
 class Huffman_tree {
   protected:
     struct Node {
         Tp w;
         size_t child[_CHILD];
         size_t cnt_child;
-    } nodes[_N];
+    } nodes[N];
     bool _build;
     size_t cnt_nodes, max_child_size, leaves;
 

@@ -5,7 +5,7 @@ namespace my_template {
 #include <cstdlib>
 
 namespace AC_automaton {
-template <size_t _N, typename Tp, char _str_begin, char _str_end, bool _clear>
+template <size_t N, typename Tp, char _str_begin, char _str_end, bool _clear>
 class _ACAM_Base {
   protected:
     struct ACAM_t {
@@ -16,7 +16,7 @@ class _ACAM_Base {
 
     size_t cnt_data;
     bool builded;
-    ACAM_t data[_N];
+    ACAM_t data[N];
 
   private:
     virtual void _insert_end(size_t p, size_t x) { data[p].end = true; };
@@ -70,10 +70,10 @@ class _ACAM_Base {
 };
 
 //! Change this when using
-template <size_t _N, typename Tp, char _str_begin = 'a', char _str_end = 'z' + 1, bool _clear = false>
-class ACAM : public _ACAM_Base<_N, Tp, _str_begin, _str_end, _clear> {
+template <size_t N, typename Tp, char _str_begin = 'a', char _str_end = 'z' + 1, bool _clear = false>
+class ACAM : public _ACAM_Base<N, Tp, _str_begin, _str_end, _clear> {
   protected:
-    Tp e[_N];
+    Tp e[N];
 
   private:
     void _insert_end(size_t p, size_t x) {

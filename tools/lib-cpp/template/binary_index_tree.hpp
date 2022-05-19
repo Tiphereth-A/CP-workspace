@@ -3,10 +3,10 @@
 namespace my_template {
 #include <cstddef>
 
-template <size_t _N, typename Tp, bool _clear = false>
+template <size_t N, typename Tp, bool _clear = false>
 class BIT {
   protected:
-    Tp tree[_N];
+    Tp tree[N];
 
     constexpr size_t lowbit(ptrdiff_t x) const { return x & (-x); }
 
@@ -17,7 +17,7 @@ class BIT {
 
     void clear() { memset(tree, 0, sizeof(tree)); }
     void modify(size_t pos, Tp val = 1) {
-        for (size_t i = pos; i < _N; i += lowbit(i)) tree[i] += val;
+        for (size_t i = pos; i < N; i += lowbit(i)) tree[i] += val;
     }
     Tp query(size_t pos) const {
         Tp ret = 0;
