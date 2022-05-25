@@ -43,7 +43,7 @@
             "\t\tnow_ = end_ = buffer_;",
             "\t}",
             "\n\ttemplate <typename Tp, typename std::enable_if<type_traits::is_int<Tp>::value>::type * = nullptr>",
-            "\tinline self &read(Tp &n) {",
+            "\tinline self &read(Tp &n) noexcept {",
             "\t\tbool is_neg = false;",
             "\t\tchar ch = this->fetch();",
             "\t\twhile (!isdigit(ch)) {",
