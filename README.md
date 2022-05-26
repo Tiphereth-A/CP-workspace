@@ -34,7 +34,7 @@ My VSCode workspace for Competitive Programming.
 | init-cpp              | `ii`, `init`                                                       |
 | foreach               | `fors`, `foreach`                                                  | Some for macros                                         |
 | ostream-int128        | `os128`, `out128`, `cout128`                                       | `__int128_t` and `___uint128_t` support for `std::cout` |
-| fast-IO               | `fastIO`                                                           | Fast IO based on `fread`                                |
+| fast-IO               | `fastIO`                                                           | Fast IO based on `fread` & `fwrite`                     |
 | untie                 | `fast_ios`, `fast_cin_cout`                                        |
 | fast-max              | `max_fast`, `fast_max`                                             |
 | fast-min              | `min_fast`, `fast_min`                                             |
