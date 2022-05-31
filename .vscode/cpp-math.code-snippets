@@ -71,9 +71,8 @@
         "scope": "cpp",
         "prefix": "qpow",
         "body": [
-            "template <typename Tp = i64>",
-            "inline constexpr Tp qpow(Tp a, Tp b = MOD - 2, const Tp& mod = MOD) {",
-            "\tTp res(1);",
+            "inline constexpr i64 qpow(i64 a, i64 b = MOD - 2, const i64& mod = MOD) {",
+            "\ti64 res(1);",
             "\tfor (; b; b >>= 1, (a *= a) %= mod)",
             "\t\tif (b & 1) (res *= a) %= mod;",
             "\treturn res;",
@@ -84,9 +83,8 @@
         "scope": "cpp",
         "prefix": "mul_mod",
         "body": [
-            "template <typename Tp = i64>",
-            "inline constexpr Tp mul_mod(Tp a, Tp b, const Tp& mod) {",
-            "\tTp d = floor(1.0l * a * b / mod + 0.5l), ret = a * b - d * mod;",
+            "inline constexpr i64 mul_mod(i64 a, i64 b, const i64& mod) {",
+            "\ti64 d = floor(1.0l * a * b / mod + 0.5l), ret = a * b - d * mod;",
             "\treturn ret < 0 ? ret + mod : ret;",
             "}"
         ]
@@ -95,9 +93,8 @@
         "scope": "cpp",
         "prefix": "pow_mod",
         "body": [
-            "template <typename Tp = i64>",
-            "inline constexpr Tp qpow(Tp a, Tp b, const Tp& mod = MOD) {",
-            "\tTp res(1);",
+            "inline constexpr i64 qpow(i64 a, i64 b, const i64& mod = MOD) {",
+            "\ti64 res(1);",
             "\tfor (; b; b >>= 1, a = mul_mod(a, a, mod))",
             "\t\tif (b & 1) res = mul_mod(res, a, mod);",
             "\treturn res;",
