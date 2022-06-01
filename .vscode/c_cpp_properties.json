@@ -4,6 +4,7 @@
             "name": "",
             "includePath": [
                 "${env:CPPLIB_PATH}/**",
+                "${workspaceFolder}/lib/testlib/**",
                 "${workspaceFolder}/tools/lib-cpp/**"
             ],
             "defines": ["_DEBUG", "UNICODE", "_UNICODE", "_LOCAL_"],
