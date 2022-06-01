@@ -1,3 +1,6 @@
 [submodule "lib/ac-library"]
 	path = lib/ac-library
 	url = git@github.com:atcoder/ac-library.git
+[submodule "lib/testlib"]
+	path = lib/testlib
+	url = git@github.com:MikeMirzayanov/testlib.git
