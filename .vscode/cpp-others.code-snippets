@@ -34,6 +34,10 @@
         "scope": "cpp",
         "prefix": ["ii", "init"],
         "body": [
+            "#ifndef DISABLE_PRAGMA",
+            "#pragma GCC optimize (\"Ofast\")",
+            "#pragma GCC optimize (\"unroll-loops\")",
+            "#endif",
             "#include <bits/stdc++.h>",
             "using namespace std;",
             "using i64 = int64_t;",
@@ -126,6 +130,10 @@
         "scope": "cpp",
         "prefix": ["iifio", "init-fast-io"],
         "body": [
+            "#ifndef DISABLE_PRAGMA",
+            "#pragma GCC optimize (\"Ofast\")",
+            "#pragma GCC optimize (\"unroll-loops\")",
+            "#endif",
             "#include <bits/stdc++.h>",
             "\nnamespace fast_io {",
             "namespace type_traits {",
