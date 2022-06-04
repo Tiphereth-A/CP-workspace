@@ -10,7 +10,7 @@
                 "${file}",
                 "-o",
                 "${fileBasenameNoExtension}.exe",
-                "-D_LOCAL_",
+                "-DLOCAL_",
                 "-D_DEBUG",
                 "-I",
                 "${workspaceFolder}/tools/lib-cpp",

@@ -8,11 +8,8 @@
                 "${workspaceFolder}/tools/lib-cpp/**"
             ],
             "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE",
-                "_LOCAL_",
-                "DISABLE_PRAGMA"
+                "LOCAL_",
+                "DISABLE_PRAGMA_"
             ],
             "intelliSenseMode": "${default}",
             "cppStandard": "c++17",

@@ -31,8 +31,10 @@ My VSCode workspace for Competitive Programming.
 | name                  | prefix                                                             | introduction                                            |
 | --------------------- | ------------------------------------------------------------------ | ------------------------------------------------------- |
 | init-cpp-simple       | `iis`, `init_simple`                                               |
-| init-cpp              | `ii`, `init`                                                       |
+| init-cpp-with-fastIO  | `iifio`, `init-fast-io`                                            |
 | foreach               | `fors`, `foreach`                                                  | Some for macros                                         |
+| constants             | `consts`, `constants`                                              |                                                         |
+| typedefs              | `typedefs`                                                         |                                                         |
 | ostream-int128        | `os128`, `out128`, `cout128`                                       | `__int128_t` and `___uint128_t` support for `std::cout` |
 | fast-IO               | `fastIO`                                                           | Fast IO based on `fread` & `fwrite`                     |
 | untie                 | `fast_ios`, `fast_cin_cout`                                        |
