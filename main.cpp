@@ -77,7 +77,7 @@ const int FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
 const auto STATIC__ = []() { return 0.0; }();
 
 #define MULTI_CASES
-inline auto solve() -> void {
+inline auto solve(int t_) -> void {
 }
 
 int main() {
@@ -88,17 +88,19 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
+    int i_ = 0;
 
 #ifdef MULTI_CASES
-    int _t;
-    cin >> _t;
-    while (_t--)
+    int t_;
+    cin >> t_;
+    for (i_ = 1; i_ <= t_; ++i_)
 #endif
-        solve();
+        solve(i_);
 
 #ifdef LOCAL_
+    auto CLOCK_ED_ = std::chrono::high_resolution_clock::now();
     std::clog << "\n---\n"
-              << "Time used: " << std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - CLOCK_ST_).count() * 1e-6 << " ms" << std::endl;
+              << "Time used: " << std::chrono::duration_cast<std::chrono::nanoseconds>(CLOCK_ED_ - CLOCK_ST_).count() * 1e-6l << " ms" << std::endl;
 #endif
     return 0;
 }
