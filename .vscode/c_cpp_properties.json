@@ -7,7 +7,13 @@
                 "${workspaceFolder}/lib/testlib/**",
                 "${workspaceFolder}/tools/lib-cpp/**"
             ],
-            "defines": ["_DEBUG", "UNICODE", "_UNICODE", "_LOCAL_"],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "_LOCAL_",
+                "DISABLE_PRAGMA"
+            ],
             "intelliSenseMode": "${default}",
             "cppStandard": "c++17",
             "compilerPath": "${env:CPPBIN_PATH}/g++"

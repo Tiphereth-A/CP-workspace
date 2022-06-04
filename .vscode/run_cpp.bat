@@ -33,7 +33,7 @@ Set _fBWhite=[97m
 Set _bBWhite=[107m
 Set _RESET=[0m
 
-%CPPBIN_PATH%\c++ -fdiagnostics-color=always "%1\%2.cpp" -o "%1\%2" -D_LOCAL_ -D_DEBUG -O2 -std=c++17 -I "%1\tools\lib-cpp" -I "%1\lib\testlib" -Wall -Wextra -Wconversion -Wpedantic -Wparentheses || goto end
+%CPPBIN_PATH%\c++ -fdiagnostics-color=always "%1\%2.cpp" -o "%1\%2" -D_LOCAL_ -D_DEBUG -DDISABLE_PRAGMA -O2 -std=c++17 -I "%1\tools\lib-cpp" -I "%1\lib\testlib" -Wall -Wextra -Wconversion -Wpedantic -Wparentheses || goto end
 
 echo %_fBGreen%%_bBlack%compile finished%_RESET%
 
