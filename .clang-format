@@ -74,15 +74,18 @@ ForEachMacros:
   - foreach
   - Q_FOREACH
   - BOOST_FOREACH
-  - _for
-  - _rfor
-  - _foreach_cref
-  - _foreach_iter
-  - _foreach_iter_range
-  - _foreach_ref
-  - _foreach_rref
-  - _foreach_val
-  - _for_graph
+  - for_
+  - rfor_
+  - foreach_binding_
+  - foreach_cref_
+  - foreach_iter_
+  - foreach_iter_range_
+  - foreach_riter_
+  - foreach_riter_range_
+  - foreach_ref_
+  - foreach_rref_
+  - foreach_val_
+  - for_graph_
 IfMacros:
   - KJ_IF_MAYBE
 IncludeBlocks: Preserve
