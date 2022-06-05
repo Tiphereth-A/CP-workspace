@@ -82,20 +82,20 @@ template <typename Tp>
 auto ispow2(Tp i) -> bool { return i && (i & -i) == i; }
 
 template <class Tp, class Up>
-ostream &operator<<(ostream &os, const std::pair<Tp, Up> &p) {
-    if (&os == &cerr) { return os << "(" << p.first << ", " << p.second << ")"; }
+std::ostream &operator<<(std::ostream &os, const std::pair<Tp, Up> &p) {
+    if (&os == &std::cerr) return os << "(" << p.first << ", " << p.second << ")";
     return os << p.first << " " << p.second;
 }
 template <class Ch, class Tr, class Container>
 std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const Container &x) {
     bool f = true;
-    if (&os == &cerr) os << "[";
-    if (&os == &cerr)
+    if (&os == &std::cerr) os << "[";
+    if (&os == &std::cerr)
         for (auto it = x.begin(); it != x.end() - 1; ++it) os << *it << ", ";
     else
         for (auto it = x.begin(); it != x.end() - 1; ++it) os << *it << ' ';
     os << x.back();
-    if (&os == &cerr) os << "]";
+    if (&os == &std::cerr) os << "]";
     return os;
 }
 
@@ -124,8 +124,8 @@ const double EPS = 1e-6;
 const i32 INF = 0x3f3f3f3f;
 const i64 INF64 = 0x3f3f3f3f3f3f3f3f;
 const double PI = acos(-1.0);
-const pi<i32> DIR4[4] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
-const pi<i32> DIR8[8] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+const pc<i32> DIR4[4] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+const pc<i32> DIR8[8] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 const i32 EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 const i32 FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
 const std::string RES_YN[2] = {"NO", "YES"};
@@ -135,7 +135,7 @@ const std::string RES_POSS[2] = {"IMPOSSIBLE", "POSSIBLE"};
 const std::string RES_Poss[2] = {"Impossible", "Possible"};
 const std::string RES_poss[2] = {"impossible", "possible"};
 
-const auto STATIC__ = []() { return 0.0; }();
+const auto STATIC__ = []() { return 0; }();
 
 // #define MULTI_CASES
 inline auto solve([[maybe_unused]] int t_) -> void {
