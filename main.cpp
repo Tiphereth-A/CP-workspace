@@ -1,6 +1,6 @@
-#ifndef DISABLE_PRAGMA_
-#pragma GCC optimize("Ofast")
-#pragma GCC optimize("unroll-loops")
+#ifndef DISABLE_PRAGMA
+#pragma GCC optimize ("Ofast,no-stack-protector,unroll-loops,fast-math")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4.1,sse4.2,avx,avx2,popcnt,tune=native")
 #endif
 #ifdef __GNUG__
 #include <bits/extc++.h>
@@ -49,11 +49,17 @@ using pii64 = std::pair<i64, i64>;
 #define lowbit_(x) (1 << __builtin_ctz(x))
 #define lowbit_64_(x) (1 << __builtin_ctzll(x))
 #define debug_line_ (std::cerr << __LINE__ << ' ' << __FUNCTION__ << std::endl)
-inline void debug() { std::cerr << std::endl; }
+inline void debug() {
+#ifdef LOCAL_
+    std::cerr << std::endl;
+#endif
+}
 template <typename Tp, typename... Args>
 inline void debug(Tp x, Args... args) {
+#ifdef LOCAL_
     std::cerr << x << ' ';
     debug(args...);
+#endif
 }
 template <class T>
 bool chkmin(T &a, T b) { return b < a ? a = b, true : false; }
@@ -73,34 +79,29 @@ const pii DIR4[4] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
 const pii DIR8[8] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 const int EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 const int FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
-
 const auto STATIC__ = []() { return 0.0; }();
 
 #define MULTI_CASES
 inline auto solve(int t_) -> void {
+    
 }
 
 int main() {
 #ifdef LOCAL_
     auto CLOCK_ST_ = std::chrono::high_resolution_clock::now();
 #endif
-
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
     int i_ = 0;
 
 #ifdef MULTI_CASES
     int t_;
-    cin >> t_;
+    std::cin >> t_;
     for (i_ = 1; i_ <= t_; ++i_)
 #endif
         solve(i_);
-
 #ifdef LOCAL_
     auto CLOCK_ED_ = std::chrono::high_resolution_clock::now();
     std::clog << "\n---\n"
-              << "Time used: " << std::chrono::duration_cast<std::chrono::nanoseconds>(CLOCK_ED_ - CLOCK_ST_).count() * 1e-6l << " ms" << std::endl;
+            << "Time used: " << std::chrono::duration_cast<std::chrono::nanoseconds>(CLOCK_ED_ - CLOCK_ST_).count() * 1e-6l << " ms" << std::endl;
 #endif
     return 0;
 }

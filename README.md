@@ -31,6 +31,7 @@ My VSCode workspace for Competitive Programming.
 | name                  | prefix                                                             | introduction                                            |
 | --------------------- | ------------------------------------------------------------------ | ------------------------------------------------------- |
 | init-cpp-simple       | `iis`, `init_simple`                                               |
+| init-default          | `ii`, `init`                                                       |
 | init-cpp-with-fastIO  | `iifio`, `init-fast-io`                                            |
 | foreach               | `fors`, `foreach`                                                  | Some for macros                                         |
 | constants             | `consts`, `constants`                                              |                                                         |

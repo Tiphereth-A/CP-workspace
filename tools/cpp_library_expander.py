@@ -13,7 +13,7 @@ logger = getLogger(__name__)  # type: Logger
 
 
 class Expander:
-    lib_include = re.compile(r'#include\s*"((template|atcoder)[a-z_/]*(|.hpp))"\s*')
+    lib_include = re.compile(r'#\s*include\s*"([a-z_/]*\.hpp)"\s*')
 
     include_guard = re.compile(r'#.*[A-Z_]*_HPP')
 
