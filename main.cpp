@@ -148,7 +148,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int i_ = 0;
+    int i_ = STATIC__;
 
 #ifdef MULTI_CASES
     int t_;
