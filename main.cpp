@@ -89,7 +89,6 @@ std::ostream &operator<<(std::ostream &os, const std::pair<Tp, Up> &p) {
 }
 template <class Ch, class Tr, class Container>
 std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const Container &x) {
-    bool f = true;
     if (&os == &std::cerr) os << "[";
     if (&os == &std::cerr)
         for (auto it = x.begin(); it != x.end() - 1; ++it) os << *it << ", ";
