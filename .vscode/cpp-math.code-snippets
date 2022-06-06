@@ -71,7 +71,7 @@
         "scope": "cpp",
         "prefix": "qpow",
         "body": [
-            "inline constexpr i64 qpow(i64 a, i64 b = MOD - 2, const i64& mod = MOD) {",
+            "constexpr i64 qpow(i64 a, i64 b = MOD - 2, const i64& mod = MOD) {",
             "\ti64 res(1);",
             "\tfor (; b; b >>= 1, (a *= a) %= mod)",
             "\t\tif (b & 1) (res *= a) %= mod;",
@@ -83,7 +83,7 @@
         "scope": "cpp",
         "prefix": "mul_mod",
         "body": [
-            "inline constexpr i64 mul_mod(i64 a, i64 b, const i64& mod) {",
+            "constexpr i64 mul_mod(i64 a, i64 b, const i64& mod) {",
             "\ti64 d = floor(1.0l * a * b / mod + 0.5l), ret = a * b - d * mod;",
             "\treturn ret < 0 ? ret + mod : ret;",
             "}"
@@ -93,7 +93,7 @@
         "scope": "cpp",
         "prefix": "pow_mod",
         "body": [
-            "inline constexpr i64 qpow(i64 a, i64 b, const i64& mod = MOD) {",
+            "constexpr i64 qpow(i64 a, i64 b, const i64& mod = MOD) {",
             "\ti64 res(1);",
             "\tfor (; b; b >>= 1, a = mul_mod(a, a, mod))",
             "\t\tif (b & 1) res = mul_mod(res, a, mod);",
@@ -106,7 +106,7 @@
         "prefix": ["phi", "euler_phi"],
         "body": [
             "template <typename Tp = i64>",
-            "inline constexpr Tp euler_phi(Tp n) {",
+            "constexpr Tp euler_phi(Tp n) {",
             "\tTp ans = n;",
             "\tfor (Tp i = 2; i <= sqrt(n); ++i)",
             "\t\tif (n % i == 0) {",
@@ -123,7 +123,7 @@
         "prefix": ["inv", "inverse"],
         "body": [
             "template <class Tp = i64>",
-            "inline constexpr Tp inverse(make_signed_t<Tp> n, const Tp& mod) {",
+            "constexpr Tp inverse(make_signed_t<Tp> n, const Tp& mod) {",
             "\tmake_signed_t<Tp> b = mod, m0 = 0;",
             "\tfor (Tp q, m1 = 1; n;) {",
             "\t\tq = b / n;",

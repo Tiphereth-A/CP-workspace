@@ -218,7 +218,7 @@
         "body": [
             "//! only works properly on little-endian CPU such as Intel CPU",
             "//! works better on 64-bit CPU",
-            "inline constexpr uint64_t dec2uint_mod(const char* const num, const uint64_t mod) {",
+            "constexpr uint64_t dec2uint_mod(const char* const num, const uint64_t mod) {",
             "\tsize_t len = strlen(num);",
             "\tif (len == 0) return 0;",
             "\tu128 ans = 0;",
