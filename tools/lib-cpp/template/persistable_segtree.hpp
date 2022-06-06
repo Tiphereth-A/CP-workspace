@@ -100,7 +100,7 @@ class persistable_seg_tree {
         return *this;
     }
 
-    template <class Up, _TRAITS(_CONVERTIBLE(Up, data_t&))>
+    template <class Up, _TRAITS(_CONVERTIBLE(Up, data_t))>
     constexpr self& modify(index_t&& version, index_t&& pos, Up&& data) {
         this->roots.push_back(this->nodes.begin());
         this->_modify(1, move(this->data_size), this->roots.back(), this->roots[version], move(pos), forward<data_t>(data));
