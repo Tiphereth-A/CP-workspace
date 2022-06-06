@@ -14,8 +14,6 @@ class RMQ_ST {
     query_func qfunc;
     data_t f[(size_t)log2(N) + 1][N];
 
-    size_t log_table[N];
-
   public:
     RMQ_ST() = delete;
     RMQ_ST(init_func ifunc, query_func qfunc):
