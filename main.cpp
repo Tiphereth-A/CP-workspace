@@ -9,6 +9,12 @@
 // #else
 #include <bits/stdc++.h>
 // #endif
+
+#ifdef DISABLE_ASSERT_
+#undef assert
+#define assert(...) 1
+#endif
+
 using namespace std;
 using i32 = std::int32_t;
 using u32 = std::uint32_t;
