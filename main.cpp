@@ -1,14 +1,14 @@
-// #define DISABLE_PRAGMA_
+#define DISABLE_PRAGMA_
 #ifndef DISABLE_PRAGMA_
 #pragma GCC optimize("Ofast,no-stack-protector,unroll-loops,fast-math")
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4.1,sse4.2,avx,avx2,popcnt,tune=native")
 #endif
 
-#ifdef __GNUG__
-#include <bits/extc++.h>
-#else
+// #ifdef __GNUG__
+// #include <bits/extc++.h>
+// #else
 #include <bits/stdc++.h>
-#endif
+// #endif
 using namespace std;
 using i32 = std::int32_t;
 using u32 = std::uint32_t;
