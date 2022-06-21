@@ -40,6 +40,7 @@ My VSCode workspace for Competitive Programming.
 | fast-str2uint         | `str2uint_fast`, `dec2uint_fast`, `fast_str2uint`, `fast_dec2uint` |
 | combination           | `comb`, `combination`, `m_choose_n`                                |
 | factorial-and-inverse | `fact`, `factorial`                                                |
+| barrett               | `barrett`                                                          | Fast modular multiplication by barrett reduction        |
 | gcd-lambda            | `gcd_lambda`                                                       |
 | exgcd                 | `exgcd`                                                            |
 | qwick-pow             | `qpow`                                                             |
