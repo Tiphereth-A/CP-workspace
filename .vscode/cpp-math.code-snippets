@@ -43,9 +43,7 @@
         "scope": "cpp",
         "prefix": "barrett",
         "body": [
-            "// Fast modular multiplication by barrett reduction",
             "// Reference: https://en.wikipedia.org/wiki/Barrett_reduction",
-            "// NOTE: reconsider after Ice Lake",
             "struct Barrett {",
             "\tu32 _m;",
             "\tu64 im;",
@@ -63,7 +61,8 @@
             "\treturn v;",
             "\t}",
             "};"
-        ]
+        ],
+        "description": "Fast modular multiplication by barrett reduction"
     },
     "gcd-lambda": {
         "scope": "cpp",
