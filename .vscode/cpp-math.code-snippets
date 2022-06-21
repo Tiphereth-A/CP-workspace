@@ -41,7 +41,7 @@
     },
     "barrett": {
         "scope": "cpp",
-        "prefix": "gcd_lambda",
+        "prefix": "barrett",
         "body": [
             "// Fast modular multiplication by barrett reduction",
             "// Reference: https://en.wikipedia.org/wiki/Barrett_reduction",
