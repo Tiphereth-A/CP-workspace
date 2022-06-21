@@ -39,6 +39,32 @@
             "}();"
         ]
     },
+    "barrett": {
+        "scope": "cpp",
+        "prefix": "gcd_lambda",
+        "body": [
+            "// Fast modular multiplication by barrett reduction",
+            "// Reference: https://en.wikipedia.org/wiki/Barrett_reduction",
+            "// NOTE: reconsider after Ice Lake",
+            "struct Barrett {",
+            "\tu32 _m;",
+            "\tu64 im;",
+            "\n\t// @param m `1 <= m < 2^31`",
+            "\tconstexpr explicit Barrett(u32 m): _m(m), im((u64)(-1) / m + 1) {}",
+            "\n\t// @return m",
+            "\tconstexpr u32 umod() const { return _m; }",
+            "\n\t// @param a `0 <= a < m`",
+            "\t// @param b `0 <= b < m`",
+            "\t// @return `a * b % m`",
+            "\tconstexpr u32 mul(u32 a, u32 b) const {",
+            "\t\tu64 z = (u64)(a) * b;",
+            "\t\tu32 v = (u32)(z - (u64)(((u128)(z)*im) >> 64) * _m);",
+            "\t\tif (_m <= v) v += _m;",
+            "\treturn v;",
+            "\t}",
+            "};"
+        ]
+    },
     "gcd-lambda": {
         "scope": "cpp",
         "prefix": "gcd_lambda",
