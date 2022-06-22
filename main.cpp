@@ -4,15 +4,9 @@
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4.1,sse4.2,avx,avx2,popcnt,tune=native")
 #endif
 
-// #ifdef __GNUG__
-// #include <bits/extc++.h>
-// #else
 #include <bits/stdc++.h>
-// #endif
-
-#ifdef DISABLE_ASSERT_
-#undef assert
-#define assert(...) 1
+#ifdef __GNUG__
+// #include <bits/extc++.h>
 #endif
 
 using namespace std;
