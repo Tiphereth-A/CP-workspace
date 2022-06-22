@@ -89,10 +89,10 @@ using pqgi64 = pqg<i64>;
 #define set_inf_(a) memset(a, 0x3f, sizeof(a))
 #define set_nul_n_(a, n) memset(a, 0, sizeof(*(a)) * (n))
 #define set_inf_n_(a, n) memset(a, 0x3f, sizeof(*(a)) * (n))
-#define run_exec_(expressions, after_process) \
+#define run_exec_(expressions, post_process) \
     {                                         \
         expressions;                          \
-        after_process;                        \
+        post_process;                        \
     }
 #define run_exit_(expressions) run_exec_(expressions, exit(0))
 #define run_return_(expressions, val) run_exec_(expressions, return val)
