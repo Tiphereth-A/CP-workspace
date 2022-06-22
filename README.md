@@ -12,7 +12,7 @@ My VSCode workspace for Competitive Programming.
     -   Testcase generator & wrapper
     -   Local judger
     -   C++ lib expander (inspired by [atcoder/ac-Library](https://github.com/atcoder/ac-library))
-    -   C++ macro expander (lack of maintenance)
+    -   ~~C++ macro expander~~ (lack of maintenance)
 -   Including 3rd C++ library support (see [3rd library support](#3rd%20library%20support))
 
 ## Usage
