@@ -35,6 +35,9 @@ OPERATOR_OVERRIED_PAIR_(%)
 
 #undef OPERATOR_OVERRIED_PAIR_
 
+template <typename Tp, typename Up>
+std::istream &operator>>(std::istream &is, std::pair<Tp, Up> &p) { return is >> p.first >> p.second; }
+
 template <typename Tp>
 using pi = std::pair<Tp, Tp>;
 template <typename Tp>
