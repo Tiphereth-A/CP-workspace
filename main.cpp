@@ -14,8 +14,8 @@ using i32 = std::int32_t;
 using u32 = std::uint32_t;
 using i64 = std::int64_t;
 using u64 = std::uint64_t;
-using i128 = __int128_t;
-using u128 = __uint128_t;
+// using i128 = __int128_t;
+// using u128 = __uint128_t;
 
 #define OPERATOR_OVERRIED_PAIR_(oper)                                                                     \
     template <typename Tp, typename Up>                                                                   \
@@ -90,8 +90,8 @@ using pqgi64 = pqg<i64>;
 #define set_nul_n_(a, n) memset(a, 0, sizeof(*(a)) * (n))
 #define set_inf_n_(a, n) memset(a, 0x3f, sizeof(*(a)) * (n))
 #define run_exec_(expressions, post_process) \
-    {                                         \
-        expressions;                          \
+    {                                        \
+        expressions;                         \
         post_process;                        \
     }
 #define run_exit_(expressions) run_exec_(expressions, exit(0))
