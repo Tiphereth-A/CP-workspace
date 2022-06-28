@@ -189,6 +189,7 @@ int main() {
     cout.tie(nullptr);
     int i_ = STATIC__;
     // cout << fixed << setprecision(12);
+    // cerr << fixed << setprecision(12);
 
 #ifdef MULTI_CASES
     int t_;
