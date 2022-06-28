@@ -52,6 +52,7 @@ My VSCode workspace for Competitive Programming.
 | rpow                  | `rpow`                                                             |
 | graph                 | `graph`, `edges`                                                   | Adjacency list                                          |
 | dijkstra              | `dijkstra`, `dijk`                                                 |
+| bellman-ford          | `bellman-ford`, `spfa`, `bford`                                    |
 | kruakal               | `kruskal`                                                          |
 | johnson               | `johnson`                                                          |
 | tarjan-scc            | `scc`, `tarjan-scc`                                                | Find all SCC based on Tarjan algorithm                  |

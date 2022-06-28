@@ -53,6 +53,35 @@
             "}"
         ]
     },
+    "bellman-ford": {
+        "scope": "cpp",
+        "prefix": ["bellman-ford", "spfa", "bford"],
+        "body": [
+            "int dis[N], dep[N];",
+            "bool vis[N];",
+            "bool bellman_ford(int n, int s) {",
+            "\tmemset(dis, 0xff, sizeof(dis[0]) * (n + 1));",
+            "\tdis[s] = 0;",
+            "\tvis[s] = true;",
+            "\tdep[s] = 1;",
+            "\tqueue<int> q;",
+            "\tq.push(s);",
+            "\twhile (!q.empty()) {",
+            "\t\tint now = q.front();",
+            "\t\tq.pop();",
+            "\t\tvis[now] = false;",
+            "\t\t_for_graph(head, e, i, now) if (dis[to] > dis[now] + e[i].w) {",
+            "\t\t\tdis[to] = dis[now] + e[i].w;",
+            "\t\t\tif (vis[to]) continue;",
+            "\t\t\tif (++dep[to] > n) return false;",
+            "\t\t\tvis[to] = true;",
+            "\t\t\tq.push(to);",
+            "\t\t}",
+            "\t}",
+            "\treturn true;",
+            "}"
+        ]
+    },
     "kruakal": {
         "scope": "cpp",
         "prefix": "kruskal",
