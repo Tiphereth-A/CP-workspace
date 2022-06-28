@@ -60,7 +60,7 @@
             "int dis[N], dep[N];",
             "bool vis[N];",
             "bool bellman_ford(int n, int s) {",
-            "\tmemset(dis, 0xff, sizeof(dis[0]) * (n + 1));",
+            "\tmemset(dis, 0x3f, sizeof(dis[0]) * (n + 1));",
             "\tdis[s] = 0;",
             "\tvis[s] = true;",
             "\tdep[s] = 1;",
