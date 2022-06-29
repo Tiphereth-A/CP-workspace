@@ -41,6 +41,10 @@ std::istream &operator>>(std::istream &is, std::pair<Tp, Up> &p) { return is >> 
 template <typename Tp>
 using pi = std::pair<Tp, Tp>;
 template <typename Tp>
+using pi3 = std::tuple<Tp, Tp, Tp>;
+template <typename Tp>
+using pi4 = std::tuple<Tp, Tp, Tp, Tp>;
+template <typename Tp>
 using vc = std::vector<Tp>;
 template <typename Tp>
 using vvc = std::vector<std::vector<Tp>>;
@@ -58,16 +62,11 @@ using compi64 = std::complex<i64>;
 using compd = std::complex<double>;
 using pii = pi<int>;
 using pii64 = pi<i64>;
-using vi = vc<int>;
-using vi64 = vc<i64>;
-using vvi = vvc<int>;
-using vvi64 = vvc<i64>;
-using vpi = vc<pii>;
-using vpi64 = vc<pii64>;
-using pqi = pq<int>;
-using pqi64 = pq<i64>;
-using pqgi = pqg<int>;
-using pqgi64 = pqg<i64>;
+using pi3i = pi3<int>;
+using pi3i64 = pi3<i64>;
+using pi4i = pi4<int>;
+using pi4i64 = pi4<i64>;
+
 
 #define for_(i, l, r, vars...) for (decltype(l + r) i = (l), i##end = (r), ##vars; i <= i##end; ++i)
 #define rfor_(i, r, l, vars...) for (make_signed_t<decltype(r - l)> i = (r), i##end = (l), ##vars; i >= i##end; --i)
