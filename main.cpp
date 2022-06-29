@@ -17,15 +17,35 @@ using u64 = std::uint64_t;
 // using i128 = __int128_t;
 // using u128 = __uint128_t;
 
-#define OPERATOR_OVERRIED_PAIR_(oper)                                                                     \
-    template <typename Tp, typename Up>                                                                   \
-    constexpr std::pair<Tp, Up> &operator oper##=(std::pair<Tp, Up> &lhs, const std::pair<Tp, Up> &rhs) { \
-        lhs.first oper## = rhs.first;                                                                     \
-        lhs.second oper## = rhs.second;                                                                   \
-        return lhs;                                                                                       \
-    }                                                                                                     \
-    template <typename Tp, typename Up>                                                                   \
-    constexpr std::pair<Tp, Up> operator oper(std::pair<Tp, Up> lhs, const std::pair<Tp, Up> &rhs) { return lhs oper## = rhs; }
+#define OPERATOR_OVERRIED_PAIR_(oper)                                                                                                          \
+    template <class Tp, class Up>                                                                                                              \
+    constexpr std::pair<Tp, Up> &operator oper##=(std::pair<Tp, Up> &lhs, const std::pair<Tp, Up> &rhs) {                                      \
+        lhs.first oper## = rhs.first;                                                                                                          \
+        lhs.second oper## = rhs.second;                                                                                                        \
+        return lhs;                                                                                                                            \
+    }                                                                                                                                          \
+    template <class Tp, class Up>                                                                                                              \
+    constexpr std::pair<Tp, Up> operator oper(std::pair<Tp, Up> lhs, const std::pair<Tp, Up> &rhs) { return lhs oper## = rhs; }                \
+    template <class Tp, class Up, class Vp>                                                                                                    \
+    constexpr std::tuple<Tp, Up, Vp> &operator oper##=(std::tuple<Tp, Up, Vp> &lhs, const std::tuple<Tp, Up, Vp> &rhs) {                       \
+        std::get<0>(lhs) oper## = std::get<0>(rhs);                                                                                            \
+        std::get<1>(lhs) oper## = std::get<1>(rhs);                                                                                            \
+        std::get<2>(lhs) oper## = std::get<2>(rhs);                                                                                            \
+        return lhs;                                                                                                                            \
+    }                                                                                                                                          \
+    template <class Tp, class Up, class Vp>                                                                                                    \
+    constexpr std::tuple<Tp, Up, Vp> operator oper(std::tuple<Tp, Up, Vp> lhs, const std::tuple<Tp, Up, Vp> &rhs) { return lhs oper## = rhs; } \
+    template <class Tp, class Up, class Vp, class Wp>                                                                                          \
+    constexpr std::tuple<Tp, Up, Vp, Wp> &operator oper##=(std::tuple<Tp, Up, Vp, Wp> &lhs, const std::tuple<Tp, Up, Vp, Wp> &rhs) {           \
+        std::get<0>(lhs) oper## = std::get<0>(rhs);                                                                                            \
+        std::get<1>(lhs) oper## = std::get<1>(rhs);                                                                                            \
+        std::get<2>(lhs) oper## = std::get<2>(rhs);                                                                                            \
+        std::get<3>(lhs) oper## = std::get<3>(rhs);                                                                                            \
+        return lhs;                                                                                                                            \
+    }                                                                                                                                          \
+    template <class Tp, class Up, class Vp, class Wp>                                                                                          \
+    constexpr std::tuple<Tp, Up, Vp, Wp> operator oper(std::tuple<Tp, Up, Vp, Wp> lhs, const std::tuple<Tp, Up, Vp, Wp> &rhs) { return lhs oper## = rhs; }
+
 
 OPERATOR_OVERRIED_PAIR_(+)
 OPERATOR_OVERRIED_PAIR_(-)
@@ -35,26 +55,38 @@ OPERATOR_OVERRIED_PAIR_(%)
 
 #undef OPERATOR_OVERRIED_PAIR_
 
-template <typename Tp, typename Up>
-std::istream &operator>>(std::istream &is, std::pair<Tp, Up> &p) { return is >> p.first >> p.second; }
 
-template <typename Tp>
+template <class Ch, class Tr, class Tp, class Up>
+std::basic_istream<Ch, Tr> &operator>>(std::basic_istream<Ch, Tr> &is, std::pair<Tp, Up> &p) { return is >> p.first >> p.second; }
+template <class Ch, class Tr, class Tp, class Up>
+std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const std::pair<Tp, Up> &p) { return os << p.first << ' ' << p.second; }
+template <class Ch, class Tr, class Tp, class Up, class Vp>
+std::basic_istream<Ch, Tr> &operator>>(std::basic_istream<Ch, Tr> &is, std::tuple<Tp, Up, Vp> &p) { return is >> std::get<0>(p) >> std::get<1>(p) >> std::get<2>(p); }
+template <class Ch, class Tr, class Tp, class Up, class Vp>
+std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const std::tuple<Tp, Up, Vp> &p) { return os << std::get<0>(p) << ' ' << std::get<1>(p) << ' ' << std::get<2>(p); }
+template <class Ch, class Tr, class Tp, class Up, class Vp, class Wp>
+std::basic_istream<Ch, Tr> &operator>>(std::basic_istream<Ch, Tr> &is, std::tuple<Tp, Up, Vp, Wp> &p) { return is >> std::get<0>(p) >> std::get<1>(p) >> std::get<2>(p) >> std::get<3>(p); }
+template <class Ch, class Tr, class Tp, class Up, class Vp, class Wp>
+std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const std::tuple<Tp, Up, Vp, Wp> &p) { return os << std::get<0>(p) << ' ' << std::get<1>(p) << ' ' << std::get<2>(p) << ' ' << std::get<3>(p); }
+
+
+template <class Tp>
 using pi = std::pair<Tp, Tp>;
-template <typename Tp>
+template <class Tp>
 using pi3 = std::tuple<Tp, Tp, Tp>;
-template <typename Tp>
+template <class Tp>
 using pi4 = std::tuple<Tp, Tp, Tp, Tp>;
-template <typename Tp>
+template <class Tp>
 using vc = std::vector<Tp>;
-template <typename Tp>
+template <class Tp>
 using vvc = std::vector<std::vector<Tp>>;
-template <typename Tp>
+template <class Tp>
 using pq = std::priority_queue<Tp>;
-template <typename Tp>
+template <class Tp>
 using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
-template <typename Tp>
+template <class Tp>
 using hset = std::unordered_set<Tp>;
-template <typename Key, typename Tp, typename Hash = std::hash<Key>>
+template <class Key, class Tp, class Hash = std::hash<Key>>
 using hmap = std::unordered_map<Key, Tp, Hash>;
 
 using compi = std::complex<int>;
@@ -106,25 +138,20 @@ using pi4i64 = pi4<i64>;
     foreach_ref_(i, name) std::cin >> i;
 
 template <class Tp>
-auto chkmin(Tp &a, Tp b) -> bool { return b < a ? a = b, true : false; };
+constexpr auto chkmin(Tp &a, Tp b) -> bool { return b < a ? a = b, true : false; };
 template <class Tp>
-auto chkmax(Tp &a, Tp b) -> bool { return a < b ? a = b, true : false; };
-template <typename Tp>
-auto discretization(Tp &var) -> Tp {
+constexpr auto chkmax(Tp &a, Tp b) -> bool { return a < b ? a = b, true : false; };
+template <class Tp>
+inline auto discretization(Tp &var) -> Tp {
     Tp d__(var);
     std::sort(d__.begin(), d__.end());
     d__.erase(std::unique(d__.begin(), d__.end()), d__.end());
     for (auto &i : var) i = std::distance(d__.begin(), std::lower_bound(d__.begin(), d__.end(), i));
     return d__;
 };
-template <typename Tp>
-auto ispow2(Tp i) -> bool { return i && (i & -i) == i; }
+template <class Tp>
+constexpr auto ispow2(Tp i) -> bool { return i && (i & -i) == i; }
 
-template <class Tp, class Up>
-std::ostream &operator<<(std::ostream &os, const std::pair<Tp, Up> &p) {
-    if (&os == &std::cerr) return os << "(" << p.first << ", " << p.second << ")";
-    return os << p.first << " " << p.second;
-}
 template <class Ch, class Tr, class Container>
 std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const Container &x) {
     if (&os == &std::cerr) os << "[";
@@ -137,13 +164,13 @@ std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const Con
     return os;
 }
 
-template <typename Tp>
+template <class Tp>
 inline void debug(Tp x) {
 #ifdef LOCAL_
     std::cerr << x << std::endl;
 #endif
 }
-template <typename Tp, typename... Args>
+template <class Tp, class... Args>
 inline void debug(Tp x, Args... args) {
 #ifdef LOCAL_
     std::cerr << x << ' ';
@@ -154,7 +181,7 @@ inline void debug(Tp x, Args... args) {
 #define debug_withname_(var) debug(#var, var)
 
 const u32 OFFSET = 5;
-const u32 N = 1e5 + OFFSET;
+const u32 N = 5e5 + OFFSET;
 const u32 M = 2e5 + OFFSET;
 const u32 K = 21;
 const u32 MOD = 1e9 + 7;
