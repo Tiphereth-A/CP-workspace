@@ -154,13 +154,17 @@ constexpr auto ispow2(Tp i) -> bool { return i && (i & -i) == i; }
 
 template <class Ch, class Tr, class Container>
 std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const Container &x) {
+#ifdef LOCAL_
     if (&os == &std::cerr) os << "[";
     if (&os == &std::cerr)
         for (auto it = x.begin(); it != x.end() - 1; ++it) os << *it << ", ";
     else
+#endif
         for (auto it = x.begin(); it != x.end() - 1; ++it) os << *it << ' ';
     os << x.back();
+#ifdef LOCAL_
     if (&os == &std::cerr) os << "]";
+#endif
     return os;
 }
 
