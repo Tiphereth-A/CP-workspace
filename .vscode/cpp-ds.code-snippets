@@ -23,5 +23,26 @@
             "int  find(int x) { return x == fa[x] ? fa[x] : fa[x] = find(fa[x]); }",
             "bool merge(int x, int y) { return find(x) == find(y) ? false : fa[find(x)] = find(y), true; }"
         ]
+    },
+    "fenwick-tree": {
+        "scope": "cpp",
+        "prefix": ["fenwick", "fenwick-tree"],
+        "body": [
+            "template <size_t N, typename Tp>",
+            "class BIT {",
+            "protected:",
+            "\tTp tree[N];",
+            "\n\tconstexpr ptrdiff_t lowbit(ptrdiff_t x) const { return x & (-x); }",
+            "\npublic:",
+            "\tBIT() = default;",
+            "\n\tinline void clear() { memset(tree, 0, sizeof(tree)); }",
+            "\tinline void modify(ptrdiff_t pos, Tp val = 1) { for (ptrdiff_t i = std::clamp(pos, ptrdiff_t(0), ptrdiff_t(N) - 1); i < N; i += lowbit(i)) tree[i] += val; }",
+            "\tinline Tp query(ptrdiff_t pos) const {",
+            "\t\tTp ret = 0;",
+            "\t\tfor (ptrdiff_t i = std::clamp(pos, ptrdiff_t(0), ptrdiff_t(N) - 1); i; i = i - lowbit(i)) ret += tree[i];",
+            "\t\treturn ret;",
+            "\t}",
+            "};"
+        ]
     }
 }

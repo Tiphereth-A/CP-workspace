@@ -61,6 +61,7 @@ My VSCode workspace for Competitive Programming.
 | euler-path-graph      | `euler_path_graph`                                                 | Find Euler path (undirection graph)                     |
 | euler-path-digraph    | `euler_path_digraph`                                               | Find Euler path (digraph)                               |
 | dsu-basic             | `dsu_basic`                                                        | DSU                                                     |
+| fenwick-tree          | `fenwick`, `fenwick-tree`                                          |                                                         |
 
 ## 3rd library support
 
