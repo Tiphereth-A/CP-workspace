@@ -143,6 +143,26 @@
             "}"
         ]
     },
+    "simpson": {
+        "scope": "cpp",
+        "prefix": "simpson",
+        "body": [
+            "class SimpsonSolver {",
+            "protected:",
+            "\tconst double eps__;",
+            "\n\ttemplate <typename Func> constexpr double simpson(double l, double r, Func func) const { return (func(l) + 4 * func(r - (r - l) / 2) + func(r)) * (r - l) / 6; }",
+            "\n\ttemplate <typename Func> double asr(double l, double r, double area, double eps, Func func) const {",
+            "\t\tdouble mid = r - (r - l) / 2;",
+            "\t\tdouble ls = simpson(l, mid, func), rs = simpson(mid, r, func);",
+            "\t\tif (std::abs(ls + rs - area) <= 15 * eps) return ls + rs + (ls + rs - area) / 15;",
+            "\t\treturn asr(l, mid, ls, eps / 2, func) + asr(mid, r, rs, eps / 2, func);",
+            "\t}",
+            "\npublic:",
+            "\texplicit SimpsonSolver(double eps): eps__(eps) {}",
+            "\n\ttemplate <typename Func> inline double operator()(double l, double r, Func func) const { return asr(l, r, simpson(l, r, func), eps__, func); }",
+            "} simpson_solver(1e-6);"
+        ]
+    },
     "inverse": {
         "scope": "cpp",
         "prefix": ["inv", "inverse"],

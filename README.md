@@ -47,6 +47,7 @@ My VSCode workspace for Competitive Programming.
 | mul_mod               | `mul_mod`                                                          |
 | pow_mod               | `pow_mod`                                                          |
 | euler_phi             | `phi`, `euler_phi`                                                 |
+| simpson               | `simpson`                                                          |
 | inverse               | `inv`, `inverse`                                                   |
 | prime                 | `prime`                                                            | Euler seive                                             |
 | rpow                  | `rpow`                                                             |
