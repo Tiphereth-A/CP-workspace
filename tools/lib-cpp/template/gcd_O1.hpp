@@ -46,7 +46,7 @@ void init() {
     }
 }
 
-const auto __STATIC__ = []() {
+const auto STATIC__ = []() {
     init();
     return 0;
 }();

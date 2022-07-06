@@ -22,12 +22,12 @@ class DLX_base {
 #define _d(id) node[id].d
 #define _row(id) node[id].row
 #define _col(id) node[id].col
-#define _for(i, start, dir) for (size_t i = _##dir(start); i != start; i = _##dir(i))
+#define for_(i, start, dir) for (size_t i = _##dir(start); i != start; i = _##dir(i))
 
     void remove_col(size_t _now_col) {
         _r(_l(_now_col)) = _r(_now_col);
         _l(_r(_now_col)) = _l(_now_col);
-        _for(i, _now_col, d) _for(j, i, r) {
+        for_(i, _now_col, d) for_(j, i, r) {
             _u(_d(j)) = _u(j);
             _d(_u(j)) = _d(j);
             --cnt_col[_col(j)];
@@ -35,7 +35,7 @@ class DLX_base {
     }
     void resume_col(size_t _now_col) {
         _r(_l(_now_col)) = _l(_r(_now_col)) = _now_col;
-        _for(i, _now_col, u) _for(j, i, r) {
+        for_(i, _now_col, u) for_(j, i, r) {
             _u(_d(j)) = _d(_u(j)) = j;
             ++cnt_col[_col(j)];
         }
@@ -43,7 +43,7 @@ class DLX_base {
 
     size_t find_min_col() {
         size_t res = _r(0);
-        _for(i, 0, r) if (cnt_col[i] < cnt_col[res]) res = i;
+        for_(i, 0, r) if (cnt_col[i] < cnt_col[res]) res = i;
         return res;
     }
 
@@ -51,15 +51,15 @@ class DLX_base {
         if (_r(0) == 0) return true;
         size_t now_r = find_min_col();
         remove_col(now_r);
-        _for(i, now_r, d) {
+        for_(i, now_r, d) {
             _ans[++_len] = _row(i);
-            _for(j, i, r) remove_col(_col(j));
+            for_(j, i, r) remove_col(_col(j));
             if (dance(_ans, _len)) {
-                _for(j, i, l) resume_col(_col(j));
+                for_(j, i, l) resume_col(_col(j));
                 return true;
             }
             --_len;
-            _for(j, i, l) resume_col(_col(j));
+            for_(j, i, l) resume_col(_col(j));
         }
         resume_col(now_r);
         return false;
@@ -123,7 +123,7 @@ class DLX_base {
 #undef _d
 #undef _row
 #undef _col
-#undef _for
+#undef for_
 };
 
 } // namespace my_template

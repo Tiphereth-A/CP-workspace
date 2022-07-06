@@ -21,23 +21,23 @@ class multi_DLX {
 #define _d(id) node[id].d
 #define _row(id) node[id].row
 #define _col(id) node[id].col
-#define _for(i, start, dir) for (size_t i = _##dir(start); i != start; i = _##dir(i))
+#define for_(i, start, dir) for (size_t i = _##dir(start); i != start; i = _##dir(i))
 
     void remove_col(size_t _now_col) {
-        _for(i, _now_col, d) {
+        for_(i, _now_col, d) {
             _r(_l(i)) = _r(i);
             _l(_r(i)) = _l(i);
         }
     }
 
     void resume_col(size_t _now_col) {
-        _for(i, _now_col, u)
+        for_(i, _now_col, u)
             _r(_l(i)) = _l(_r(i)) = i;
     }
 
     size_t find_min_col() {
         size_t res = _r(0);
-        _for(i, 0, r) if (cnt_col[i] < cnt_col[res]) res = i;
+        for_(i, 0, r) if (cnt_col[i] < cnt_col[res]) res = i;
         return res;
     }
 
@@ -45,11 +45,11 @@ class multi_DLX {
     size_t H() {
         size_t ret = 0;
         memset(vis, 0, sizeof(vis));
-        _for(i, 0, r) {
+        for_(i, 0, r) {
             if (vis[i]) continue;
             ++ret;
             vis[i] = true;
-            _for(j, i, d) _for(k, j, r) vis[_col(k)] = true;
+            for_(j, i, d) for_(k, j, r) vis[_col(k)] = true;
         }
         return ret;
     }
@@ -59,17 +59,17 @@ class multi_DLX {
         if (_r(0) == 0) return true;
         size_t now_col = find_min_col();
         if (now_depth + H() > max_depth) return false;
-        _for(i, now_col, d) {
+        for_(i, now_col, d) {
             remove_col(i);
             _ans[++_ans_len] = _row(i);
-            _for(j, i, r) remove_col(j);
+            for_(j, i, r) remove_col(j);
             if (dance(_ans, _ans_len, max_depth, now_depth + 1)) {
-                _for(j, i, l) resume_col(j);
+                for_(j, i, l) resume_col(j);
                 resume_col(i);
                 return true;
             }
             --_ans_len;
-            _for(j, i, l) resume_col(j);
+            for_(j, i, l) resume_col(j);
             resume_col(i);
         }
         return false;
@@ -144,7 +144,7 @@ class multi_DLX {
 #undef _d
 #undef _row
 #undef _col
-#undef _for
+#undef for_
 };
 
 } // namespace my_template

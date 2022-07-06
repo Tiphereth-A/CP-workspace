@@ -29,9 +29,9 @@ using namespace Matrix_helper;
 
 template <class Tp, class Equal = std::equal_to<Tp>>
 class matrix {
-#define _for(i, begin, end, vals...) for (size_t i = (begin), ##vals; i < (end); ++i)
-#define _for_row(i, vals...) _for(i, 0, this->get_row(), ##vals)
-#define _for_col(i, vals...) _for(i, 0, this->get_col(), ##vals)
+#define for_(i, begin, end, vals...) for (size_t i = (begin), ##vals; i < (end); ++i)
+#define _for_row(i, vals...) for_(i, 0, this->get_row(), ##vals)
+#define _for_col(i, vals...) for_(i, 0, this->get_col(), ##vals)
 #define _for_each(i, j) _for_row(i) _for_col(j)
 #define _square_matrix_needed \
     if (this->get_row() != this->get_col()) throw std::runtime_error("The matrix is not square matrix")
@@ -44,19 +44,19 @@ class matrix {
     constexpr friend std::ptrdiff_t _gauss(self& now) {
         size_t rk = 0;
         bool neg = false;
-        _for(i, 0, std::min(now.get_row(), now.get_col()), now_row = 0) {
+        for_(i, 0, std::min(now.get_row(), now.get_col()), now_row = 0) {
             now_row = rk;
-            _for(j, now_row + 1, now.get_row()) if (std::abs(now.data(j, i)) > std::abs(now.data(now_row, i))) now_row = j;
+            for_(j, now_row + 1, now.get_row()) if (std::abs(now.data(j, i)) > std::abs(now.data(now_row, i))) now_row = j;
             if (now.equ(now.data(now_row, i), now.get_zero())) continue;
             if (now_row != rk) {
                 std::swap(now.mat[now_row], now.mat[rk]);
                 neg ^= true;
             }
-            _for(j, 0, now.get_row()) {
+            for_(j, 0, now.get_row()) {
                 if (j == rk) continue;
                 data_t _ = now.data(j, i) / now.data(rk, i);
                 now.data(j, i) = now.get_zero();
-                _for(k, i + 1, now.get_col()) now.data(j, k) -= now.data(rk, k) * _;
+                for_(k, i + 1, now.get_col()) now.data(j, k) -= now.data(rk, k) * _;
             }
             ++rk;
         }
@@ -66,18 +66,18 @@ class matrix {
     constexpr friend std::ptrdiff_t _gauss_half(self& now) {
         size_t rk = 0;
         bool neg = false;
-        _for(i, 0, std::min(now.get_row(), now.get_col()), now_row = 0) {
+        for_(i, 0, std::min(now.get_row(), now.get_col()), now_row = 0) {
             now_row = rk;
-            _for(j, now_row + 1, now.get_row()) if (std::abs(now.data(j, i)) > std::abs(now.data(now_row, i))) now_row = j;
+            for_(j, now_row + 1, now.get_row()) if (std::abs(now.data(j, i)) > std::abs(now.data(now_row, i))) now_row = j;
             if (now.equ(now.data(now_row, i), now.get_zero())) continue;
             if (now_row != rk) {
                 std::swap(now.mat[now_row], now.mat[rk]);
                 neg ^= true;
             }
-            _for(j, rk + 1, now.get_row()) {
+            for_(j, rk + 1, now.get_row()) {
                 data_t _ = now.data(j, i) / now.data(rk, i);
                 now.data(j, i) = now.get_zero();
-                _for(k, i + 1, now.get_col()) now.data(j, k) -= now.data(rk, k) * _;
+                for_(k, i + 1, now.get_col()) now.data(j, k) -= now.data(rk, k) * _;
             }
             ++rk;
         }
@@ -87,22 +87,22 @@ class matrix {
     constexpr friend std::ptrdiff_t _gauss_euclid(self& now) {
         size_t rk = 0;
         bool neg = false;
-        _for(i, 0, std::min(now.get_row(), now.get_col()), now_row = 0) {
+        for_(i, 0, std::min(now.get_row(), now.get_col()), now_row = 0) {
             now_row = rk;
-            _for(j, now_row + 1, now.get_row()) if (std::abs(now.data(j, i)) > std::abs(now.data(now_row, i))) now_row = j;
+            for_(j, now_row + 1, now.get_row()) if (std::abs(now.data(j, i)) > std::abs(now.data(now_row, i))) now_row = j;
             if (now.equ(now.data(now_row, i), now.get_zero())) continue;
             if (now_row != rk) {
                 std::swap(now.mat[now_row], now.mat[rk]);
                 neg ^= true;
             }
-            _for(j, 0, now.get_row()) {
+            for_(j, 0, now.get_row()) {
                 if (now.data(j, i) > now.data(i, i)) {
                     std::swap(now.mat[j], now.mat[i]);
                     neg ^= true;
                 }
                 while (!now.equ(now.data(i, i), now.get_zero())) {
                     std::ptrdiff_t _ = now.data(j, i) / now.data(i, i);
-                    _for(k, i, now.get_row()) now.data(j, k) -= now.data(i, k) * data_t(_);
+                    for_(k, i, now.get_row()) now.data(j, k) -= now.data(i, k) * data_t(_);
                     std::swap(now.mat[j], now.mat[i]);
                     neg ^= true;
                 }
@@ -115,22 +115,22 @@ class matrix {
     constexpr friend std::ptrdiff_t _gauss_half_euclid(self& now) {
         size_t rk = 0;
         bool neg = false;
-        _for(i, 0, std::min(now.get_row(), now.get_col()), now_row = 0) {
+        for_(i, 0, std::min(now.get_row(), now.get_col()), now_row = 0) {
             now_row = rk;
-            _for(j, now_row + 1, now.get_row()) if (std::abs(now.data(j, i)) > std::abs(now.data(now_row, i))) now_row = j;
+            for_(j, now_row + 1, now.get_row()) if (std::abs(now.data(j, i)) > std::abs(now.data(now_row, i))) now_row = j;
             if (now.equ(now.data(now_row, i), now.get_zero())) continue;
             if (now_row != rk) {
                 std::swap(now.mat[now_row], now.mat[rk]);
                 neg ^= true;
             }
-            _for(j, rk + 1, now.get_row()) {
+            for_(j, rk + 1, now.get_row()) {
                 if (now.data(j, i) > now.data(i, i)) {
                     std::swap(now.mat[j], now.mat[i]);
                     neg ^= true;
                 }
                 while (!now.equ(now.data(i, i), now.get_zero())) {
                     std::ptrdiff_t _ = now.data(j, i) / now.data(i, i);
-                    _for(k, i, now.get_row()) now.data(j, k) -= now.data(i, k) * data_t(_);
+                    for_(k, i, now.get_row()) now.data(j, k) -= now.data(i, k) * data_t(_);
                     std::swap(now.mat[j], now.mat[i]);
                     neg ^= true;
                 }
@@ -268,7 +268,7 @@ class matrix {
         if (this->get_col() != rhs.get_row()) throw std::logic_error("you can not multiple (" + std::to_string(this->get_row()) + "x" + std::to_string(this->get_col()) + ") matrix and (" + std::to_string(rhs.get_row()) + "x" + std::to_string(rhs.get_col()) + ") matrix");
 
         self ret(this->get_row(), rhs.get_col(), 0, this->equ);
-        _for_row(i) _for_col(k) _for(j, 0, rhs.get_col()) ret.data(i, j) += this->data(i, k) * rhs.data(k, j);
+        _for_row(i) _for_col(k) for_(j, 0, rhs.get_col()) ret.data(i, j) += this->data(i, k) * rhs.data(k, j);
         return ret;
     }
 
@@ -291,11 +291,11 @@ class matrix {
     bool operator!=(const self& rhs) const { return !(*this == rhs); }
 
     friend std::istream& operator>>(std::istream& is, self& x) {
-        _for(i, 0, x.get_row()) _for(j, 0, x.get_col()) is >> x.data(i, j);
+        for_(i, 0, x.get_row()) for_(j, 0, x.get_col()) is >> x.data(i, j);
         return is;
     }
     friend std::ostream& operator<<(std::ostream& os, const self& x) {
-        _for(i, 0, x.get_row()) _for(j, 0, x.get_col()) {
+        for_(i, 0, x.get_row()) for_(j, 0, x.get_col()) {
             os << x.data(i, j);
             if (i + 1 < x.get_row() || j + 1 < x.get_col()) os << (j + 1 == x.get_col() ? '\n' : ' ');
         }
@@ -308,7 +308,7 @@ class matrix {
     Equal equ;
     static constexpr data_t zero = Zero<data_t>::value, one = One<data_t>::value;
 
-#undef _for
+#undef for_
 #undef _for_row
 #undef _for_col
 #undef _for_each
