@@ -93,7 +93,7 @@
             "\tTp spath[N][N];",
             "\npublic:",
             "\tusing self = FloydSolver<N, Tp>;",
-            "\texplicit FloydSolver(size_t _n = N - 1) : n(_n) { init(); }",
+            "\texplicit FloydSolver(size_t _n = N - 1) : n(_n) {}",
             "\tinline self& resize(size_t _n) { n = _n; return *this; }",
             "\tinline self& init() { memset(spath, 0x3f, sizeof(spath)); for (size_t i = 1; i <= n; ++i) spath[i][i] = 0; return *this; }",
             "\tinline self& addedge(size_t from, size_t to, Tp w = 1) { spath[from][to] = w; return *this; }",
