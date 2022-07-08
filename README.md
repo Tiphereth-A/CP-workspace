@@ -63,6 +63,7 @@ My VSCode workspace for Competitive Programming.
 | euler-path-digraph    | `euler_path_digraph`                                               | Find Euler path (digraph)                               |
 | dsu-basic             | `dsu_basic`                                                        | DSU                                                     |
 | fenwick-tree          | `fenwick`, `fenwick-tree`                                          |                                                         |
+| UDHeap                | `udheap`                                                           |                                                         |
 
 ## 3rd library support
 

@@ -44,5 +44,41 @@
             "\t}",
             "};"
         ]
+    },
+    "UDHeap": {
+        "scope": "cpp",
+        "prefix": "udheap",
+        "body": [
+            "template <class Tp>",
+            "class UDHeap {",
+            "private:",
+            "\tstd::priority_queue<Tp> dq;",
+            "\tstd::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>> uq;",
+            "\npublic:",
+            "\tusing self = UDHeap<Tp>;",
+            "\tUDHeap() {}",
+            "\tself &clear() {",
+            "\t\tdq = {};",
+            "\t\tuq = {};",
+            "\t\treturn *this;",
+            "\t}",
+            "\tinline self &insert(Tp x) {",
+            "\t\tif (dq.empty() && uq.empty()) {",
+            "\t\t\tdq.push(x);",
+            "\t\t\treturn *this;",
+            "\t\t}",
+            "\t\t(x > dq.top() ? uq.push(x) : dq.push(x));",
+            "\t\tif (uq.size() > dq.size() + 1) {",
+            "\t\t\tdq.push(uq.top());",
+            "\t\t\tuq.pop();",
+            "\t\t} else if (dq.size() > uq.size() + 1) {",
+            "\t\t\tuq.push(dq.top());",
+            "\t\t\tdq.pop();",
+            "\t\t}",
+            "\t\treturn *this;",
+            "\t}",
+            "\tinline Tp get_mid() const { return uq.size() > dq.size() ? uq.top() : dq.top(); }",
+            "};"
+        ]
     }
 }
