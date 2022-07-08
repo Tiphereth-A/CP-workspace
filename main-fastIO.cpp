@@ -13,13 +13,13 @@
 namespace fast_io {
 namespace type_traits {
 template <class Tp>
-using is_int = typename std::conditional<(std::is_integral<Tp>::value && std::is_signed<Tp>::value) || std::is_same<Tp, __int128_t>::value, std::true_type, std::false_type>::type;
+using is_int = class std::conditional<(std::is_integral<Tp>::value && std::is_signed<Tp>::value) || std::is_same<Tp, __int128_t>::value, std::true_type, std::false_type>::type;
 
 template <class Tp>
-using is_uint = typename std::conditional<(std::is_integral<Tp>::value && std::is_unsigned<Tp>::value) || std::is_same<Tp, __uint128_t>::value, std::true_type, std::false_type>::type;
+using is_uint = class std::conditional<(std::is_integral<Tp>::value && std::is_unsigned<Tp>::value) || std::is_same<Tp, __uint128_t>::value, std::true_type, std::false_type>::type;
 
 template <class Tp>
-using make_uint = typename std::conditional<std::is_same<Tp, __int128_t>::value, __uint128_t, typename std::conditional<std::is_signed<Tp>::value, std::make_unsigned<Tp>, std::common_type<Tp>>::type>::type;
+using make_uint = class std::conditional<std::is_same<Tp, __int128_t>::value, __uint128_t, class std::conditional<std::is_signed<Tp>::value, std::make_unsigned<Tp>, std::common_type<Tp>>::type>::type;
 }  // namespace type_traits
 
 template <size_t BUFFER_SIZE>
@@ -41,7 +41,7 @@ class FastIn {
         now_ = end_ = buffer_;
     }
 
-    template <typename Tp, typename std::enable_if<type_traits::is_int<Tp>::value>::type * = nullptr>
+    template <class Tp, class std::enable_if<type_traits::is_int<Tp>::value>::type * = nullptr>
     inline self &read(Tp &n) noexcept {
         bool is_neg = false;
         char ch = this->fetch();
@@ -57,7 +57,7 @@ class FastIn {
         if (is_neg) n = -n;
         return *this;
     }
-    template <typename Tp, typename std::enable_if<type_traits::is_uint<Tp>::value>::type * = nullptr>
+    template <class Tp, class std::enable_if<type_traits::is_uint<Tp>::value>::type * = nullptr>
     inline self &read(Tp &n) noexcept {
         char ch = this->fetch();
         while (!isdigit(ch)) ch = this->fetch();
@@ -107,6 +107,12 @@ class FastIn {
         while (isprint(n_ = this->fetch())) n.push_back(n_);
         return *this;
     }
+    template <class Tp, class Up>
+    inline self &read(std::pair<Tp, Up> &p) { return this->read(p.first).read(p.second); }
+    template <class Tp, class Up, class Vp>
+    inline self &read(std::tuple<Tp, Up, Vp> &p) { return this->read(std::get<0>(p)).read(std::get<1>(p)).read(std::get<2>(p)); }
+    template <class Tp, class Up, class Vp, class Wp>
+    inline self &read(std::tuple<Tp, Up, Vp, Wp> &p) { return this->read(std::get<0>(p)).read(std::get<1>(p)).read(std::get<2>(p)).read(std::get<3>(p)); }
 };
 
 template <size_t BUFFER_SIZE, size_t INT_BUFFER_SIZE>
@@ -163,15 +169,15 @@ class FastOut {
         this->now_ += len;
         return *this;
     }
-    template <class Tp, typename std::enable_if<type_traits::is_int<Tp>::value>::type * = nullptr>
+    template <class Tp, class std::enable_if<type_traits::is_int<Tp>::value>::type * = nullptr>
     inline self &write(Tp n) noexcept {
         if (n < 0) {
             this->write('-');
             n = -n;
         }
-        return this->write(static_cast<typename type_traits::make_uint<Tp>::type>(n));
+        return this->write(static_cast<class type_traits::make_uint<Tp>::type>(n));
     }
-    template <class Tp, typename std::enable_if<type_traits::is_uint<Tp>::value>::type * = nullptr>
+    template <class Tp, class std::enable_if<type_traits::is_uint<Tp>::value>::type * = nullptr>
     inline self &write(Tp n) noexcept {
         this->now_ib_ = this->int_buffer_ + INT_BUFFER_SIZE - 1;
         do { *(--(this->now_ib_)) = char(n % 10) | '0'; } while (n /= 10);
@@ -182,6 +188,12 @@ class FastOut {
         this->write(str.c_str());
         return *this;
     }
+    template <class Tp, class Up>
+    inline self &write(const std::pair<Tp, Up> &p) { return this->write(p.first).space().write(p.second); }
+    template <class Tp, class Up, class Vp>
+    inline self &write(const std::tuple<Tp, Up, Vp> &p) { return this->write(std::get<0>(p)).space().write(std::get<1>(p)).space().write(std::get<2>(p)); }
+    template <class Tp, class Up, class Vp, class Wp>
+    inline self &write(const std::tuple<Tp, Up, Vp, Wp> &p) { return this->write(std::get<0>(p)).space().write(std::get<1>(p)).space().write(std::get<2>(p)).space().write(std::get<3>(p)); }
 };
 
 const std::size_t BUFFER_SIZE = 1 << 21;
@@ -196,21 +208,90 @@ using i32 = std::int32_t;
 using u32 = std::uint32_t;
 using i64 = std::int64_t;
 using u64 = std::uint64_t;
-using i128 = __int128_t;
-using u128 = __uint128_t;
+// using i128 = __int128_t;
+// using u128 = __uint128_t;
 
-template <typename Tp>
+#define OPERATOR_OVERRIED_PAIR_(oper)                                                                                                          \
+    template <class Tp, class Up>                                                                                                              \
+    constexpr std::pair<Tp, Up> &operator oper##=(std::pair<Tp, Up> &lhs, const std::pair<Tp, Up> &rhs) {                                      \
+        lhs.first oper## = rhs.first;                                                                                                          \
+        lhs.second oper## = rhs.second;                                                                                                        \
+        return lhs;                                                                                                                            \
+    }                                                                                                                                          \
+    template <class Tp, class Up>                                                                                                              \
+    constexpr std::pair<Tp, Up> operator oper(std::pair<Tp, Up> lhs, const std::pair<Tp, Up> &rhs) { return lhs oper## = rhs; }                \
+    template <class Tp, class Up, class Vp>                                                                                                    \
+    constexpr std::tuple<Tp, Up, Vp> &operator oper##=(std::tuple<Tp, Up, Vp> &lhs, const std::tuple<Tp, Up, Vp> &rhs) {                       \
+        std::get<0>(lhs) oper## = std::get<0>(rhs);                                                                                            \
+        std::get<1>(lhs) oper## = std::get<1>(rhs);                                                                                            \
+        std::get<2>(lhs) oper## = std::get<2>(rhs);                                                                                            \
+        return lhs;                                                                                                                            \
+    }                                                                                                                                          \
+    template <class Tp, class Up, class Vp>                                                                                                    \
+    constexpr std::tuple<Tp, Up, Vp> operator oper(std::tuple<Tp, Up, Vp> lhs, const std::tuple<Tp, Up, Vp> &rhs) { return lhs oper## = rhs; } \
+    template <class Tp, class Up, class Vp, class Wp>                                                                                          \
+    constexpr std::tuple<Tp, Up, Vp, Wp> &operator oper##=(std::tuple<Tp, Up, Vp, Wp> &lhs, const std::tuple<Tp, Up, Vp, Wp> &rhs) {           \
+        std::get<0>(lhs) oper## = std::get<0>(rhs);                                                                                            \
+        std::get<1>(lhs) oper## = std::get<1>(rhs);                                                                                            \
+        std::get<2>(lhs) oper## = std::get<2>(rhs);                                                                                            \
+        std::get<3>(lhs) oper## = std::get<3>(rhs);                                                                                            \
+        return lhs;                                                                                                                            \
+    }                                                                                                                                          \
+    template <class Tp, class Up, class Vp, class Wp>                                                                                          \
+    constexpr std::tuple<Tp, Up, Vp, Wp> operator oper(std::tuple<Tp, Up, Vp, Wp> lhs, const std::tuple<Tp, Up, Vp, Wp> &rhs) { return lhs oper## = rhs; }
+
+
+OPERATOR_OVERRIED_PAIR_(+)
+OPERATOR_OVERRIED_PAIR_(-)
+OPERATOR_OVERRIED_PAIR_(*)
+OPERATOR_OVERRIED_PAIR_(/)
+OPERATOR_OVERRIED_PAIR_(%)
+
+#undef OPERATOR_OVERRIED_PAIR_
+
+
+template <class Ch, class Tr, class Tp, class Up>
+std::basic_istream<Ch, Tr> &operator>>(std::basic_istream<Ch, Tr> &is, std::pair<Tp, Up> &p) { return is >> p.first >> p.second; }
+template <class Ch, class Tr, class Tp, class Up>
+std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const std::pair<Tp, Up> &p) { return os << p.first << ' ' << p.second; }
+template <class Ch, class Tr, class Tp, class Up, class Vp>
+std::basic_istream<Ch, Tr> &operator>>(std::basic_istream<Ch, Tr> &is, std::tuple<Tp, Up, Vp> &p) { return is >> std::get<0>(p) >> std::get<1>(p) >> std::get<2>(p); }
+template <class Ch, class Tr, class Tp, class Up, class Vp>
+std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const std::tuple<Tp, Up, Vp> &p) { return os << std::get<0>(p) << ' ' << std::get<1>(p) << ' ' << std::get<2>(p); }
+template <class Ch, class Tr, class Tp, class Up, class Vp, class Wp>
+std::basic_istream<Ch, Tr> &operator>>(std::basic_istream<Ch, Tr> &is, std::tuple<Tp, Up, Vp, Wp> &p) { return is >> std::get<0>(p) >> std::get<1>(p) >> std::get<2>(p) >> std::get<3>(p); }
+template <class Ch, class Tr, class Tp, class Up, class Vp, class Wp>
+std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const std::tuple<Tp, Up, Vp, Wp> &p) { return os << std::get<0>(p) << ' ' << std::get<1>(p) << ' ' << std::get<2>(p) << ' ' << std::get<3>(p); }
+
+
+template <class Tp>
 using pi = std::pair<Tp, Tp>;
-template <typename Tp>
-using pc = std::complex<Tp>;
-template <typename Tp>
+template <class Tp>
+using pi3 = std::tuple<Tp, Tp, Tp>;
+template <class Tp>
+using pi4 = std::tuple<Tp, Tp, Tp, Tp>;
+template <class Tp>
 using vc = std::vector<Tp>;
-template <typename Tp>
+template <class Tp>
 using vvc = std::vector<std::vector<Tp>>;
-template <typename Tp>
+template <class Tp>
 using pq = std::priority_queue<Tp>;
-template <typename Tp>
+template <class Tp>
 using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
+template <class Tp>
+using hset = std::unordered_set<Tp>;
+template <class Key, class Tp, class Hash = std::hash<Key>>
+using hmap = std::unordered_map<Key, Tp, Hash>;
+
+using compi = std::complex<int>;
+using compi64 = std::complex<i64>;
+using compd = std::complex<double>;
+using pii = pi<int>;
+using pii64 = pi<i64>;
+using pi3i = pi3<int>;
+using pi3i64 = pi3<i64>;
+using pi4i = pi4<int>;
+using pi4i64 = pi4<i64>;
 
 #define for_(i, l, r, vars...) for (decltype(l + r) i = (l), i##end = (r), ##vars; i <= i##end; ++i)
 #define rfor_(i, r, l, vars...) for (make_signed_t<decltype(r - l)> i = (r), i##end = (l), ##vars; i >= i##end; --i)
@@ -253,7 +334,7 @@ template <class Tp>
 auto chkmin(Tp &a, Tp b) -> bool { return b < a ? a = b, true : false; };
 template <class Tp>
 auto chkmax(Tp &a, Tp b) -> bool { return a < b ? a = b, true : false; };
-template <typename Tp>
+template <class Tp>
 auto discretization(Tp &var) -> Tp {
     Tp d__(var);
     std::sort(d__.begin(), d__.end());
@@ -261,27 +342,34 @@ auto discretization(Tp &var) -> Tp {
     for (auto &i : var) i = std::distance(d__.begin(), std::lower_bound(d__.begin(), d__.end(), i));
     return d__;
 };
-template <typename Tp>
+template <class Tp>
 auto ispow2(Tp i) -> bool { return i && (i & -i) == i; }
 
 template <class Tp, class Up>
-std::ostream &operator<<(std::ostream &os, const std::pair<Tp, Up> &p) {
-    return os << "(" << p.first << ", " << p.second << ")";
-}
+std::ostream &operator<<(std::ostream &os, const std::pair<Tp, Up> &p) { return os << p.first << " " << p.second; }
 template <class Ch, class Tr, class Container>
 std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const Container &x) {
-    os << "[";
-    for (auto it = x.begin(); it != x.end() - 1; ++it) os << *it << ", ";
-    return os << "]";
+#ifdef LOCAL_
+    if (&os == &std::cerr) os << "[";
+    if (&os == &std::cerr)
+        for (auto it = x.begin(); it != x.end() - 1; ++it) os << *it << ", ";
+    else
+#endif
+        for (auto it = x.begin(); it != x.end() - 1; ++it) os << *it << ' ';
+    os << x.back();
+#ifdef LOCAL_
+    if (&os == &std::cerr) os << "]";
+#endif
+    return os;
 }
 
-template <typename Tp>
+template <class Tp>
 inline void debug(Tp x) {
 #ifdef LOCAL_
     std::cerr << x << std::endl;
 #endif
 }
-template <typename Tp, typename... Args>
+template <class Tp, class... Args>
 inline void debug(Tp x, Args... args) {
 #ifdef LOCAL_
     std::cerr << x << ' ';
@@ -300,8 +388,8 @@ const double EPS = 1e-6;
 const i32 INF = 0x3f3f3f3f;
 const i64 INF64 = 0x3f3f3f3f3f3f3f3f;
 const double PI = acos(-1.0);
-const pc<i32> DIR4[4] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
-const pc<i32> DIR8[8] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+const pii DIR4[4] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+const pii DIR8[8] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 const i32 EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 const i32 FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
 const std::string RES_YN[2] = {"NO", "YES"};
