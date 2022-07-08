@@ -54,6 +54,7 @@ My VSCode workspace for Competitive Programming.
 | graph                 | `graph`, `edges`                                                   | Adjacency list                                          |
 | dijkstra              | `dijkstra`, `dijk`                                                 |
 | bellman-ford          | `bellman-ford`, `spfa`, `bford`                                    |
+| floyd                 | `floyd`                                                            |
 | kruakal               | `kruskal`                                                          |
 | johnson               | `johnson`                                                          |
 | tarjan-scc            | `scc`, `tarjan-scc`                                                | Find all SCC based on Tarjan algorithm                  |
