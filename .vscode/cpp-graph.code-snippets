@@ -95,9 +95,9 @@
             "\tusing self = FloydSolver<N, Tp>;",
             "\texplicit FloydSolver(size_t _n = N - 1) : n(_n) {}",
             "\tinline self& resize(size_t _n) { n = _n; return *this; }",
-            "\tinline self& init() { memset(spath, 0x3f, sizeof(spath)); for (size_t i = 1; i <= n; ++i) spath[i][i] = 0; return *this; }",
+            "\tinline self& init() { memset(spath, 0x3f, sizeof(spath)); for (size_t i = 0; i <= n; ++i) spath[i][i] = 0; return *this; }",
             "\tinline self& addedge(size_t from, size_t to, Tp w = 1) { spath[from][to] = w; return *this; }",
-            "\tinline self& floyd() { for (size_t k = 1; k <= n; ++k) for (size_t i = 1; i <= n; ++i) for (size_t j = 1; j <= n; ++j) if (spath[i][k] + spath[k][j] < spath[i][j]) spath[i][j] = spath[i][k] + spath[k][j]; return *this; }",
+            "\tinline self& floyd() { for (size_t k = 0; k <= n; ++k) for (size_t i = 0; i <= n; ++i) for (size_t j = 0; j <= n; ++j) if (spath[i][k] + spath[k][j] < spath[i][j]) spath[i][j] = spath[i][k] + spath[k][j]; return *this; }",
             "\tinline const Tp& query(size_t from, size_t to) { return spath[from][to]; }",
             "};"
         ]
