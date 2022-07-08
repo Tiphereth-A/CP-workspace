@@ -58,11 +58,11 @@
             "\tusing self = UDHeap<Tp>;",
             "\tUDHeap() {}",
             "\tself &clear() {",
-            "\t\tdq = {};",
-            "\t\tuq = {};",
+            "\t\twhile (!dq.empty()) dq.pop();",
+            "\t\twhile (!uq.empty()) uq.pop();",
             "\t\treturn *this;",
             "\t}",
-            "\tinline self &insert(Tp x) {",
+            "\tinline self &insert(const Tp &x) {",
             "\t\tif (dq.empty() && uq.empty()) {",
             "\t\t\tdq.push(x);",
             "\t\t\treturn *this;",
@@ -78,6 +78,10 @@
             "\t\treturn *this;",
             "\t}",
             "\tinline Tp get_mid() const { return uq.size() > dq.size() ? uq.top() : dq.top(); }",
+            "\tinline self &pop_mid() {",
+            "\t\tuq.size() > dq.size() ? uq.pop() : dq.pop();",
+            "\t\treturn *this;",
+            "\t}",
             "};"
         ]
     }
