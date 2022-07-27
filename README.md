@@ -1,5 +1,7 @@
 # CP-workspace
 
+**DEPRECATED** please use main branch
+
 ![GitHub](https://img.shields.io/github/license/Tiphereth-A/CP-workspace)
 
 My VSCode workspace for Competitive Programming.
