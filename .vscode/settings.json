@@ -15,13 +15,12 @@
     },
     "files.associations": {
         "*.cpp": "cpp",
-        "*.m": "matlab",
         "*.py": "python",
         "*.out": "plaintext",
         "*.in": "plaintext",
         "*.hpp": "cpp",
         "**/include/c++/**": "cpp",
-        "algorithm": "cpp"
+        "${workspaceFolder}/lib/**": "cpp",
     },
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
     "C_Cpp.errorSquiggles": "enabled"
