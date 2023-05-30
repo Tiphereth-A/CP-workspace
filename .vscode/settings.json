@@ -20,7 +20,7 @@
         "*.in": "plaintext",
         "*.hpp": "cpp",
         "**/include/c++/**": "cpp",
-        "${workspaceFolder}/lib/**": "cpp",
+        "${workspaceFolder}/lib/**": "cpp"
     },
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
     "C_Cpp.errorSquiggles": "enabled"
