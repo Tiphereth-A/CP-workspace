@@ -18,6 +18,7 @@ My VSCode workspace for Competitive Programming. **Only for Linux**
 
 - Install [VSCode](https://code.visualstudio.com/) and [GCC](https://gcc.gnu.org/)
 - Clone this repo
+- Install submudules by `git submodule update --init`
 - Open this folder with VSCode
 - (Optional) You can add key bindings by copying the contents of `.vscode/keybindings.json` into your `keybindings.json`
 - Enjoy!
