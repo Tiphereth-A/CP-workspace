@@ -122,6 +122,7 @@ code .
 | RMQ-ST-2D                           | `rmq-2d`, `rmq-st-2d`                                    |
 | safe-mod                            | `safe-mod`                                               |
 | simpson                             | `simpson`                                                |
+| simpson-dep-limit                   | `simpson-with-min-depth-limit`                           | Slower but maybe more accurate for discret function      |
 | simulated-annealing                 | `simulated-annealing`                                    |
 | sqrt-bucket                         | `blocking`, `sqrt-blocking`,`sqrt-bucket`                |
 | stdc++11                            | `stdc++11`                                               | Standard libs (C++11)                                    |
