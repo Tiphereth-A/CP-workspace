@@ -165,7 +165,7 @@ constexpr data_t area_CC(const Circle &lhs, const Circle &rhs) {
     if (relation == RELA_CC::lyingin_cc || relation == RELA_CC::touchin_cc) return std::min(
         lhs.area(), rhs.area());
     data_t d = dist_PP(lhs.o, rhs.o);
-    return lhs.crown_area(std::acos((lhs.r * lhs.r + d * d - rhs.r * rhs.r) / (2 * lhs.r * d)) * 2) + rhs.crown_area(std::acos((rhs.r * rhs.r + d * d - lhs.r * lhs.r) / (2 * rhs.r * d)) * 2);
+    return lhs.crown_area(std::acos((lhs.r * lhs.r - rhs.r * rhs.r + d * d) / (2 * lhs.r * d)) * 2) + rhs.crown_area(std::acos((rhs.r * rhs.r - lhs.r * lhs.r + d * d) / (2 * rhs.r * d)) * 2);
 }
 
 // min coverage circle of a set of points
