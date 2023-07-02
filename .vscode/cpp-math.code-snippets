@@ -1643,7 +1643,7 @@
         "prefix": "simpson",
         "body": [
             "class SimpsonSolver {",
-            "protected:",
+            "private:",
             "const double eps__;",
             "constexpr static double simpson(double l, double r, double fl, double fmid, double fr) { return (fl + 4 * fmid + fr) * (r - l) / 6; }",
             "template <typename Func>",
@@ -1667,7 +1667,7 @@
         "prefix": "simpson-with-min-depth-limit",
         "body": [
             "class SimpsonSolver {",
-            "protected:",
+            "private:",
             "const double eps__;",
             "const int least_dep__;",
             "constexpr static double simpson(double l, double r, double fl, double fmid, double fr) { return (fl + 4 * fmid + fr) * (r - l) / 6; }",
