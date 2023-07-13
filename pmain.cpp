@@ -31,10 +31,10 @@ using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
 #define rforitr_(it, cont, l, r) for (auto it = (cont).rbegin() + l; it != (cont).rbegin() + r; ++it)
 #define Rep for_
 #define rep rfor_
-template <class Tp>
-Tp dec(Tp &i) { return --i; }
-template <class Tp>
-Tp inc(Tp &i) { return ++i; }
+template <typename... Ts>
+void dec(Ts &...x) { ((--x), ...); }
+template <typename... Ts>
+void inc(Ts &...x) { ((++x), ...); }
 
 
 template <class Tp>
