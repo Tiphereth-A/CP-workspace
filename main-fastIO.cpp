@@ -297,6 +297,7 @@ enumerate_impl_<T> enumerate(T &&container) { return {std::forward<T>(container)
 }  // namespace Enumerate
 using Enumerate::enumerate;
 
+// <https://blog.tifa-233.com/archives/draft-025/>
 namespace NdVector {
 template <size_t N, class Tp>
 struct ndvector: public std::vector<ndvector<N - 1, Tp>> {
