@@ -23,6 +23,7 @@
 #include <dbg.h>
 #endif
 
+
 template <typename T>
 using remove_cvref_t = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
 
@@ -135,6 +136,7 @@ struct CustomHash {
         return ret;
     }
 };
+
 
 template <class Tp>
 using pi = std::pair<Tp, Tp>;

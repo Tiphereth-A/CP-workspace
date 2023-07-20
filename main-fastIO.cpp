@@ -23,6 +23,7 @@
 #include <dbg.h>
 #endif
 
+
 namespace fast_io {
 namespace type_traits {
 template <class Tp>
@@ -240,6 +241,7 @@ FastOut<BUFFER_SIZE, 21> fastout;
 }  // namespace fast_io
 using fast_io::fastin;
 using fast_io::fastout;
+
 
 template <class Tp>
 using pi = std::pair<Tp, Tp>;
