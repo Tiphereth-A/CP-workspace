@@ -23,21 +23,15 @@
 #include <dbg.h>
 #endif
 
+template <typename T>
+using remove_cvref_t = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
 
-template <class Tp>
-using pi = std::pair<Tp, Tp>;
-template <class Tp>
-using pi3 = std::tuple<Tp, Tp, Tp>;
-template <class Tp>
-using pi4 = std::tuple<Tp, Tp, Tp, Tp>;
-template <class Tp>
-using vc = std::vector<Tp>;
-template <class Tp>
-using vvc = std::vector<std::vector<Tp>>;
-template <class Tp>
-using pq = std::priority_queue<Tp>;
-template <class Tp>
-using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
+template <class T>
+using is_iterable = typename std::conditional<std::is_same<decltype(std::declval<remove_cvref_t<T>>().begin()), typename remove_cvref_t<T>::iterator>::value && std::is_same<decltype(std::declval<remove_cvref_t<T>>().end()), typename remove_cvref_t<T>::iterator>::value, std::true_type, std::false_type>::type;
+
+template <class T>
+using is_container = typename std::conditional<is_iterable<T>::value && !std::is_base_of<T, std::basic_string<typename T::value_type>>::value, std::true_type, std::false_type>::type;
+
 
 namespace NdVector {
 template <size_t N, class Tp>
@@ -111,6 +105,20 @@ struct CustomHash {
     }
 };
 
+template <class Tp>
+using pi = std::pair<Tp, Tp>;
+template <class Tp>
+using pi3 = std::tuple<Tp, Tp, Tp>;
+template <class Tp>
+using pi4 = std::tuple<Tp, Tp, Tp, Tp>;
+template <class Tp>
+using vc = std::vector<Tp>;
+template <class Tp>
+using vvc = std::vector<std::vector<Tp>>;
+template <class Tp>
+using pq = std::priority_queue<Tp>;
+template <class Tp>
+using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
 template <class Tp, class Hash = CustomHash>
 using hset = std::unordered_set<Tp, Hash>;
 template <class Key, class Tp, class Hash = CustomHash>
@@ -294,8 +302,8 @@ std::ostream &operator<<(std::ostream &os, const std::tuple<Ts...> &p) {
     return os;
 }
 
-template <class Ch, class Tr, class Ct, std::enable_if_t<std::is_same<decltype(std::declval<Ct>().begin()), typename Ct::iterator>::value && std::is_same<decltype(std::declval<Ct>().end()), typename Ct::iterator>::value> * = nullptr>
-std::basic_ostream<Ch, Tr> &operator<<(std::basic_ostream<Ch, Tr> &os, const Ct &x) {
+template <class T, std::enable_if_t<is_container<T>::value> * = nullptr>
+std::ostream &operator<<(std::ostream &os, const T &x) {
 #ifdef LOCAL_
     if (&os == &std::cerr && x.begin() == x.end()) return os << "[]";
 #endif
