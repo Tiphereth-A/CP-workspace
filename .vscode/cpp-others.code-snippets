@@ -253,7 +253,11 @@
             "for (auto &&i : tp) ret = append(ret, (*this)(i));",
             "return ret;",
             "}",
-            "};"
+            "};",
+            "template <class Tp, class Hash = CustomHash>",
+            "using hset = std::unordered_set<Tp, Hash>;",
+            "template <class Key, class Tp, class Hash = CustomHash>",
+            "using hmap = std::unordered_map<Key, Tp, Hash>;"
         ]
     },
     "hoverline": {
@@ -377,7 +381,7 @@
             "};",
             "}  // namespace NdVector",
             "template <size_t N, class Tp>",
-            "using ndvc = NdVector::ndvector<N, Tp>;",
+            "using ndvc = NdVector::ndvector<N, Tp>;"
         ]
     },
     "ostream-int128": {

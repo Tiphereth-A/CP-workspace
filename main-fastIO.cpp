@@ -269,46 +269,6 @@ template <class T>
 using is_container = typename std::conditional<is_iterable<T>::value && !std::is_base_of<T, std::basic_string<typename T::value_type>>::value, std::true_type, std::false_type>::type;
 
 
-// <https://codeforces.com/blog/entry/62393>
-struct CustomHash {
-    static constexpr uint64_t splitmix64(uint64_t x) {
-        // <http://xorshift.di.unimi.it/splitmix64.c>
-        x += 0x9e3779b97f4a7c15;
-        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
-        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
-        return x ^ (x >> 31);
-    }
-
-    static constexpr size_t append(size_t x, size_t y) { return x ^ (y >> 1) ^ ((y & 1) << (sizeof(size_t) * 8 - 1)); }
-
-    size_t operator()(uint64_t x) const {
-        static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
-        return splitmix64(x + FIXED_RANDOM);
-    }
-
-    template <class Tp, class Up>
-    size_t operator()(std::pair<Tp, Up> const &p) const { return append((*this)(p.first), (*this)(p.second)); }
-
-    template <typename... Ts>
-    size_t operator()(std::tuple<Ts...> const &tp) const {
-        size_t ret = 0;
-        std::apply([&](Ts const &...targs) { ((ret = append(ret, (*this)(targs))), ...); }, tp);
-        return ret;
-    }
-
-    template <class Tp, std::enable_if_t<std::is_same<decltype(std::declval<Tp>().begin()), typename Tp::iterator>::value && std::is_same<decltype(std::declval<Tp>().end()), typename Tp::iterator>::value> * = nullptr>
-    size_t operator()(Tp const &tp) const {
-        size_t ret = 0;
-        for (auto &&i : tp) ret = append(ret, (*this)(i));
-        return ret;
-    }
-};
-
-template <class Tp, class Hash = CustomHash>
-using hset = std::unordered_set<Tp, Hash>;
-template <class Key, class Tp, class Hash = CustomHash>
-using hmap = std::unordered_map<Key, Tp, Hash>;
-
 using i32 = int32_t;
 using u32 = uint32_t;
 using i64 = int64_t;
