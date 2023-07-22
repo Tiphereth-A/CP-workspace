@@ -62,6 +62,7 @@ code .
 | DLX                                 | `dancing-link-x`, `dlx`                                  |
 | dsu-basic                           | `dsu-basic`                                              |
 | dsu-weighted                        | `dsu-weighted`                                           |
+| enumerate-cpp17                     | `enumerate-cpp17`                                        | Implement of enumerate in C++17                          |
 | euler-path-graph                    | `euler-path-graph`                                       | Find Euler path (undirection graph)                      |
 | euler-path-digraph                  | `euler-path-digraph`                                     | Find Euler path (digraph)                                |
 | euler-phi                           | `phi`, `euler-phi`                                       |

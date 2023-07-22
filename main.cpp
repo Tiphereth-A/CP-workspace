@@ -33,37 +33,6 @@ using is_iterable = typename std::conditional<std::is_same<decltype(std::declval
 template <class T>
 using is_container = typename std::conditional<is_iterable<T>::value && !std::is_base_of<T, std::basic_string<typename T::value_type>>::value, std::true_type, std::false_type>::type;
 
-
-namespace Enumerate {
-template <typename T, std::enable_if_t<is_iterable<T>::value> * = nullptr>
-class enumerate_impl_ {
-  public:
-    using iter_t = typename remove_cvref_t<T>::iterator;
-
-  private:
-    const T &container_;
-    size_t sz_;
-    iter_t now_;
-
-  public:
-    enumerate_impl_(T x): container_(x), sz_(0), now_(x.begin()) {}
-
-    const enumerate_impl_ &begin() const { return *this; }
-    const enumerate_impl_ &end() const { return *this; }
-
-    bool operator!=(const enumerate_impl_ &) const { return now_ != container_.end(); }
-    void operator++() {
-        ++now_;
-        ++sz_;
-    }
-    std::pair<std::size_t, iter_t> operator*() const { return {sz_, now_}; }
-};
-//! Usage: for(auto [index, iter] : enumerate(container)) {...}
-template <typename T>
-enumerate_impl_<T> enumerate(T &&container) { return {std::forward<T>(container)}; }
-}  // namespace Enumerate
-using Enumerate::enumerate;
-
 // <https://blog.tifa-233.com/archives/draft-025/>
 namespace NdVector {
 template <size_t N, class Tp>
