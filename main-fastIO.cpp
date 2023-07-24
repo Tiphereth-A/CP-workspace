@@ -256,13 +256,13 @@ using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
 
 
 template <typename T>
-using remove_cvref_t = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
+using remove_cvref_t = typename std::remove_cv_t<typename std::remove_reference_t<T>>;
 
 template <class T>
-using is_iterable = typename std::conditional<std::is_same<decltype(std::declval<remove_cvref_t<T>>().begin()), typename remove_cvref_t<T>::iterator>::value && std::is_same<decltype(std::declval<remove_cvref_t<T>>().end()), typename remove_cvref_t<T>::iterator>::value, std::true_type, std::false_type>::type;
+using is_iterable = typename std::conditional_t<std::is_same_v<decltype(std::declval<remove_cvref_t<T>>().begin()), typename remove_cvref_t<T>::iterator> && std::is_same_v<decltype(std::declval<remove_cvref_t<T>>().end()), typename remove_cvref_t<T>::iterator>, std::true_type, std::false_type>;
 
 template <class T>
-using is_container = typename std::conditional<is_iterable<T>::value && !std::is_base_of<T, std::basic_string<typename T::value_type>>::value, std::true_type, std::false_type>::type;
+using is_container = typename std::conditional_t<is_iterable<T>::value && !std::is_base_of_v<T, std::basic_string<typename T::value_type>>, std::true_type, std::false_type>;
 
 
 using i32 = int32_t;
