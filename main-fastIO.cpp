@@ -26,39 +26,39 @@
 
 namespace fast_io {
 namespace type_traits {
-template <class Tp>
-constexpr bool is_char_v = std::is_same_v<Tp, char> || std::is_same_v<Tp, signed char> || std::is_same_v<Tp, unsigned char>;
-template <class Tp>
-constexpr bool is_int_v = (std::is_integral_v<Tp> && std::is_signed_v<Tp> && !is_char_v<Tp>) || std::is_same_v<Tp, __int128_t>;
-template <class Tp>
-constexpr bool is_uint_v = (std::is_integral_v<Tp> && std::is_unsigned_v<Tp> && !is_char_v<Tp>) || std::is_same_v<Tp, __uint128_t>;
-template <class Tp>
-using make_uint_t = typename std::conditional_t<(std::is_same_v<Tp, __int128_t> || std::is_same_v<Tp, __uint128_t>), std::common_type<__uint128_t>, typename std::conditional_t<std::is_signed_v<Tp>, std::make_unsigned<Tp>, std::common_type<Tp>>>::type;
+template <class T>
+constexpr bool is_char_v = std::is_same_v<T, char> || std::is_same_v<T, signed char> || std::is_same_v<T, unsigned char>;
+template <class T>
+constexpr bool is_int_v = (std::is_integral_v<T> && std::is_signed_v<T> && !is_char_v<T>) || std::is_same_v<T, __int128_t>;
+template <class T>
+constexpr bool is_uint_v = (std::is_integral_v<T> && std::is_unsigned_v<T> && !is_char_v<T>) || std::is_same_v<T, __uint128_t>;
+template <class T>
+using make_uint_t = typename std::conditional_t<(std::is_same_v<T, __int128_t> || std::is_same_v<T, __uint128_t>), std::common_type<__uint128_t>, typename std::conditional_t<std::is_signed_v<T>, std::make_unsigned<T>, std::common_type<T>>>::type;
 }  // namespace type_traits
 
 //! Will enter a dead loop if EOF occured during reading
-template <size_t BUFFER_SIZE>
+template <size_t BUF_SZ>
 class FastIn {
-    using self = FastIn<BUFFER_SIZE>;
+    using self = FastIn<BUF_SZ>;
 
   protected:
-    char buffer_[BUFFER_SIZE], *now_ = buffer_, *end_ = buffer_;
-    FILE *file_;
+    char bf_[BUF_SZ], *now_ = bf_, *end_ = bf_;
+    FILE *f_;
 
   public:
-    explicit FastIn(FILE *file = stdin): file_(file) {}
+    explicit FastIn(FILE *f = stdin): f_(f) {}
 
-    char fetch() { return now_ == end_ && (end_ = (now_ = buffer_) + fread(buffer_, 1, BUFFER_SIZE, file_), now_ == end_) ? EOF : *(now_)++; }
-    char visit() { return now_ == end_ && (end_ = (now_ = buffer_) + fread(buffer_, 1, BUFFER_SIZE, file_), now_ == end_) ? EOF : *(now_); }
-    void set_file(FILE *file) {
-        file_ = file;
-        now_ = end_ = buffer_;
+    char fetch() { return now_ == end_ && (end_ = (now_ = bf_) + fread(bf_, 1, BUF_SZ, f_), now_ == end_) ? EOF : *(now_)++; }
+    char visit() { return now_ == end_ && (end_ = (now_ = bf_) + fread(bf_, 1, BUF_SZ, f_), now_ == end_) ? EOF : *(now_); }
+    void set_file(FILE *f) {
+        f_ = f;
+        now_ = end_ = bf_;
     }
 
     bool iseof() { return visit() == EOF; }
 
-    template <class Tp, std::enable_if_t<type_traits::is_int_v<Tp>> * = nullptr>
-    self &read(Tp &n) {
+    template <class T, std::enable_if_t<type_traits::is_int_v<T>> * = nullptr>
+    self &read(T &n) {
         bool is_neg = false;
         char ch = fetch();
         while (!isdigit(ch)) {
@@ -73,8 +73,8 @@ class FastIn {
         if (is_neg) n = -n;
         return *this;
     }
-    template <class Tp, std::enable_if_t<type_traits::is_uint_v<Tp>> * = nullptr>
-    self &read(Tp &n) {
+    template <class T, std::enable_if_t<type_traits::is_uint_v<T>> * = nullptr>
+    self &read(T &n) {
         char ch = fetch();
         while (!isdigit(ch)) ch = fetch();
         n = 0;
@@ -85,8 +85,8 @@ class FastIn {
         return *this;
     }
     //! ignore cntrl and space
-    template <class Tp, std::enable_if_t<type_traits::is_char_v<Tp>> * = nullptr>
-    self &read(Tp &n) {
+    template <class T, std::enable_if_t<type_traits::is_char_v<T>> * = nullptr>
+    self &read(T &n) {
         while (!isgraph(n = fetch()))
             ;
         return *this;
@@ -109,8 +109,8 @@ class FastIn {
         while (isgraph(n_ = fetch())) n.push_back(n_);
         return *this;
     }
-    template <class Tp, class Up>
-    self &read(std::pair<Tp, Up> &p) { return read(p.first).read(p.second); }
+    template <class T, class U>
+    self &read(std::pair<T, U> &p) { return read(p.first).read(p.second); }
     template <typename... Ts>
     self &read(std::tuple<Ts...> &p) {
         std::apply([&](Ts &...targs) { ((read(targs)), ...); }, p);
@@ -136,35 +136,35 @@ class FastIn {
     }
 
     //! NOT ignore cntrl and space
-    template <class Tp, std::enable_if_t<type_traits::is_char_v<Tp>> * = nullptr>
-    self &strict_read(Tp &n) {
+    template <class T, std::enable_if_t<type_traits::is_char_v<T>> * = nullptr>
+    self &strict_read(T &n) {
         n = fetch();
         return *this;
     }
 
-    template <class Tp>
-    self &operator>>(Tp &val) { return read(val); }
+    template <class T>
+    self &operator>>(T &val) { return read(val); }
 };
 
-template <size_t BUFFER_SIZE, size_t INT_BUFFER_SIZE>
+template <size_t BUF_SZ, size_t INT_BUF_SZ>
 class FastOut {
-    using self = FastOut<BUFFER_SIZE, INT_BUFFER_SIZE>;
+    using self = FastOut<BUF_SZ, INT_BUF_SZ>;
 
   private:
-    char int_buffer_[INT_BUFFER_SIZE], *now_ib_ = int_buffer_;
+    char int_bf_[INT_BUF_SZ], *now_ib_ = int_bf_;
 
   protected:
-    FILE *file_;
-    char *now_, buffer_[BUFFER_SIZE];
-    const char * const end_ = buffer_ + BUFFER_SIZE;
+    FILE *f_;
+    char *now_, bf_[BUF_SZ];
+    const char * const end_ = bf_ + BUF_SZ;
 
   public:
-    explicit FastOut(FILE *file = stdout): file_(file), now_(buffer_) {}
+    explicit FastOut(FILE *file = stdout): f_(file), now_(bf_) {}
 
     self &operator=(const self &rhs) {
-        file_ = rhs.file_;
-        now_ = buffer_ + (rhs.now_ - rhs.buffer_);
-        memcpy(buffer_, rhs.buffer_, sizeof(*buffer_) * (rhs.now_ - rhs.buffer_));
+        f_ = rhs.f_;
+        now_ = bf_ + (rhs.now_ - rhs.bf_);
+        memcpy(bf_, rhs.bf_, sizeof(*bf_) * (rhs.now_ - rhs.bf_));
         return *this;
     }
     FastOut(const self &rhs) { *this = rhs; }
@@ -172,13 +172,13 @@ class FastOut {
     ~FastOut() { flush(); }
 
     void flush() {
-        fwrite(buffer_, 1, now_ - buffer_, file_);
-        now_ = buffer_;
+        fwrite(bf_, 1, now_ - bf_, f_);
+        now_ = bf_;
     }
-    void rebind(FILE *file) { file_ = file; }
+    void rebind(FILE *file) { f_ = file; }
 
-    template <class Tp, std::enable_if_t<type_traits::is_char_v<Tp>> * = nullptr>
-    self &write(const Tp &n) {
+    template <class T, std::enable_if_t<type_traits::is_char_v<T>> * = nullptr>
+    self &write(const T &n) {
         if (now_ == end_) flush();
         *(now_++) = n;
         return *this;
@@ -198,28 +198,28 @@ class FastOut {
         now_ += len;
         return *this;
     }
-    template <class Tp, std::enable_if_t<type_traits::is_int_v<Tp>> * = nullptr>
-    self &write(Tp n) {
+    template <class T, std::enable_if_t<type_traits::is_int_v<T>> * = nullptr>
+    self &write(T n) {
         if (n < 0) {
             write('-');
             n = -n;
         }
-        return write(static_cast<typename type_traits::make_uint_t<Tp>>(n));
+        return write(static_cast<typename type_traits::make_uint_t<T>>(n));
     }
-    template <class Tp, std::enable_if_t<type_traits::is_uint_v<Tp>> * = nullptr>
-    self &write(Tp n) {
-        now_ib_ = int_buffer_ + INT_BUFFER_SIZE - 1;
+    template <class T, std::enable_if_t<type_traits::is_uint_v<T>> * = nullptr>
+    self &write(T n) {
+        now_ib_ = int_bf_ + INT_BUF_SZ - 1;
         do { *(--(now_ib_)) = char(n % 10) | '0'; } while (n /= 10);
         return write(now_ib_);
     }
     self &write(const std::string &str) { return write(str.c_str()); }
-    template <class Tp, class Up>
-    self &write(const std::pair<Tp, Up> &p) { return write(p.first).space().write(p.second); }
+    template <class T, class U>
+    self &write(const std::pair<T, U> &p) { return write(p.first).space().write(p.second); }
     template <typename... Ts>
     self &write(const std::tuple<Ts...> &p) {
         std::apply(
             [&](Ts const &...targs) {
-                std::size_t n{0};
+                size_t n{0};
                 ((write(targs).space_if(++n != sizeof...(Ts))), ...);
             },
             p);
@@ -231,28 +231,28 @@ class FastOut {
     self &space() { return write(' '); }
     self &space_if(bool flag) { return flag ? space() : *this; }
 
-    template <class Tp>
-    self &operator<<(const Tp &val) { return write(val); }
+    template <class T>
+    self &operator<<(const T &val) { return write(val); }
 };
 
-const std::size_t BUFFER_SIZE = (1 << 21) + 5;
-FastIn<BUFFER_SIZE> fastin;
-FastOut<BUFFER_SIZE, 21> fastout;
+const size_t BUF_SZ = (1 << 21) + 5;
+FastIn<BUF_SZ> fastin;
+FastOut<BUF_SZ, 21> fastout;
 }  // namespace fast_io
 using fast_io::fastin;
 using fast_io::fastout;
 
 
-template <class Tp>
-using pi = std::pair<Tp, Tp>;
-template <class Tp>
-using vc = std::vector<Tp>;
-template <class Tp>
-using vvc = std::vector<std::vector<Tp>>;
-template <class Tp>
-using pq = std::priority_queue<Tp>;
-template <class Tp>
-using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
+template <class T>
+using pi = std::pair<T, T>;
+template <class T>
+using vc = std::vector<T>;
+template <class T>
+using vvc = std::vector<std::vector<T>>;
+template <class T>
+using pq = std::priority_queue<T>;
+template <class T>
+using pqg = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
 
 template <typename T>
@@ -322,19 +322,19 @@ using pii64 = pi<i64>;
 #define REif_(expression) \
     if (expression) throw std::runtime_error("Line " intlt2str_(__LINE__) ": やだもやだ、無理も無理〜")
 
-template <class Tp>
-constexpr auto chkmin(Tp &a, Tp b) -> bool { return b < a ? a = b, true : false; }
-template <class Tp>
-constexpr auto chkmax(Tp &a, Tp b) -> bool { return a < b ? a = b, true : false; }
-template <class Tp>
-constexpr auto ispow2(Tp i) -> bool { return i && (i & -i) == i; }
+template <class T>
+constexpr auto chkmin(T &a, T b) -> bool { return b < a ? a = b, true : false; }
+template <class T>
+constexpr auto chkmax(T &a, T b) -> bool { return a < b ? a = b, true : false; }
+template <class T>
+constexpr auto ispow2(T i) -> bool { return i && (i & -i) == i; }
 
 
 #define OO_PTEQ_(op)                                                                                                                                                \
-    template <class Tp, class Up>                                                                                                                                   \
-    constexpr auto operator op(std::pair<Tp, Up> lhs, const std::pair<Tp, Up> &rhs) { return std::pair<Tp, Up>{lhs.first op rhs.first, lhs.second op rhs.second}; } \
-    template <class Tp, class Up>                                                                                                                                   \
-    constexpr std::pair<Tp, Up> &operator op##=(std::pair<Tp, Up> &lhs, const std::pair<Tp, Up> &rhs) {                                                             \
+    template <class T, class U>                                                                                                                                   \
+    constexpr auto operator op(std::pair<T, U> lhs, const std::pair<T, U> &rhs) { return std::pair<T, U>{lhs.first op rhs.first, lhs.second op rhs.second}; } \
+    template <class T, class U>                                                                                                                                   \
+    constexpr std::pair<T, U> &operator op##=(std::pair<T, U> &lhs, const std::pair<T, U> &rhs) {                                                             \
         lhs.first op## = rhs.first;                                                                                                                                 \
         lhs.second op## = rhs.second;                                                                                                                               \
         return lhs;                                                                                                                                                 \
@@ -354,10 +354,10 @@ OO_PTEQ_(>>)
 #undef OO_PTEQ_
 
 
-template <class Tp, class Up>
-std::istream &operator>>(std::istream &is, std::pair<Tp, Up> &p) { return is >> p.first >> p.second; }
-template <class Tp, class Up>
-std::ostream &operator<<(std::ostream &os, const std::pair<Tp, Up> &p) {
+template <class T, class U>
+std::istream &operator>>(std::istream &is, std::pair<T, U> &p) { return is >> p.first >> p.second; }
+template <class T, class U>
+std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {
 #ifdef LOCAL_
     if (&os == &std::cerr)
         return os << '<' << p.first << ", " << p.second << '>';
@@ -387,14 +387,14 @@ std::ostream &operator<<(std::ostream &os, const T &x) {
 }
 
 
-template <class Tp>
-void debug(Tp x) {
+template <class T>
+void debug(T x) {
 #ifdef LOCAL_
     std::cerr << x << std::endl;
 #endif
 }
-template <class Tp, class... Ts>
-void debug(Tp x, Ts... args) {
+template <class T, class... Ts>
+void debug(T x, Ts... args) {
 #ifdef LOCAL_
     std::cerr << x << ' ';
     debug(args...);

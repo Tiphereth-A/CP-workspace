@@ -34,16 +34,16 @@ template <class T>
 using is_container = typename std::conditional_t<is_iterable<T>::value && !std::is_base_of_v<T, std::basic_string<typename T::value_type>>, std::true_type, std::false_type>;
 
 
-template <class Tp>
-using pi = std::pair<Tp, Tp>;
-template <class Tp>
-using vc = std::vector<Tp>;
-template <class Tp>
-using vvc = std::vector<std::vector<Tp>>;
-template <class Tp>
-using pq = std::priority_queue<Tp>;
-template <class Tp>
-using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
+template <class T>
+using pi = std::pair<T, T>;
+template <class T>
+using vc = std::vector<T>;
+template <class T>
+using vvc = std::vector<std::vector<T>>;
+template <class T>
+using pq = std::priority_queue<T>;
+template <class T>
+using pqg = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
 using i32 = int32_t;
 using u32 = uint32_t;
@@ -102,22 +102,22 @@ using pii64 = pi<i64>;
 #define REif_(expression) \
     if (expression) throw std::runtime_error("Line " intlt2str_(__LINE__) ": やだもやだ、無理も無理〜")
 
-template <class Tp>
-constexpr auto chkmin(Tp &a, Tp b) -> bool { return b < a ? a = b, true : false; }
-template <class Tp>
-constexpr auto chkmax(Tp &a, Tp b) -> bool { return a < b ? a = b, true : false; }
-template <class Tp>
-constexpr auto ispow2(Tp i) -> bool { return i && (i & -i) == i; }
+template <class T>
+constexpr auto chkmin(T &a, T b) -> bool { return b < a ? a = b, true : false; }
+template <class T>
+constexpr auto chkmax(T &a, T b) -> bool { return a < b ? a = b, true : false; }
+template <class T>
+constexpr auto ispow2(T i) -> bool { return i && (i & -i) == i; }
 
 
-#define OO_PTEQ_(op)                                                                                                                                                \
-    template <class Tp, class Up>                                                                                                                                   \
-    constexpr auto operator op(std::pair<Tp, Up> lhs, const std::pair<Tp, Up> &rhs) { return std::pair<Tp, Up>{lhs.first op rhs.first, lhs.second op rhs.second}; } \
-    template <class Tp, class Up>                                                                                                                                   \
-    constexpr std::pair<Tp, Up> &operator op##=(std::pair<Tp, Up> &lhs, const std::pair<Tp, Up> &rhs) {                                                             \
-        lhs.first op## = rhs.first;                                                                                                                                 \
-        lhs.second op## = rhs.second;                                                                                                                               \
-        return lhs;                                                                                                                                                 \
+#define OO_PTEQ_(op)                                                                                                                                          \
+    template <class T, class U>                                                                                                                               \
+    constexpr auto operator op(std::pair<T, U> lhs, const std::pair<T, U> &rhs) { return std::pair<T, U>{lhs.first op rhs.first, lhs.second op rhs.second}; } \
+    template <class T, class U>                                                                                                                               \
+    constexpr std::pair<T, U> &operator op##=(std::pair<T, U> &lhs, const std::pair<T, U> &rhs) {                                                             \
+        lhs.first op## = rhs.first;                                                                                                                           \
+        lhs.second op## = rhs.second;                                                                                                                         \
+        return lhs;                                                                                                                                           \
     }
 
 OO_PTEQ_(+)
@@ -134,10 +134,10 @@ OO_PTEQ_(>>)
 #undef OO_PTEQ_
 
 
-template <class Tp, class Up>
-std::istream &operator>>(std::istream &is, std::pair<Tp, Up> &p) { return is >> p.first >> p.second; }
-template <class Tp, class Up>
-std::ostream &operator<<(std::ostream &os, const std::pair<Tp, Up> &p) {
+template <class T, class U>
+std::istream &operator>>(std::istream &is, std::pair<T, U> &p) { return is >> p.first >> p.second; }
+template <class T, class U>
+std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {
 #ifdef LOCAL_
     if (&os == &std::cerr)
         return os << '<' << p.first << ", " << p.second << '>';
@@ -166,14 +166,14 @@ std::ostream &operator<<(std::ostream &os, const T &x) {
 }
 
 
-template <class Tp>
-void debug(Tp x) {
+template <class T>
+void debug(T x) {
 #ifdef LOCAL_
     std::cerr << x << std::endl;
 #endif
 }
-template <class Tp, class... Ts>
-void debug(Tp x, Ts... args) {
+template <class T, class... Ts>
+void debug(T x, Ts... args) {
 #ifdef LOCAL_
     std::cerr << x << ' ';
     debug(args...);
