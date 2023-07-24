@@ -406,10 +406,6 @@ void debug(T x, Ts... args) {
 #define dbg(...) (__VA_ARGS__)
 #endif
 
-const u32 OFFSET = 5;
-const u32 N = 5e5 + OFFSET;
-const u32 M = 2e5 + OFFSET;
-const u32 K = 21;
 // const i64 MOD = 998244353;
 const i64 MOD = 1e9 + 7;
 const double EPS = 1e-6;
