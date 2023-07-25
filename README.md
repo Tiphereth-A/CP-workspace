@@ -55,7 +55,7 @@ code .
 | cantor-expansion                    | `cantor`, `cantor-exp`                                   |
 | chtholly                            | `chtholly-tree`, `old-driver-tree`                       |
 | combination                         | `comb`, `combination`, `m-choose-n`                      |
-| convolution-fft                     | `conv`, `convolution`, `convolution-fft`,`fft-double`    |
+| convolution-fft                     | `conv`, `convolution`, `convolution-fft`, `fft-double`   |
 | crt                                 | `crt`                                                    |
 | dijkstra                            | `dijkstra`, `dijk`                                       |
 | discretization                      | `discretization`                                         |
@@ -108,6 +108,7 @@ code .
 | mul-mod                             | `mul-mod`                                                |
 | ndvector                            | `ndvector`, `n-dim-vector`                               | See [this blog](https://blog.tifa-233.com/archives/draft-025/), use `std::mdspan` instead of this in C++23 |
 | ostream-int128                      | `os128`, `out128`, `cout128`                             | `__int128_t` and `___uint128_t` support for `std::cout`                                                    |
+| pair-useful-func                    | `pair-func`, `pair-useful-func`                          |
 | persistable-segtree                 | `psegtree`, `p-segtree`                                  |
 | pollard-rho                         | `pollard-rho`                                            |
 | pow-mod                             | `pow-mod`                                                |
@@ -127,7 +128,7 @@ code .
 | simpson                             | `simpson`                                                | Adaptive Simpson integration                                                                               |
 | simpson-dep-limit                   | `simpson-with-min-depth-limit`                           | Slower but maybe more accurate for discret function                                                        |
 | simulated-annealing                 | `simulated-annealing`                                    |
-| sqrt-bucket                         | `blocking`, `sqrt-blocking`,`sqrt-bucket`                |
+| sqrt-bucket                         | `blocking`, `sqrt-blocking`, `sqrt-bucket`               |
 | stdc++11                            | `stdc++11`                                               | Standard libs (C++11)                                                                                      |
 | stdc++98                            | `stdc++98`                                               | Standard libs (C++98)                                                                                      |
 | Sudoku                              | `sudoku`                                                 |
@@ -140,7 +141,7 @@ code .
 | treap-no-rotate                     | `fhqtreap`, `treap-nr`, `treap-no-rotate`                | FHQTreap (rank)                                                                                            |
 | treap-no-rotate-flip                | `fhqtreap-flip`, `treap-nr-flip`, `treap-no-rotate-flip` | FHQTreap (flip)                                                                                            |
 | Trie                                | `trie`                                                   |
-| tuple-useful-func                   | `tuple-func`,`tuple-useful-func`                         | See [this blog](https://blog.tifa-233.com/archives/draft-020/)                                             |
+| tuple-useful-func                   | `tuple-func`, `tuple-useful-func`                        | See [this blog](https://blog.tifa-233.com/archives/draft-020/)                                             |
 | UDHeap                              | `udheap`                                                 |
 | untie                               | `fast-ios`, `fast-cin-cout`                              |
 | xor-basis                           | `xor-basis`                                              |

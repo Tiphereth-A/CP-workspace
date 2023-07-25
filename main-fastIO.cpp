@@ -330,42 +330,6 @@ template <class T>
 constexpr auto ispow2(T i) -> bool { return i && (i & -i) == i; }
 
 
-#define OO_PTEQ_(op)                                                                                                                                                \
-    template <class T, class U>                                                                                                                                   \
-    constexpr auto operator op(std::pair<T, U> lhs, const std::pair<T, U> &rhs) { return std::pair<T, U>{lhs.first op rhs.first, lhs.second op rhs.second}; } \
-    template <class T, class U>                                                                                                                                   \
-    constexpr std::pair<T, U> &operator op##=(std::pair<T, U> &lhs, const std::pair<T, U> &rhs) {                                                             \
-        lhs.first op## = rhs.first;                                                                                                                                 \
-        lhs.second op## = rhs.second;                                                                                                                               \
-        return lhs;                                                                                                                                                 \
-    }
-
-OO_PTEQ_(+)
-OO_PTEQ_(-)
-OO_PTEQ_(*)
-OO_PTEQ_(/)
-OO_PTEQ_(%)
-OO_PTEQ_(&)
-OO_PTEQ_(|)
-OO_PTEQ_(^)
-OO_PTEQ_(<<)
-OO_PTEQ_(>>)
-
-#undef OO_PTEQ_
-
-
-template <class T, class U>
-std::istream &operator>>(std::istream &is, std::pair<T, U> &p) { return is >> p.first >> p.second; }
-template <class T, class U>
-std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {
-#ifdef LOCAL_
-    if (&os == &std::cerr)
-        return os << '<' << p.first << ", " << p.second << '>';
-    else
-#endif
-        return os << p.first << ' ' << p.second;
-}
-
 template <class T, std::enable_if_t<is_container<T>::value> * = nullptr>
 std::ostream &operator<<(std::ostream &os, const T &x) {
 #ifdef LOCAL_
