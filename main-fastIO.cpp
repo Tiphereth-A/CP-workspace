@@ -370,17 +370,17 @@ void debug(T x, Ts... args) {
 #define dbg(...) (__VA_ARGS__)
 #endif
 
-// const i64 MOD = 998244353;
-const i64 MOD = 1e9 + 7;
-const double EPS = 1e-6;
-const i32 INF = 0x3f3f3f3f;
-const i64 INF64 = 0x3f3f3f3f3f3f3f3f;
-const double PI = acos(-1.0);
-const char DIR_DRUL[4] = {'D', 'R', 'U', 'L'};
-const char DIR_SENW[4] = {'S', 'E', 'N', 'W'};
-const pii DIR4[4] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-const pii DIR8[8] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
-const pii DIRH[8] = {{2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}};
+// constexpr i64 MOD = 998244353;
+constexpr i64 MOD = 1e9 + 7;
+constexpr double EPS = 1e-6;
+constexpr i32 INF = 0x3f3f3f3f;
+constexpr i64 INF64 = 0x3f3f3f3f3f3f3f3f;
+constexpr double PI = acos(-1.);
+constexpr char DIR_DRUL[4] = {'D', 'R', 'U', 'L'};
+constexpr char DIR_SENW[4] = {'S', 'E', 'N', 'W'};
+constexpr pii DIR4[4] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+constexpr pii DIR8[8] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+constexpr pii DIRH[8] = {{2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}};
 const std::string RES_YN[2] = {"NO", "YES"};
 const std::string RES_Yn[2] = {"No", "Yes"};
 const std::string RES_yn[2] = {"no", "yes"};
