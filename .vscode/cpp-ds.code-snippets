@@ -70,7 +70,7 @@
             "struct Node { size_t fa, dep, sz; explicit Node(size_t fa, size_t depth = 0, size_t size = 1): fa(fa), dep(dep), sz(size) {} };",
             "std::vector<Node> data;",
             "DSUWeighted() = default;",
-            "void init(size_t n) { data.clear(); data.reserve(n); data.shrink_to_fit(); for (size_t i = 0; i < n; ++i) data.emplace_back(i); }",
+            "void init(size_t n) { data.clear(); data.reserve(n); for (size_t i = 0; i < n; ++i) data.emplace_back(i); data.shrink_to_fit(); }",
             "size_t find(size_t x) {",
             "if (x == data[x].fa) return x;",
             "size_t fx = find(data[x].fa);",
