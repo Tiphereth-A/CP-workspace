@@ -1,9 +1,8 @@
 {
     "recommendations": [
-        "xaver.clang-format",
-        "llvm-vs-code-extensions.vscode-clangd",
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "ms-vscode.cpptools"
+        "llvm-vs-code-extensions.vscode-clangd", // C++ insights & formatting
+        "ms-python.python", // Python support
+        "ms-python.vscode-pylance", // Python support
+        "ms-vscode.cpptools" // C++ debug support
     ]
 }

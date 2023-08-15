@@ -17,6 +17,7 @@ My VSCode workspace for Competitive Programming. **Only for Linux**
 ## Usage
 
 - Install [VSCode](https://code.visualstudio.com/) and [GCC](https://gcc.gnu.org/)
+- Install VSCode extensions listed in `.vscode/extensions.json` (DO NOT use IntelliSense from `ms-vscode.cpptools`)
 - (Optional) You can add key bindings by copying the contents of `.vscode/keybindings.json` into your `keybindings.json`
 
 ```bash

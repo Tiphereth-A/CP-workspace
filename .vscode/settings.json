@@ -1,7 +1,7 @@
 {
     "files.defaultLanguage": "cpp",
     "[cpp]": {
-        "editor.defaultFormatter": "xaver.clang-format"
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
     },
     "files.autoGuessEncoding": true,
     "files.trimTrailingWhitespace": true,
@@ -21,7 +21,5 @@
         "*.hpp": "cpp",
         "**/include/c++/**": "cpp",
         "${workspaceFolder}/lib/**": "cpp"
-    },
-    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
-    "C_Cpp.errorSquiggles": "enabled"
+    }
 }

@@ -1,7 +1,7 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
+            "type": "shell",
             "label": "C++: Generate execute file for debug",
             "command": "g++",
             "args": [
@@ -30,7 +30,7 @@
             }
         },
         {
-            "type": "cppbuild",
+            "type": "shell",
             "label": "C++: Compile and run",
             "command": "./tools/run_cpp.sh",
             "args": [
