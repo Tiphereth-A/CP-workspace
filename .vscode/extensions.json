@@ -1,7 +1,6 @@
 {
     "recommendations": [
         "llvm-vs-code-extensions.vscode-clangd", // C++ insights & formatting
-        "ms-python.python", // Python support
         "ms-python.vscode-pylance", // Python support
         "ms-vscode.cpptools" // C++ debug support
     ]
