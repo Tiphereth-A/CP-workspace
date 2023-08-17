@@ -56,7 +56,7 @@ DEFAULT_OUT_DIR = 'out'
 @click.option('-s', '--std-file', type=click.Path(exists=True, dir_okay=False), default=DEFAULT_STD, help=f"Standard source file (C++), default {DEFAULT_STD}")
 @click.option('-m', '--my-file', type=click.Path(exists=True, dir_okay=False), default=DEFAULT_MY, help=f"My source file (C++), default {DEFAULT_MY}")
 @click.option('-j', '--judger-file', type=click.Path(exists=True, dir_okay=False), default=DEFAULT_JUDGER, help=f"Judger source file (C++), default {DEFAULT_JUDGER}")
-@click.option('-o', '--out-dir', type=click.Path(exists=True, file_okay=False), default=DEFAULT_OUT_DIR, help=f"testlib repo dir, default {DEFAULT_OUT_DIR}")
+@click.option('-o', '--out-dir', type=click.Path(exists=False, file_okay=False), default=DEFAULT_OUT_DIR, help=f"testlib repo dir, default {DEFAULT_OUT_DIR}")
 def _judge(num: int, time_limit: float, compile_args: str, testlib_repo_dir, gen_file, std_file, my_file, judger_file, out_dir):
     """Simple dynamic local checker with data generator and standard source file
 

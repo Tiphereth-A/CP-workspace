@@ -7,7 +7,8 @@ from libs.decorator import withlog
 @withlog
 def wipe_folder(dir: str, **kwargs):
     kwargs.get('logger').info(f'Wipe dir {dir}')
-    shutil.rmtree(dir)
+    if os.path.exists(dir):
+        shutil.rmtree(dir)
     os.makedirs(dir)
 
 
