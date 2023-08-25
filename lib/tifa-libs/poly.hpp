@@ -276,6 +276,10 @@ struct DmodPoly_base_ {
         fft(p__, n, true);
         fft(q__, n, true);
         for (size_t i = 0; i < data.size(); ++i) data[i] = (int32_t)(((int64_t)(p__[i].real() / n + .5) % mod() + (((int64_t)((p__[i].imag() + q__[i].real()) / n + .5) % mod()) << 15) + (((int64_t)(q__[i].imag() / n + .5) % mod()) << 30)) % mod());
+        std::fill(a__, a__ + n, comp{0, 0});
+        std::fill(b__, b__ + n, comp{0, 0});
+        std::fill(p__, p__ + n, comp{0, 0});
+        std::fill(q__, q__ + n, comp{0, 0});
         return *this;
     })
 
