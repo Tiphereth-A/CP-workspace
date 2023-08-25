@@ -369,6 +369,7 @@ class Poly {
         return is;
     }
     friend std::ostream &operator<<(std::ostream &os, const Poly &poly) {
+        if (!poly.size()) return os;
         for (size_t i = 1; i < poly.size(); ++i) os << poly[i - 1] << ' ';
         return os << poly.p.data.back();
     }
