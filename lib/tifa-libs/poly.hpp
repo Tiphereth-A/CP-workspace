@@ -405,18 +405,12 @@ class Poly {
 
     OOCR_(+, {
         resize(std::max(size(), rhs.size()));
-        for (size_t i = 0; i < rhs.size(); ++i) {
-            p.data[i] += rhs[i];
-            p.data[i] -= p.data[i] >= p.mod() ? p.mod() : 0;
-        }
+        for (size_t i = 0; i < rhs.size(); ++i) p.data[i] = (int32_t)((int64_t)p.data[i] + rhs[i]) % p.mod();
         return *this;
     })
     OOCR_(-, {
         resize(std::max(size(), rhs.size()));
-        for (size_t i = 0; i < rhs.size(); ++i) {
-            p.data[i] += p.mod() - rhs[i];
-            p.data[i] -= p.data[i] >= p.mod() ? p.mod() : 0;
-        }
+        for (size_t i = 0; i < rhs.size(); ++i) p.data[i] = (int32_t)((int64_t)p.data[i] + p.mod() - rhs[i]) % p.mod();
         return *this;
     })
     OOCR_(*, {
