@@ -17,6 +17,7 @@ namespace tifa_libs::poly {
 namespace detail__ {
 //! --- config ---
 constexpr size_t N = 1 << 17;
+using dbl_t = double;
 //! --- config end ---
 
 static_assert((N & (N - 1)) == 0 && N > 512, "N should be power of 2 and greater than 512");
@@ -166,7 +167,7 @@ struct NTT_ {
 
 template <size_t DEG_LIMIT>
 struct FFT_ {
-    using comp = std::complex<double>;
+    using comp = std::complex<dbl_t>;
 
     constexpr FFT_() = default;
     constexpr void operator()(comp *g, size_t n, bool inv = false) {
@@ -190,7 +191,7 @@ struct FFT_ {
     }
 
   private:
-    constexpr static double TAU = M_PIl * 2;
+    constexpr static dbl_t TAU = M_PIl * 2;
 
     static inline comp w[DEG_LIMIT];
 };
