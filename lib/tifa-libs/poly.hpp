@@ -254,9 +254,9 @@ struct DmodPoly_base_ {
 
     std::vector<int32_t> data;
 
-    explicit DmodPoly_base_(size_t sz = 0): data(std::min(DEG_LIMIT, sz)) {}
-    explicit DmodPoly_base_(const std::initializer_list<int32_t> &v): data(v) {}
-    explicit DmodPoly_base_(const std::vector<int32_t> &v): data(v) {}
+    explicit DmodPoly_base_(size_t sz = 0): data(std::min(DEG_LIMIT, sz)) { assert(1 <= mod_); }
+    explicit DmodPoly_base_(const std::initializer_list<int32_t> &v): data(v) { assert(1 <= mod_); }
+    explicit DmodPoly_base_(const std::vector<int32_t> &v): data(v) { assert(1 <= mod_); }
 
 #define OOCR_(op, ...)                                                         \
     self &operator op##=(const self &rhs) __VA_ARGS__ friend self operator op( \
