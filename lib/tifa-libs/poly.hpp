@@ -17,6 +17,7 @@ namespace tifa_libs::poly {
 namespace detail__ {
 //! --- config ---
 constexpr size_t N = 1 << 17;
+// using dbl_t = long double;
 using dbl_t = double;
 //! --- config end ---
 
