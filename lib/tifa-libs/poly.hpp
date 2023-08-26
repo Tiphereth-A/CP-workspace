@@ -222,9 +222,9 @@ struct SmodPolyBase_: public PolyBase__ {
 
 #undef OOCR_
 };
-template <class DBL, ptrdiff_t ID>
+template <ptrdiff_t ID, class DBL>
 struct DmodPolyBase_: public PolyBase__ {
-    using self = DmodPolyBase_<DBL, ID>;
+    using self = DmodPolyBase_<ID, DBL>;
 
     static inline uint32_t mod_;
     static uint32_t mod() { return mod_; }
@@ -545,8 +545,8 @@ class Poly {
 
 template <int32_t MOD>
 using s_poly = detail__::Poly<detail__::SmodPolyBase_<MOD>>;
-template <class DBL, ptrdiff_t ID>
-using d_poly = detail__::Poly<detail__::DmodPolyBase_<DBL, ID>>;
+template <ptrdiff_t ID, class DBL = double>
+using d_poly = detail__::Poly<detail__::DmodPolyBase_<ID, DBL>>;
 }  // namespace tifa_libs::poly
 
 #endif
