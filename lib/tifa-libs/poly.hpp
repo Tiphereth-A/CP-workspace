@@ -337,12 +337,12 @@ class Poly {
                 ans.p.data.push_back((int32_t)(_ * p.inv[n + 1] % p.mod()));
             },
             [this](Poly &ans, size_t n) -> void {
-                Poly ans_log = ans;
-                ans_log.resize(n);
-                ans_log.do_log();
-                for (size_t i = 0; i < ans_log.size(); ++i) ans_log[i] = (p.mod() + p.data[i] - ans_log[i]) % p.mod();
-                ++ans_log[0];
-                (ans *= ans_log).resize(n);
+                Poly ans_ln = ans;
+                ans_ln.resize(n);
+                ans_ln.do_ln();
+                for (size_t i = 0; i < ans_ln.size(); ++i) ans_ln[i] = (p.mod() + p.data[i] - ans_ln[i]) % p.mod();
+                ++ans_ln[0];
+                (ans *= ans_ln).resize(n);
             });
     }
 
@@ -561,7 +561,7 @@ class Poly {
         int32_t c_ = p.data[0], inv_c_ = (int32_t)inverse(c_, p.mod()), c_y_ = (int32_t)qpow(c_, y, p.mod());
         if (inv_c_ != 1) *this *= inv_c_;
         resize(std::min(DEG_LIMIT, (size() - 1) * y + 1));
-        *this = (log(*this) * (int32_t)y).do_exp();
+        *this = (ln(*this) * (int32_t)y).do_exp();
         if (c_y_ != 1) *this *= c_y_;
         return *this;
     })
