@@ -415,7 +415,7 @@ class Poly {
     })
     OOCR_(%, {
         auto &&__ = rhs * (*this / rhs);
-        return (*this -= __).resize(rhs.size() - 1);
+        return (*this -= __).do_resize(rhs.size() - 1);
     })
 
 #undef OO_
