@@ -478,6 +478,7 @@ class Poly {
         return *this = (derivative(*this) * inverse(*this)).do_resize(n).do_integral();
     })
     FUNC_(exp, {
+        assert(p.data[0] == 0);
         Poly ret;
         exp_(ret, size());
         return *this = ret;
