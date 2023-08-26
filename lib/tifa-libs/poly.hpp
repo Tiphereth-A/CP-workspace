@@ -423,7 +423,7 @@ class Poly {
 
     _GLIBCXX20_CONSTEXPR friend std::pair<Poly, Poly> divmod(Poly const &lhs, Poly const &rhs) {
         auto &&div_ = lhs / rhs;
-        return {div_, (lhs - rhs * div_).resize(rhs.size() - 1)};
+        return {div_, (lhs - rhs * div_).do_resize(rhs.size() - 1)};
     }
 
     _GLIBCXX20_CONSTEXPR Poly &do_shl(size_t offset) {
