@@ -365,9 +365,9 @@ class Poly {
   public:
     using base = Poly_base;
 
-    explicit Poly(size_t sz = 0): p(sz) {}
-    explicit Poly(const std::initializer_list<int32_t> &v): p(v) {}
-    explicit Poly(const std::vector<int32_t> &v): p(v) {}
+    explicit Poly(size_t sz = 0): p(sz) { strip(); }
+    explicit Poly(const std::initializer_list<int32_t> &v): p(v) { strip(); }
+    explicit Poly(const std::vector<int32_t> &v): p(v) { strip(); }
 
     friend std::istream &operator>>(std::istream &is, Poly &poly) {
         for (auto &val : poly.p.data) is >> val;
