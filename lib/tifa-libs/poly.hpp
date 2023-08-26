@@ -428,9 +428,8 @@ class Poly {
     _GLIBCXX20_CONSTEXPR Poly &do_shl(size_t offset) {
         if (offset == 0) return *this;
         if (offset >= size()) {
-            offset = size();
-            p.data.clear();
-            return do_resize(offset);
+            std::fill(p.data.begin(), p.data.end(), 0);
+            return *this;
         }
         p.data.erase(std::move(p.data.begin() + offset, p.data.end(), p.data.begin()), p.data.end());
         return do_resize(size() + offset);
@@ -438,6 +437,10 @@ class Poly {
 
     _GLIBCXX20_CONSTEXPR Poly &do_shr(size_t offset) {
         if (offset == 0) return *this;
+        if (offset >= size()) {
+            std::fill(p.data.begin(), p.data.end(), 0);
+            return *this;
+        }
         do_resize(size() + offset);
         std::fill(p.data.begin(), std::move_backward(p.data.begin(), p.data.end() - offset, p.data.end()), 0);
         return do_resize(size() - offset);
