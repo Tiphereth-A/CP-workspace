@@ -112,7 +112,7 @@ inline int32_t quad_residue(int32_t n, int32_t p) {
 
 template <size_t DEG_LIMIT, int32_t MOD>
 struct INV_ {
-    constexpr INV_() {
+    INV_() {
         data[1] = 1;
         for (size_t i = 2; i < DEG_LIMIT; ++i) data[i] = (int32_t)((int64_t)data[MOD % i] * (MOD - MOD / i) % MOD);
     }
@@ -204,7 +204,7 @@ struct SmodPoly_base_ {
     static_assert((MOD & 3) == 1, "MOD must be prime with 4k+1");
     static_assert((MOD - 1) % N == 0, "N must be a factor of MOD-1");
 
-    constexpr static INV_<DEG_LIMIT, MOD> inv{};
+    const static inline INV_<DEG_LIMIT, MOD> inv{};
     static inline NTT_<DEG_LIMIT, MOD> ntt;
 
     std::vector<int32_t> data;
@@ -463,9 +463,8 @@ class Poly {
 
 #define FUNC_(name, ...) \
     Poly &do_##name() __VA_ARGS__ friend Poly name(Poly poly) { return poly.do_##name(); }
-#define FUNCP2_(name, type1, var1, type2, var2, ...)                      \
-    Poly &do_##name(type1 var1, type2 var2) __VA_ARGS__ friend Poly name( \
-        Poly poly, type1 var1, type2 var2) { return poly.do_##name(var1, var2); }
+#define FUNCP1_(name, type1, var1, ...) \
+    Poly &do_##name(type1 var1) __VA_ARGS__ friend Poly name(Poly poly, type1 var1) { return poly.do_##name(var1); }
 
     FUNC_(inverse, {
         Poly ret;
@@ -550,25 +549,17 @@ class Poly {
         resize(sz_);
         return *this;
     })
-    FUNCP2_(pow, uint64_t, y, uint64_t, y_mod_phiMOD, {
-        size_t k_ = 0, sz_ = p.data.size();
-        for (; k_ < sz_; ++k_)
-            if (p.data[k_]) break;
-        if (k_ * y >= sz_) {
-            std::fill(p.data.begin(), p.data.end(), 0);
-            return *this;
-        }
-        shift_left(k_);
-        resize(sz_ - k_ * y);
-        int32_t c_ = p.data[0], inv_c_ = (int32_t)inverse(c_, p.mod()), c_y_ = (int32_t)qpow(c_, y_mod_phiMOD, p.mod());
-        *this *= inv_c_;
-        *this = (log(*this) * (int32_t)y).do_exp() * c_y_;
-        shift_right(k_ * y);
+    FUNCP1_(pow, uint64_t, y, {
+        assert(p.data[0]);
+        int32_t c_ = p.data[0], inv_c_ = (int32_t)inverse(c_, p.mod()), c_y_ = (int32_t)qpow(c_, y, p.mod());
+        if (inv_c_ != 1) *this *= inv_c_;
+        *this = (log(*this) * (int32_t)y).do_exp();
+        if (c_y_ != 1) *this *= c_y_;
         return *this;
     })
 
 #undef FUNC_
-#undef FUNCP2_
+#undef FUNCP1_
 };
 }  // namespace detail__
 
