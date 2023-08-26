@@ -23,7 +23,8 @@ using dbl_t = double;
 
 static_assert((N & (N - 1)) == 0 && N > 512, "N should be power of 2 and greater than 512");
 constexpr size_t OFFSET = 500;
-constexpr size_t DEG_LIMIT = (N | OFFSET) << 1;
+constexpr size_t DEG_LIMIT = N << 1;
+constexpr size_t CAP_LIMIT = (N | OFFSET) << 1;
 
 constexpr int64_t qpow(int64_t a, int64_t b, const int64_t &mod) {
     int64_t res(1);
@@ -204,8 +205,8 @@ struct SmodPoly_base_ {
     static_assert((MOD & 3) == 1, "MOD must be prime with 4k+1");
     static_assert((MOD - 1) % N == 0, "N must be a factor of MOD-1");
 
-    const static inline INV_<DEG_LIMIT, MOD> inv{};
-    static inline NTT_<DEG_LIMIT, MOD> ntt;
+    const static inline INV_<CAP_LIMIT, MOD> inv{};
+    static inline NTT_<CAP_LIMIT, MOD> ntt;
 
     std::vector<int32_t> data;
 
@@ -240,7 +241,6 @@ struct SmodPoly_base_ {
 
 template <ptrdiff_t ID>
 struct DmodPoly_base_ {
-    using comp = FFT_<DEG_LIMIT>::comp;
     using self = DmodPoly_base_<ID>;
 
     static inline int32_t mod_;
@@ -250,7 +250,8 @@ struct DmodPoly_base_ {
         mod_ = m;
     }
 
-    static inline FFT_<DEG_LIMIT> fft;
+    static inline FFT_<CAP_LIMIT> fft;
+    using comp = decltype(fft)::comp;
 
     std::vector<int32_t> data;
 
@@ -263,14 +264,14 @@ struct DmodPoly_base_ {
         self lhs, const self &rhs) { return lhs op## = rhs; }
 
     OOCR_(*, {
-        static comp a__[DEG_LIMIT], b__[DEG_LIMIT];
+        static comp a__[CAP_LIMIT], b__[CAP_LIMIT];
         for (size_t i = 0; i < data.size(); ++i) a__[i].real(data[i] & 0x7fff), a__[i].imag(data[i] >> 15);
         for (size_t i = 0; i < rhs.data.size(); ++i) b__[i].real(rhs.data[i] & 0x7fff), b__[i].imag(rhs.data[i] >> 15);
         data.resize(data.size() + rhs.data.size() - 1);
         size_t n = (size_t)(1) << (size_t)std::max(1., std::ceil(std::log2(data.size())));
         fft(a__, n);
         fft(b__, n);
-        static comp p__[DEG_LIMIT], q__[DEG_LIMIT];
+        static comp p__[CAP_LIMIT], q__[CAP_LIMIT];
         for (size_t i = 0; i < n; ++i) p__[i] = b__[i] * (a__[i] + conj(a__[(n - i) % n])) * comp{.5, 0};
         for (size_t i = 0; i < n; ++i) q__[i] = b__[i] * (a__[i] - conj(a__[(n - i) % n])) * comp{0, -.5};
         fft(p__, n, true);
@@ -550,6 +551,8 @@ class Poly {
         return *this;
     })
     FUNCP1_(pow, uint64_t, y, {
+        assert(p.data[0]);
+        assert(y > 0 && y < p.mod());
         strip();
         if (y == 0) {
             resize(1);
@@ -557,12 +560,16 @@ class Poly {
             return *this;
         }
         if (y == 1) return *this;
-        assert(p.data[0]);
-        int32_t c_ = p.data[0], inv_c_ = (int32_t)inverse(c_, p.mod()), c_y_ = (int32_t)qpow(c_, y, p.mod());
-        if (inv_c_ != 1) *this *= inv_c_;
-        resize(std::min(DEG_LIMIT, (size() - 1) * y + 1));
-        *this = (ln(*this) * (int32_t)y).do_exp();
-        if (c_y_ != 1) *this *= c_y_;
+        if (p.data[0] != 1) {
+            int32_t inv__ = (int32_t)inverse(p.data[0], p.mod()), pow__ = (int32_t)qpow(p.data[0], y, p.mod());
+            *this *= inv__;
+            resize(std::min(DEG_LIMIT, (size() - 1) * y + 1));
+            *this = (ln(*this) * (int32_t)y).do_exp();
+            *this *= pow__;
+        } else {
+            resize(std::min(DEG_LIMIT, (size() - 1) * y + 1));
+            *this = (ln(*this) * (int32_t)y).do_exp();
+        }
         return *this;
     })
 
