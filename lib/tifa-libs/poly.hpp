@@ -562,7 +562,6 @@ class Poly {
         if (inv_c_ != 1) *this *= inv_c_;
         resize(std::min(DEG_LIMIT, (size() - 1) * y + 1));
         *this = (log(*this) * (int32_t)y).do_exp();
-        strip();
         if (c_y_ != 1) *this *= c_y_;
         return *this;
     })
