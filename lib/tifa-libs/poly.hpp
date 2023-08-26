@@ -114,7 +114,7 @@ template <size_t DEG_LIMIT, int32_t MOD>
 struct INV_ {
     constexpr INV_() {
         data[1] = 1;
-        for (size_t i = 2; i < DEG_LIMIT; ++i) data[i] = (int64_t)data[MOD % i] * (MOD - MOD / i) % MOD;
+        for (size_t i = 2; i < DEG_LIMIT; ++i) data[i] = (int32_t)((int64_t)data[MOD % i] * (MOD - MOD / i) % MOD);
     }
     constexpr int32_t operator[](size_t idx) const { return data[idx]; }
 
@@ -192,7 +192,7 @@ struct FFT_ {
     }
 
   private:
-    constexpr static dbl_t TAU = M_PIl * 2;
+    constexpr static dbl_t TAU = dbl_t(M_PIl * 2);
 
     static inline comp w[DEG_LIMIT];
 };
