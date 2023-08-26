@@ -552,7 +552,7 @@ class Poly {
     })
     FUNCP1_(pow, uint64_t, y, {
         assert(p.data[0]);
-        assert(y > 0 && y < p.mod());
+        assert(y > 0 && y < (uint64_t)p.mod());
         strip();
         if (y == 0) {
             resize(1);
