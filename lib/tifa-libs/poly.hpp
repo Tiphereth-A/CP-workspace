@@ -24,7 +24,7 @@ using dbl_t = double;
 static_assert((N & (N - 1)) == 0 && N > 512, "N should be power of 2 and greater than 512");
 constexpr size_t OFFSET = 500;
 constexpr size_t DEG_LIMIT = N << 1;
-constexpr size_t CAP_LIMIT = (N | OFFSET) << 1;
+constexpr size_t CAP_LIMIT = DEG_LIMIT + OFFSET;
 
 constexpr int64_t qpow(int64_t a, int64_t b, const int64_t &mod) {
     int64_t res(1);
@@ -111,21 +111,21 @@ inline int32_t quad_residue(int32_t n, int32_t p) {
     return std::min(ret, p - ret);
 }
 
-template <size_t DEG_LIMIT, int32_t MOD>
+template <size_t SZ, int32_t MOD>
 struct INV_ {
     INV_() {
         data[1] = 1;
-        for (size_t i = 2; i < DEG_LIMIT; ++i) data[i] = (int32_t)((int64_t)data[MOD % i] * (MOD - MOD / i) % MOD);
+        for (size_t i = 2; i < SZ; ++i) data[i] = (int32_t)((int64_t)data[MOD % i] * (MOD - MOD / i) % MOD);
     }
     constexpr int32_t operator[](size_t idx) const { return data[idx]; }
 
   private:
-    static inline int32_t data[DEG_LIMIT];
+    static inline int32_t data[SZ];
 };
 
-template <size_t DEG_LIMIT>
+template <size_t SZ>
 struct FFT_INFO_ {
-    static inline int32_t root[DEG_LIMIT];
+    static inline int32_t root[SZ];
     static inline size_t rsz_;
 
     constexpr static void root_init(size_t n) {
@@ -135,13 +135,13 @@ struct FFT_INFO_ {
     }
 };
 
-template <size_t DEG_LIMIT, int32_t MOD>
+template <size_t SZ, int32_t MOD>
 struct NTT_ {
     constexpr NTT_() = default;
     constexpr void operator()(int32_t *g, size_t n, bool inv = false) {
-        FFT_INFO_<DEG_LIMIT>::root_init(n);
+        FFT_INFO_<SZ>::root_init(n);
         w[0] = 1;
-        for (size_t i = 0; i < n; ++i) f[i] = (((int64_t)MOD << 5) + g[FFT_INFO_<DEG_LIMIT>::root[i]]) % MOD;
+        for (size_t i = 0; i < n; ++i) f[i] = (((int64_t)MOD << 5) + g[FFT_INFO_<SZ>::root[i]]) % MOD;
         for (size_t l = 1; l < n; l <<= 1) {
             uint64_t tG = qpow(inv ? IG : G, (MOD - 1) / (l + l), MOD);
             for (size_t i = 1; i < l; ++i) w[i] = w[i - 1] * tG % MOD;
@@ -164,19 +164,19 @@ struct NTT_ {
   private:
     constexpr static int32_t G = proot(MOD), IG = inverse(G, MOD);
 
-    static inline uint64_t f[DEG_LIMIT], w[DEG_LIMIT];
+    static inline uint64_t f[SZ], w[SZ];
 };
 
-template <size_t DEG_LIMIT>
+template <size_t SZ>
 struct FFT_ {
     using comp = std::complex<dbl_t>;
 
     constexpr FFT_() = default;
     constexpr void operator()(comp *g, size_t n, bool inv = false) {
-        FFT_INFO_<DEG_LIMIT>::root_init(n);
+        FFT_INFO_<SZ>::root_init(n);
 
         for (size_t i = 0; i < n; ++i)
-            if ((int32_t)i < FFT_INFO_<DEG_LIMIT>::root[i]) std::swap(g[i], g[FFT_INFO_<DEG_LIMIT>::root[i]]);
+            if ((int32_t)i < FFT_INFO_<SZ>::root[i]) std::swap(g[i], g[FFT_INFO_<SZ>::root[i]]);
         for (size_t i = 1; i < n; ++i) w[i] = {std::cos(TAU * i / n), (inv ? -1 : 1) * std::sin(TAU * i / n)};
         w[0] = 1;
         for (size_t i = 2; i <= n; i <<= 1) {
@@ -195,7 +195,7 @@ struct FFT_ {
   private:
     constexpr static dbl_t TAU = dbl_t(M_PIl * 2);
 
-    static inline comp w[DEG_LIMIT];
+    static inline comp w[SZ];
 };
 
 
@@ -221,11 +221,11 @@ struct SmodPoly_base_ {
         self lhs, const self &rhs) { return lhs op## = rhs; }
 
     OOCR_(*, {
-        static int32_t a__[DEG_LIMIT], b__[DEG_LIMIT];
+        static int32_t a__[CAP_LIMIT], b__[CAP_LIMIT];
         std::copy(data.begin(), data.end(), a__);
         std::copy(rhs.data.begin(), rhs.data.end(), b__);
         data.resize(data.size() + rhs.data.size() - 1);
-        size_t n = (size_t)(1) << (size_t)std::max(1., std::ceil(std::log2(data.size())));
+        size_t n = std::min(DEG_LIMIT, (size_t)(1) << (size_t)std::max(1., std::ceil(std::log2(data.size()))));
         ntt(a__, n);
         ntt(b__, n);
         for (size_t i = 0; i < n; ++i) a__[i] = (int32_t)((int64_t)a__[i] * b__[i] % MOD);
@@ -268,7 +268,7 @@ struct DmodPoly_base_ {
         for (size_t i = 0; i < data.size(); ++i) a__[i].real(data[i] & 0x7fff), a__[i].imag(data[i] >> 15);
         for (size_t i = 0; i < rhs.data.size(); ++i) b__[i].real(rhs.data[i] & 0x7fff), b__[i].imag(rhs.data[i] >> 15);
         data.resize(data.size() + rhs.data.size() - 1);
-        size_t n = (size_t)(1) << (size_t)std::max(1., std::ceil(std::log2(data.size())));
+        size_t n = std::min(DEG_LIMIT, (size_t)(1) << (size_t)std::max(1., std::ceil(std::log2(data.size()))));
         fft(a__, n);
         fft(b__, n);
         static comp p__[CAP_LIMIT], q__[CAP_LIMIT];
@@ -365,7 +365,7 @@ class Poly {
   public:
     using base = Poly_base;
 
-    explicit Poly(size_t sz = 0): p(sz) { assert(sz < DEG_LIMIT); }
+    explicit Poly(size_t sz = 0): p(sz) {}
     explicit Poly(const std::initializer_list<int32_t> &v): p(v) {}
     explicit Poly(const std::vector<int32_t> &v): p(v) {}
 
@@ -389,7 +389,11 @@ class Poly {
     }
     Poly &strip() {
         if (size() > DEG_LIMIT) resize(DEG_LIMIT);
-        while (!p.data.back()) p.data.pop_back();
+        if (p.data.empty()) {
+            p.data.push_back(0);
+            return *this;
+        }
+        while (!p.data.empty() && !p.data.back()) p.data.pop_back();
         if (p.data.empty()) p.data.push_back(0);
         return *this;
     }
@@ -473,15 +477,21 @@ class Poly {
         return *this = ret;
     })
     FUNC_(derivative, {
+        strip();
+        if (size() == 1) {
+            p.data[0] = 0;
+            return *this;
+        }
         for (size_t i = 1; i < size(); ++i) p.data[i - 1] = (int32_t)((int64_t)p.data[i] * i % p.mod());
         p.data.pop_back();
         return *this;
     })
     FUNC_(integral, {
+        strip();
         p.data.push_back(0);
         for (size_t i = size() - 1; i; --i) p.data[i] = (int32_t)((int64_t)p.data[i - 1] * p.inv[i] % p.mod());
-        p.data.front() = 0;
-        return *this;
+        p.data[0] = 0;
+        return strip();
     })
     FUNC_(ln, {
         size_t sz_ = size();
