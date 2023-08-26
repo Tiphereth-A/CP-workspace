@@ -550,10 +550,19 @@ class Poly {
         return *this;
     })
     FUNCP1_(pow, uint64_t, y, {
+        strip();
+        if (y == 0) {
+            resize(1);
+            p.data[0] = 1;
+            return *this;
+        }
+        if (y == 1) return *this;
         assert(p.data[0]);
         int32_t c_ = p.data[0], inv_c_ = (int32_t)inverse(c_, p.mod()), c_y_ = (int32_t)qpow(c_, y, p.mod());
         if (inv_c_ != 1) *this *= inv_c_;
+        resize(std::min(DEG_LIMIT, (size() - 1) * y + 1));
         *this = (log(*this) * (int32_t)y).do_exp();
+        strip();
         if (c_y_ != 1) *this *= c_y_;
         return *this;
     })
