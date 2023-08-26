@@ -334,6 +334,7 @@ class Poly {
         if (n == 1) {
             int32_t qres = quad_residue(p.data[0], p.mod());
             assert(~qres);
+            ans.p.data.clear();
             ans.p.data.push_back(qres);
             return;
         }
@@ -341,7 +342,7 @@ class Poly {
         Poly sA = *this;
         sA.do_resize(n);
         ans.do_resize(ans.size() * 2);
-        ans = (sA + (ans * ans).resize(n)) * inverse(ans * 2);
+        ans = (sA + (ans * ans).do_resize(n)) * inverse(ans * 2);
         ans.do_resize(n);
     }
 
