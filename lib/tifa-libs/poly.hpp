@@ -482,7 +482,7 @@ class Poly {
         p.data.front() = 0;
         return *this;
     })
-    FUNC_(log, {
+    FUNC_(ln, {
         size_t sz_ = size();
         *this = (derivative(*this) * inverse(*this)).do_integral();
         resize(sz_);
