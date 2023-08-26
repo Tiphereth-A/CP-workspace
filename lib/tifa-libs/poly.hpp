@@ -512,21 +512,21 @@ class Poly {
     })
     FUNC_(asin, {
         size_t n = size();
-        Poly _1 = (*this * (*this * (p.mod() - 1))).resize(n);
+        Poly _1 = (*this * (*this * (p.mod() - 1))).do_resize(n);
         if (++_1[0] == p.mod()) _1[0] = 0;
-        return (*this = (derivative(*this) * _1.do_sqrt().do_inverse()).resize(n).do_integral());
+        return (*this = (derivative(*this) * _1.do_sqrt().do_inverse()).do_resize(n).do_integral());
     })
     FUNC_(acos, {
         size_t n = size();
-        Poly _1 = (*this * *this * (p.mod() - 1)).resize(n);
+        Poly _1 = (*this * *this * (p.mod() - 1)).do_resize(n);
         if (++_1[0] == p.mod()) _1[0] = 0;
-        return (*this = (derivative(*this) * (_1.do_sqrt().do_inverse() * (p.mod() - 1))).resize(n).do_integral()).do_resize(n);
+        return (*this = (derivative(*this) * (_1.do_sqrt().do_inverse() * (p.mod() - 1))).do_resize(n).do_integral()).do_resize(n);
     })
     FUNC_(atan, {
         size_t n = size();
-        Poly _1 = (*this * *this).resize(n);
+        Poly _1 = (*this * *this).do_resize(n);
         if (++_1[0] == p.mod()) _1[0] = 0;
-        return (*this = (derivative(*this) * _1.do_inverse()).resize(n).do_integral()).do_resize(n);
+        return (*this = (derivative(*this) * _1.do_inverse()).do_resize(n).do_integral()).do_resize(n);
     })
     FUNCP1_(pow, uint32_t, y, {
         assert(p.data[0] == 1);
