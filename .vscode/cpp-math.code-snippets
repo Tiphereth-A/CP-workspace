@@ -1467,7 +1467,7 @@
             "if (!euler_judge(a, p)) return -1;",
             "int64_t r = 2;",
             "while (euler_judge(r, p)) ++r;",
-            "auto n = std::countr_zero(p - 1);",
+            "auto n = __builtin_ctzll(p - 1);",
             "uint64_t m = (p - 1) >> n, g = qpow(r, m, p), e = 0, b = qpow(a, m / 2, p), am = qpow(a, m, p);",
             "for (decltype(n) k = 1; k < n; ++k) e |= (uint64_t)(qpow(am * inverse(qpow(g, e, p), p) % p, 1 << (n - 1 - k), p) == p - 1) << k;",
             "return a * b % p * inverse(qpow(g, e / 2, p), p) % p;",
