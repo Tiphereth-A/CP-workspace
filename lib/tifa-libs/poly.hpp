@@ -163,10 +163,10 @@ struct PolyBase__ {
         std::vector<uint32_t> ans(n + m - 1);
         if (n < m)
             for (size_t j = 0; j < m; j++)
-                for (size_t i = 0; i < n; i++) ans[i + j] = (ans[i + j] + (uint64_t)lhs[i] * rhs[j]) % mod;
+                for (size_t i = 0; i < n; i++) ans[i + j] = (uint32_t)((ans[i + j] + (uint64_t)lhs[i] * rhs[j]) % mod);
         else
             for (size_t i = 0; i < n; i++)
-                for (size_t j = 0; j < m; j++) ans[i + j] = (ans[i + j] + (uint64_t)lhs[i] * rhs[j]) % mod;
+                for (size_t j = 0; j < m; j++) ans[i + j] = (uint32_t)((ans[i + j] + (uint64_t)lhs[i] * rhs[j]) % mod);
         return ans;
     }
 };
@@ -527,6 +527,22 @@ class Poly {
 
 #undef FUNC_
 #undef FUNCP1_
+
+    // Chirp Z-Transform
+    // @return {f(c^0), f(c^1), ..., f(c^{m-1})}
+    constexpr friend Poly czt(Poly const &f, uint32_t c, size_t m) {
+        uint32_t mod = f.p.mod();
+        c %= mod;
+        size_t n = f.size();
+        std::remove_cvref_t<decltype(f)> cc(n + m - 1), g(n), qp(std::max(n, m));
+        for (size_t i = 0; i < n + m - 1; ++i) cc[n + m - 2 - i] = (uint32_t)qpow(c, (uint64_t)(i - 1) * i / 2 % (mod - 1), mod);
+        for (size_t i = 0, ed = std::max(n, m); i < ed; ++i) qp[i] = (uint32_t)qpow(c, mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1), mod);
+        for (size_t i = 0; i < n; ++i) g[i] = (uint32_t)((uint64_t)qp[i] * f[i] % mod);
+        cc *= g;
+        std::remove_cvref_t<decltype(f)> ans(m);
+        for (size_t i = 0; i < m; ++i) ans[i] = (uint32_t)((uint64_t)cc[n + m - 2 - i] * qp[i] % mod);
+        return ans;
+    }
 };
 }  // namespace detail__
 
