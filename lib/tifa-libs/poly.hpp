@@ -135,11 +135,11 @@ struct FFT_ {
         FFT_INFO_::init(n);
         w.resize(n);
         w[0] = 1;
-        for (size_t i = 1; i < n; ++i) w[i] = {std::cos(TAU * (double)i / (double)n), (inv ? -1 : 1) * std::sin(TAU * (double)i / (double)n)};
+        for (size_t i = 1; i < n; ++i) w[i] = {std::cos(TAU * (DBL)i / (DBL)n), (inv ? -1 : 1) * std::sin(TAU * (DBL)i / (DBL)n)};
         for (size_t i = 0; i < n; ++i)
             if (i < FFT_INFO_::root[i]) std::swap(g[i], g[FFT_INFO_::root[i]]);
         for (size_t i = 2; i <= n; i <<= 1) {
-            for (size_t j = 1; j < i / 2; ++j) w[j] = {std::cos(TAU / (double)i * (double)j), (inv ? -1 : 1) * std::sin(TAU / (double)i * (double)j)};
+            for (size_t j = 1; j < i / 2; ++j) w[j] = {std::cos(TAU / (DBL)i * (DBL)j), (inv ? -1 : 1) * std::sin(TAU / (DBL)i * (DBL)j)};
             for (size_t j = 0; j < n; j += i) {
                 auto f = g.begin() + j, h = g.begin() + j + i / 2;
                 for (size_t k = 0; k < i / 2; ++k) {
