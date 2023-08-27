@@ -78,17 +78,18 @@ constexpr int legendre_symbol(uint64_t a, uint64_t p) {
     }
     return s;
 }
-struct GaussInt {
-    int32_t real, imag;
-    const int32_t i_sqr, mod;
-    constexpr GaussInt &operator*=(GaussInt rhs) {
-        const int64_t _r = real, _i = imag;
-        real = (int32_t)((_r * rhs.real % mod + i_sqr * _i % mod * rhs.imag % mod) % mod);
-        imag = (int32_t)((_i * rhs.real % mod + _r * rhs.imag % mod) % mod);
-        return *this;
-    }
-};
+
 inline int32_t quad_residue(int32_t n, int32_t p) {
+    struct GaussInt {
+        int32_t real, imag;
+        const int32_t i_sqr, mod;
+        constexpr GaussInt &operator*=(GaussInt rhs) {
+            const int64_t _r = real, _i = imag;
+            real = (int32_t)((_r * rhs.real % mod + i_sqr * _i % mod * rhs.imag % mod) % mod);
+            imag = (int32_t)((_i * rhs.real % mod + _r * rhs.imag % mod) % mod);
+            return *this;
+        }
+    };
     static std::mt19937 eng__(time(nullptr));
     if (n == 0 || n == 1 || n == p - 1) return n;
     if (legendre_symbol(n, p) != 1) return -1;
@@ -332,7 +333,7 @@ class Poly {
     _GLIBCXX20_CONSTEXPR void sqrt_(Poly &ans, size_t n) const {
         if (n == 1) {
             int32_t qres = quad_residue(p.data[0], p.mod());
-            assert(~qres);
+            assert(qres == 1);
             ans.p.data[0] = qres;
             return;
         }
