@@ -530,8 +530,10 @@ class Poly {
 };
 }  // namespace detail__
 
+//! MOD MUST be prime with 4k+1
 template <int32_t MOD>
 using s_poly = detail__::Poly<detail__::SmodPolyBase_<MOD>>;
+//! mod MUST be prime, MUST call d_poly::base::set_mod() first
 template <ptrdiff_t ID, class DBL = double>
 using d_poly = detail__::Poly<detail__::DmodPolyBase_<ID, DBL>>;
 }  // namespace tifa_libs::poly
