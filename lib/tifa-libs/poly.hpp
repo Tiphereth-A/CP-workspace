@@ -4,6 +4,7 @@
 //! based in C++20
 
 #include <algorithm>
+#include <array>
 #include <bit>
 #include <cassert>
 #include <cmath>
@@ -76,6 +77,27 @@ constexpr int64_t quad_residue(uint64_t a, uint64_t p) {
     for (decltype(n) k = 1; k < n; ++k) e |= (uint64_t)(qpow(am * inverse(qpow(g, e, p), p) % p, 1 << (n - 1 - k), p) == p - 1) << k;
     return a * b % p * inverse(qpow(g, e / 2, p), p) % p;
 }
+
+class RPOW_ {
+    uint32_t a, mod;
+    std::array<uint32_t, 65536> block1, block2;
+
+  public:
+    constexpr RPOW_(): a(0), mod(0) {}
+    constexpr RPOW_(uint32_t a, uint32_t p) { reset(a, p); }
+    constexpr void reset(uint32_t a_, uint32_t p_) {
+        assert(p_ > 1);
+        if (a == a_ && mod == p_) return;
+        a = a_;
+        mod = p_;
+        block1[0] = block2[0] = 1;
+        for (uint32_t i = 1; i < 65536; i++) block1[i] = (uint32_t)((uint64_t)block1[i - 1] * a % mod);
+        uint32_t _ = (uint32_t)((uint64_t)block1.back() * a % mod);
+        for (uint32_t i = 1; i < 65536; i++) block2[i] = (uint32_t)((uint64_t)block2[i - 1] * _ % mod);
+    }
+    constexpr uint32_t operator()(size_t exponent) { return (uint32_t)((uint64_t)block1[exponent & 65535] * block2[exponent >> 16] % mod); }
+};
+
 
 struct FFT_INFO_ {
     static inline std::vector<size_t> root;
@@ -533,14 +555,14 @@ class Poly {
     constexpr friend Poly czt(Poly const &f, uint32_t c, size_t m) {
         uint32_t mod = f.p.mod();
         c %= mod;
+        RPOW_ rp(c, mod);
         size_t n = f.size();
-        std::remove_cvref_t<decltype(f)> cc(n + m - 1), g(n), qp(std::max(n, m));
-        for (size_t i = 0; i < n + m - 1; ++i) cc[n + m - 2 - i] = (uint32_t)qpow(c, (uint64_t)(i - 1) * i / 2 % (mod - 1), mod);
-        for (size_t i = 0, ed = std::max(n, m); i < ed; ++i) qp[i] = (uint32_t)qpow(c, mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1), mod);
-        for (size_t i = 0; i < n; ++i) g[i] = (uint32_t)((uint64_t)qp[i] * f[i] % mod);
+        std::remove_cvref_t<decltype(f)> cc(n + m - 1), g(n);
+        for (size_t i = 0; i < n + m - 1; ++i) cc[n + m - 2 - i] = rp((uint64_t)(i - 1) * i / 2 % (mod - 1));
+        for (size_t i = 0; i < n; ++i) g[i] = (uint32_t)((uint64_t)rp(mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1)) * f[i] % mod);
         cc *= g;
         std::remove_cvref_t<decltype(f)> ans(m);
-        for (size_t i = 0; i < m; ++i) ans[i] = (uint32_t)((uint64_t)cc[n + m - 2 - i] * qp[i] % mod);
+        for (size_t i = 0; i < m; ++i) ans[i] = (uint32_t)((uint64_t)cc[n + m - 2 - i] * rp(mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1)) % mod);
         return ans;
     }
 };
