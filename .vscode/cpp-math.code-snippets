@@ -1462,6 +1462,7 @@
             "quad-residue"
         ],
         "body": [
+            "//! @return one of the quad_residue (NOT THE SMALLER ONE) of a if exists, otherwise -1",
             "constexpr int64_t quad_residue(uint64_t a, uint64_t p) {",
             "auto euler_judge = [](uint64_t a, uint64_t p) -> bool { return qpow(a, p / 2, p) == 1; };",
             "if (!euler_judge(a, p)) return -1;",
