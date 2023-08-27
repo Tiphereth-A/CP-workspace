@@ -1,6 +1,8 @@
 #ifndef TIFALIBS_POLY
 #define TIFALIBS_POLY
 
+//! based in C++20
+
 #include <algorithm>
 #include <bit>
 #include <cassert>
@@ -16,7 +18,6 @@
 #include <vector>
 
 namespace tifa_libs::poly {
-
 namespace detail__ {
 constexpr uint64_t qpow(uint64_t a, uint64_t b, uint64_t mod) {
     uint64_t res(1);
@@ -89,8 +90,8 @@ struct FFT_INFO_ {
 
 template <uint32_t MOD>
 struct NTT_ {
-    _GLIBCXX20_CONSTEXPR NTT_() = default;
-    _GLIBCXX20_CONSTEXPR void operator()(std::vector<uint32_t> &g, bool inv = false) {
+    constexpr NTT_() = default;
+    constexpr void operator()(std::vector<uint32_t> &g, bool inv = false) {
         size_t n = g.size();
         FFT_INFO_::init(n);
         f.resize(n);
@@ -128,8 +129,8 @@ struct FFT_ {
 
     using comp = std::complex<DBL>;
 
-    _GLIBCXX20_CONSTEXPR FFT_() = default;
-    _GLIBCXX20_CONSTEXPR void operator()(std::vector<comp> &g, bool inv = false) {
+    constexpr FFT_() = default;
+    constexpr void operator()(std::vector<comp> &g, bool inv = false) {
         size_t n = g.size();
         FFT_INFO_::init(n);
         w.resize(n);
@@ -156,7 +157,19 @@ struct FFT_ {
     static inline std::vector<comp> w;
 };
 
-struct PolyBase__ {};
+struct PolyBase__ {
+    static std::vector<uint32_t> naive_conv(std::vector<uint32_t> const &lhs, std::vector<uint32_t> const &rhs) {
+        size_t n = lhs.size(), m = rhs.size();
+        std::vector<uint32_t> ans(n + m - 1);
+        if (n < m)
+            for (size_t j = 0; j < m; j++)
+                for (size_t i = 0; i < n; i++) ans[i + j] += lhs[i] * rhs[j];
+        else
+            for (size_t i = 0; i < n; i++)
+                for (size_t j = 0; j < m; j++) ans[i + j] += lhs[i] * rhs[j];
+        return ans;
+    }
+};
 template <uint32_t MOD>
 struct SmodPolyBase_: public PolyBase__ {
     static_assert((MOD & 3) == 1, "MOD must be prime with 4k+1");
@@ -167,18 +180,21 @@ struct SmodPolyBase_: public PolyBase__ {
 
     std::vector<uint32_t> data;
 
-    explicit _GLIBCXX20_CONSTEXPR SmodPolyBase_(size_t sz = 1): data(std::max((size_t)1, sz)) {}
-    explicit _GLIBCXX20_CONSTEXPR SmodPolyBase_(std::initializer_list<uint32_t> v): data(v) {}
-    explicit _GLIBCXX20_CONSTEXPR SmodPolyBase_(std::vector<uint32_t> const &v): data(v) {}
+    explicit constexpr SmodPolyBase_(size_t sz = 1): data(std::max((size_t)1, sz)) {}
+    explicit constexpr SmodPolyBase_(std::initializer_list<uint32_t> v): data(v) {}
+    explicit constexpr SmodPolyBase_(std::vector<uint32_t> const &v): data(v) {}
 
     constexpr static uint32_t mod() { return MOD; }
 
-#define OOCR_(op, ...)                                                     \
-    _GLIBCXX20_CONSTEXPR self &operator op##=(self const &rhs) __VA_ARGS__ \
-        _GLIBCXX20_CONSTEXPR friend self                                   \
-        operator op(self lhs, self const &rhs) { return lhs op## = rhs; }
+#define OOCR_(op, ...)                                                                \
+    constexpr self &operator op##=(self const &rhs) __VA_ARGS__ constexpr friend self \
+    operator op(self lhs, self const &rhs) { return lhs op## = rhs; }
 
     OOCR_(*, {
+        if (data.size() + rhs.data.size() < 64) {
+            data = naive_conv(data, rhs.data);
+            return *this;
+        }
         std::vector<uint32_t> a__(data), b__(rhs.data);
         data.resize(data.size() + rhs.data.size() - 1);
         size_t n = (size_t)(1) << (size_t)std::max(1., std::ceil(std::log2(data.size())));
@@ -219,6 +235,10 @@ struct DmodPolyBase_: public PolyBase__ {
     self &operator op##=(self const &rhs) __VA_ARGS__ friend self operator op(self lhs, self const &rhs) { return lhs op## = rhs; }
 
     OOCR_(*, {
+        if (data.size() + rhs.data.size() < 64) {
+            data = naive_conv(data, rhs.data);
+            return *this;
+        }
         std::vector<comp> a__(data.size()), b__(rhs.data.size());
         for (size_t i = 0; i < data.size(); ++i) a__[i].real(data[i] & 0x7fff), a__[i].imag(data[i] >> 15);
         for (size_t i = 0; i < rhs.data.size(); ++i) b__[i].real(rhs.data[i] & 0x7fff), b__[i].imag(rhs.data[i] >> 15);
@@ -248,7 +268,7 @@ class Poly {
     PBase p;
 
     template <class Fodd, class Feven>
-    _GLIBCXX20_CONSTEXPR void expand_base__(
+    constexpr void expand_base__(
         Poly &ans, size_t n, uint32_t val1, Fodd fodd, Feven feven) const {
         if (n == 1) {
             ans.p.data[0] = val1;
@@ -263,7 +283,7 @@ class Poly {
         feven(ans, n);
     }
 
-    _GLIBCXX20_CONSTEXPR void inv_(Poly &ans, size_t n) const {
+    constexpr void inv_(Poly &ans, size_t n) const {
         expand_base__(
             ans,
             n,
@@ -281,7 +301,7 @@ class Poly {
             });
     }
 
-    _GLIBCXX20_CONSTEXPR void exp_(Poly &ans, size_t n) const {
+    constexpr void exp_(Poly &ans, size_t n) const {
         expand_base__(
             ans,
             n,
@@ -301,7 +321,7 @@ class Poly {
             });
     }
 
-    _GLIBCXX20_CONSTEXPR void sqrt_(Poly &ans, size_t n) const {
+    constexpr void sqrt_(Poly &ans, size_t n) const {
         if (n == 1) {
             int32_t qres = (int32_t)quad_residue(p.data[0], p.mod());
             assert(qres > 0);
@@ -319,47 +339,46 @@ class Poly {
   public:
     using base = PBase;
 
-    explicit _GLIBCXX20_CONSTEXPR Poly(size_t sz = 1): p(sz) {}
-    explicit _GLIBCXX20_CONSTEXPR Poly(std::initializer_list<uint32_t> v): p(v) {}
-    explicit _GLIBCXX20_CONSTEXPR Poly(std::vector<uint32_t> const &v): p(v) {}
+    explicit constexpr Poly(size_t sz = 1): p(sz) {}
+    explicit constexpr Poly(std::initializer_list<uint32_t> v): p(v) {}
+    explicit constexpr Poly(std::vector<uint32_t> const &v): p(v) {}
 
-    _GLIBCXX20_CONSTEXPR friend std::istream &operator>>(std::istream &is, Poly &poly) {
+    constexpr friend std::istream &operator>>(std::istream &is, Poly &poly) {
         for (auto &val : poly.p.data) is >> val;
         return is;
     }
-    _GLIBCXX20_CONSTEXPR friend std::ostream &operator<<(std::ostream &os, const Poly &poly) {
+    constexpr friend std::ostream &operator<<(std::ostream &os, const Poly &poly) {
         if (!poly.size()) return os;
         for (size_t i = 1; i < poly.size(); ++i) os << poly[i - 1] << ' ';
         return os << poly.p.data.back();
     }
 
-    _GLIBCXX20_CONSTEXPR uint32_t &operator[](size_t x) { return p.data[x]; }
-    _GLIBCXX20_CONSTEXPR uint32_t operator[](size_t x) const { return p.data[x]; }
+    constexpr uint32_t &operator[](size_t x) { return p.data[x]; }
+    constexpr uint32_t operator[](size_t x) const { return p.data[x]; }
 
-    _GLIBCXX20_CONSTEXPR size_t size() const { return p.data.size(); }
-    _GLIBCXX20_CONSTEXPR Poly &do_resize(size_t size) {
+    constexpr size_t size() const { return p.data.size(); }
+    constexpr Poly &do_resize(size_t size) {
         p.data.resize(size);
         return *this;
     }
-    _GLIBCXX20_CONSTEXPR Poly &do_strip() {
+    constexpr Poly &do_strip() {
         while (!p.data.empty() && !p.data.back()) p.data.pop_back();
         if (p.data.empty()) p.data.push_back(0);
         return *this;
     }
 
-    _GLIBCXX20_CONSTEXPR Poly &operator*=(uint32_t c) {
+    constexpr Poly &operator*=(uint32_t c) {
         for (uint32_t &val : p.data) val = (uint32_t)((uint64_t)val * c % p.mod());
         return *this;
     }
-    _GLIBCXX20_CONSTEXPR friend Poly operator*(Poly poly, uint32_t c) { return poly *= c; }
-    _GLIBCXX20_CONSTEXPR friend Poly operator*(uint32_t c, Poly poly) { return poly *= c; }
+    constexpr friend Poly operator*(Poly poly, uint32_t c) { return poly *= c; }
+    constexpr friend Poly operator*(uint32_t c, Poly poly) { return poly *= c; }
 
 #define OOCR_(op, ...) \
-    _GLIBCXX20_CONSTEXPR Poly &operator op##=(Poly const &rhs) __VA_ARGS__ friend Poly operator op(Poly lhs, Poly const &rhs) { return lhs op## = rhs; }
-#define OO_(op, ...)                                                \
-    _GLIBCXX20_CONSTEXPR Poly &operator op##=(Poly rhs) __VA_ARGS__ \
-        _GLIBCXX20_CONSTEXPR friend Poly                            \
-        operator op(Poly lhs, Poly const &rhs) { return lhs op## = rhs; }
+    constexpr Poly &operator op##=(Poly const &rhs) __VA_ARGS__ friend Poly operator op(Poly lhs, Poly const &rhs) { return lhs op## = rhs; }
+#define OO_(op, ...)                                                           \
+    constexpr Poly &operator op##=(Poly rhs) __VA_ARGS__ constexpr friend Poly \
+    operator op(Poly lhs, Poly const &rhs) { return lhs op## = rhs; }
 
     OOCR_(+, {
         do_resize(std::max(size(), rhs.size()));
@@ -391,12 +410,12 @@ class Poly {
 #undef OO_
 #undef OOCR_
 
-    _GLIBCXX20_CONSTEXPR friend std::pair<Poly, Poly> divmod(Poly const &lhs, Poly const &rhs) {
+    constexpr friend std::pair<Poly, Poly> divmod(Poly const &lhs, Poly const &rhs) {
         auto &&div_ = lhs / rhs;
         return {div_, (lhs - rhs * div_).do_resize(rhs.size() - 1)};
     }
 
-    _GLIBCXX20_CONSTEXPR Poly &do_shl(size_t offset) {
+    constexpr Poly &do_shl(size_t offset) {
         if (offset == 0) return *this;
         if (offset >= size()) {
             std::fill(p.data.begin(), p.data.end(), 0);
@@ -406,7 +425,7 @@ class Poly {
         return do_resize(size() + offset);
     }
 
-    _GLIBCXX20_CONSTEXPR Poly &do_shr(size_t offset) {
+    constexpr Poly &do_shr(size_t offset) {
         if (offset == 0) return *this;
         if (offset >= size()) {
             std::fill(p.data.begin(), p.data.end(), 0);
@@ -417,14 +436,12 @@ class Poly {
         return do_resize(size() - offset);
     }
 
-#define FUNC_(name, ...)                               \
-    _GLIBCXX20_CONSTEXPR Poly &do_##name() __VA_ARGS__ \
-        _GLIBCXX20_CONSTEXPR friend Poly               \
-        name(Poly poly) { return poly.do_##name(); }
-#define FUNCP1_(name, type1, var1, ...)                          \
-    _GLIBCXX20_CONSTEXPR Poly &do_##name(type1 var1) __VA_ARGS__ \
-        _GLIBCXX20_CONSTEXPR friend Poly                         \
-        name(Poly poly, type1 var1) { return poly.do_##name(var1); }
+#define FUNC_(name, ...)                                          \
+    constexpr Poly &do_##name() __VA_ARGS__ constexpr friend Poly \
+    name(Poly poly) { return poly.do_##name(); }
+#define FUNCP1_(name, type1, var1, ...)                                     \
+    constexpr Poly &do_##name(type1 var1) __VA_ARGS__ constexpr friend Poly \
+    name(Poly poly, type1 var1) { return poly.do_##name(var1); }
 
     FUNC_(inverse, {
         Poly ret;
