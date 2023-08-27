@@ -759,19 +759,7 @@
             "legendre-symbol"
         ],
         "body": [
-            "constexpr int32_t legendre_symbol(uint64_t a, uint64_t p) noexcept {",
-            "if (a == 0) return 0;",
-            "int32_t s = 1, _ctz = 0;",
-            "while (a > 1) {",
-            "if (a == p || a == 0 || p < 2) return 0;",
-            "_ctz = __builtin_ctzll(a);",
-            "if (((p - 1) & 7) && ((p + 1) & 7) && (_ctz & 1)) s = -s;",
-            "if ((a >>= _ctz) == 1) break;",
-            "if ((((p - 1) & 7) * (a - 1)) & 7) s = -s;",
-            "a ^= p ^= a ^= p %= a;",
-            "}",
-            "return s;",
-            "}"
+            "constexpr int32_t legendre_symbol(uint64_t a, uint64_t p) { return !a ? 0 : qpow(a, p / 2, p) == 1 ? 1 : -1; }"
         ]
     },
     "lucas": {
@@ -1473,35 +1461,16 @@
             "quad-residue"
         ],
         "body": [
-            "namespace quad_r {",
-            "using data_t = int64_t;",
-            "using sdata_t = std::make_signed_t<data_t>;",
-            "using udata_t = std::make_unsigned_t<data_t>;",
-            "std::default_random_engine e(time(nullptr));",
-            "std::optional<data_t> quad_residue(const data_t& n, const udata_t& p) {",
-            "if (n == 0 || n == 1 || n == p - 1) return n;",
-            "if (legendre_symbol(n, p) != 1) return std::nullopt;",
-            "std::uniform_int_distribution<udata_t> u(1, p - 1);",
-            "data_t a = u(e);",
-            "while (legendre_symbol((mul_mod(a, a, p) + (p - n)) % p, p) == 1) a = u(e);",
-            "struct gsint {",
-            "using self = gsint;",
-            "data_t real, imag;",
-            "const data_t i_sqr;",
-            "const udata_t mod;",
-            "explicit constexpr gsint(const data_t& _r = data_t(), const data_t& _i = data_t(), const data_t& _ii = data_t(), const udata_t& _p = udata_t(1)) : real(_r), imag(_i), i_sqr(_ii), mod(_p) {}",
-            "constexpr gsint(const gsint&) = default;",
-            "constexpr self& operator*=(self rhs) {",
-            "const data_t _r = real, _i = imag;",
-            "real = (mul_mod(_r, rhs.real, mod) + mul_mod(mul_mod(i_sqr, _i, mod), rhs.imag, mod)) % mod;",
-            "imag = (mul_mod(_i, rhs.real, mod) + mul_mod(_r, rhs.imag, mod)) % mod;",
-            "return *this;",
-            "}",
-            "};",
-            "return [](gsint a, udata_t b) { gsint res{1, 0, a.i_sqr, a.mod}; for (; b; b >>= 1, a *= a) if (b & 1) res *= a; return res.real; }(gsint{a, 1, (mul_mod(a, a, p) + (p - n)) % p, p}, (p + 1) / 2);",
-            "}",
-            "}",
-            "using quad_r::quad_residue;",
+            "constexpr int64_t quad_residue(uint64_t a, uint64_t p) {",
+            "auto euler_judge = [](uint64_t a, uint64_t p) -> bool { return qpow(a, p / 2, p) == 1; };",
+            "if (!euler_judge(a, p)) return -1;",
+            "int64_t r = 2;",
+            "while (euler_judge(r, p)) ++r;",
+            "auto n = std::countr_zero(p - 1);",
+            "uint64_t m = (p - 1) >> n, g = qpow(r, m, p), e = 0, b = qpow(a, m / 2, p), am = qpow(a, m, p);",
+            "for (decltype(n) k = 1; k < n; ++k) e |= (uint64_t)(qpow(am * inverse(qpow(g, e, p), p) % p, 1 << (n - 1 - k), p) == p - 1) << k;",
+            "return a * b % p * inverse(qpow(g, e / 2, p), p) % p;",
+            "}"
         ]
     },
     "qwick-pow": {
