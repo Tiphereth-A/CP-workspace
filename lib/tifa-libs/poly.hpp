@@ -158,15 +158,15 @@ struct FFT_ {
 };
 
 struct PolyBase__ {
-    static std::vector<uint32_t> naive_conv(std::vector<uint32_t> const &lhs, std::vector<uint32_t> const &rhs) {
+    static std::vector<uint32_t> naive_conv(std::vector<uint32_t> const &lhs, std::vector<uint32_t> const &rhs, uint32_t mod) {
         size_t n = lhs.size(), m = rhs.size();
         std::vector<uint32_t> ans(n + m - 1);
         if (n < m)
             for (size_t j = 0; j < m; j++)
-                for (size_t i = 0; i < n; i++) ans[i + j] += lhs[i] * rhs[j];
+                for (size_t i = 0; i < n; i++) ans[i + j] = (ans[i + j] + (uint64_t)lhs[i] * rhs[j]) % mod;
         else
             for (size_t i = 0; i < n; i++)
-                for (size_t j = 0; j < m; j++) ans[i + j] += lhs[i] * rhs[j];
+                for (size_t j = 0; j < m; j++) ans[i + j] = (ans[i + j] + (uint64_t)lhs[i] * rhs[j]) % mod;
         return ans;
     }
 };
@@ -192,7 +192,7 @@ struct SmodPolyBase_: public PolyBase__ {
 
     OOCR_(*, {
         if (data.size() + rhs.data.size() < 64) {
-            data = naive_conv(data, rhs.data);
+            data = naive_conv(data, rhs.data, p.mod());
             return *this;
         }
         std::vector<uint32_t> a__(data), b__(rhs.data);
@@ -236,7 +236,7 @@ struct DmodPolyBase_: public PolyBase__ {
 
     OOCR_(*, {
         if (data.size() + rhs.data.size() < 64) {
-            data = naive_conv(data, rhs.data);
+            data = naive_conv(data, rhs.data, p.mod());
             return *this;
         }
         std::vector<comp> a__(data.size()), b__(rhs.data.size());
