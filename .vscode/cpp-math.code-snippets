@@ -759,6 +759,7 @@
             "legendre-symbol"
         ],
         "body": [
+            "//! p must be odd prime",
             "constexpr int32_t legendre_symbol(uint64_t a, uint64_t p) { return a % p == 0 ? 0 : qpow(a, p / 2, p) == 1 ? 1 : -1; }"
         ]
     },
