@@ -192,7 +192,7 @@ struct SmodPolyBase_: public PolyBase__ {
 
     OOCR_(*, {
         if (data.size() + rhs.data.size() < 64) {
-            data = naive_conv(data, rhs.data, p.mod());
+            data = naive_conv(data, rhs.data, MOD);
             return *this;
         }
         std::vector<uint32_t> a__(data), b__(rhs.data);
@@ -236,7 +236,7 @@ struct DmodPolyBase_: public PolyBase__ {
 
     OOCR_(*, {
         if (data.size() + rhs.data.size() < 64) {
-            data = naive_conv(data, rhs.data, p.mod());
+            data = naive_conv(data, rhs.data, mod());
             return *this;
         }
         std::vector<comp> a__(data.size()), b__(rhs.data.size());
