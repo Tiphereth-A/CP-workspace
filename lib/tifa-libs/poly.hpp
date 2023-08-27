@@ -230,7 +230,7 @@ struct DmodPolyBase_: public PolyBase__ {
     static inline uint32_t mod_;
     static uint32_t mod() { return mod_; }
     static void set_mod(uint32_t m) {
-        assert(3 <= m && m % 2 == 0);
+        assert(1 <= m);
         mod_ = m;
     }
 
@@ -491,13 +491,13 @@ class Poly {
         size_t n = size();
         uint32_t i = qpow(proot(p.mod()), (p.mod() - 1) / 4, p.mod());
         *this *= i;
-        return (*this = (exp(*this * (p.mod() - 1)) - exp(*this)) * (uint32_t)((uint64_t)i * ((p.mod() + 1) / 2) % p.mod())).do_resize(n);
+        return (*this = (exp(*this * (p.mod() - 1)) - exp(*this)) * (uint32_t)((uint64_t)i * inverse(2, p.mod()) % p.mod())).do_resize(n);
     })
     FUNC_(cos, {
         size_t n = size();
         uint32_t i = qpow(proot(p.mod()), (p.mod() - 1) / 4, p.mod());
         *this *= i;
-        return (*this = (exp(*this) + exp(*this * (p.mod() - 1))) * ((p.mod() + 1) / 2)).do_resize(n);
+        return (*this = (exp(*this) + exp(*this * (p.mod() - 1))) * inverse(2, p.mod())).do_resize(n);
     })
     FUNC_(tan, {
         size_t n = size();
