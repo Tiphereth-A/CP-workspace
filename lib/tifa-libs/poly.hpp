@@ -26,6 +26,7 @@ constexpr uint64_t qpow(uint64_t a, uint64_t b, uint64_t mod) {
 }
 
 constexpr uint32_t inverse(uint32_t n, uint32_t mod) {
+    assert(std::gcd(n, mod) == 1);
     int32_t b = mod, m0 = 0;
     for (int32_t q = 0, _ = 0, m1 = 1; n;) {
         _ = b - n * (q = b / n);
@@ -194,7 +195,7 @@ struct SmodPolyBase_: public PolyBase__ {
 
     std::vector<uint32_t> data;
 
-    explicit _GLIBCXX20_CONSTEXPR SmodPolyBase_(size_t sz = 1): data(sz) {}
+    explicit _GLIBCXX20_CONSTEXPR SmodPolyBase_(size_t sz = 1): data(std::max((size_t)1, sz)) {}
     explicit _GLIBCXX20_CONSTEXPR SmodPolyBase_(std::initializer_list<uint32_t> v): data(v) {}
     explicit _GLIBCXX20_CONSTEXPR SmodPolyBase_(std::vector<uint32_t> const &v): data(v) {}
 
@@ -229,7 +230,7 @@ struct DmodPolyBase_: public PolyBase__ {
     static inline uint32_t mod_;
     static uint32_t mod() { return mod_; }
     static void set_mod(uint32_t m) {
-        assert(1 <= m);
+        assert(3 <= m && m % 2 == 0);
         mod_ = m;
     }
 
@@ -238,7 +239,7 @@ struct DmodPolyBase_: public PolyBase__ {
 
     std::vector<uint32_t> data;
 
-    explicit DmodPolyBase_(size_t sz = 1): data(sz) { assert(1 <= mod_); }
+    explicit DmodPolyBase_(size_t sz = 1): data(std::max((size_t)1, sz)) { assert(1 <= mod_); }
     explicit DmodPolyBase_(std::initializer_list<uint32_t> v): data(v) { assert(1 <= mod_); }
     explicit DmodPolyBase_(std::vector<uint32_t> const &v): data(v) { assert(1 <= mod_); }
 
@@ -278,8 +279,7 @@ class Poly {
     _GLIBCXX20_CONSTEXPR void expand_base__(
         Poly &ans, size_t n, uint32_t val1, Fodd fodd, Feven feven) const {
         if (n == 1) {
-            ans.p.data.clear();
-            ans.p.data.push_back(val1);
+            ans.p.data[0] = val1;
             return;
         }
         if (n & 1) {
@@ -322,8 +322,7 @@ class Poly {
             },
             [this](Poly &ans, size_t n) -> void {
                 Poly ans_ln = ans;
-                ans_ln.do_resize(n);
-                ans_ln.do_ln();
+                ans_ln.do_resize(n).do_ln();
                 for (size_t i = 0; i < ans_ln.size(); ++i) ans_ln[i] = (p.mod() + p.data[i] - ans_ln[i]) % p.mod();
                 ++ans_ln[0];
                 (ans *= ans_ln).do_resize(n);
@@ -334,8 +333,7 @@ class Poly {
         if (n == 1) {
             int32_t qres = quad_residue(p.data[0], p.mod());
             assert(~qres);
-            ans.p.data.clear();
-            ans.p.data.push_back(qres);
+            ans.p.data[0] = qres;
             return;
         }
         sqrt_(ans, (n + 1) / 2);
@@ -493,13 +491,13 @@ class Poly {
         size_t n = size();
         uint32_t i = qpow(proot(p.mod()), (p.mod() - 1) / 4, p.mod());
         *this *= i;
-        return (*this = (exp(*this * (p.mod() - 1)) - exp(*this)) * (uint32_t)((uint64_t)i * inverse(2, p.mod()) % p.mod())).do_resize(n);
+        return (*this = (exp(*this * (p.mod() - 1)) - exp(*this)) * (uint32_t)((uint64_t)i * ((p.mod() + 1) / 2) % p.mod())).do_resize(n);
     })
     FUNC_(cos, {
         size_t n = size();
         uint32_t i = qpow(proot(p.mod()), (p.mod() - 1) / 4, p.mod());
         *this *= i;
-        return (*this = (exp(*this) + exp(*this * (p.mod() - 1))) * inverse(2, p.mod())).do_resize(n);
+        return (*this = (exp(*this) + exp(*this * (p.mod() - 1))) * ((p.mod() + 1) / 2)).do_resize(n);
     })
     FUNC_(tan, {
         size_t n = size();
