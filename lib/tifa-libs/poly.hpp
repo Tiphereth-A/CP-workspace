@@ -25,10 +25,10 @@ constexpr uint64_t qpow(uint64_t a, uint64_t b, uint64_t mod) {
     return res;
 }
 
-constexpr uint32_t inverse(uint32_t n, uint32_t mod) {
+constexpr uint64_t inverse(uint64_t n, uint64_t mod) {
     assert(std::gcd(n, mod) == 1);
-    int32_t b = mod, m0 = 0;
-    for (int32_t q = 0, _ = 0, m1 = 1; n;) {
+    int64_t b = mod, m0 = 0;
+    for (int64_t q = 0, _ = 0, m1 = 1; n;) {
         _ = b - n * (q = b / n);
         b = n;
         n = _;
@@ -65,44 +65,15 @@ constexpr uint32_t proot(uint32_t m) {
     }
 }
 
-constexpr int legendre_symbol(uint64_t a, uint64_t p) {
-    if (a == 0) return 0;
-    int s = 1;
-    while (a > 1) {
-        if (a == p || a == 0 || p < 2) return 0;
-        auto _ctz = std::countr_zero(a);
-        if (((p - 1) & 7) && ((p + 1) & 7) && (_ctz & 1)) s = -s;
-        if ((a >>= _ctz) == 1) break;
-        if ((((p - 1) & 7) * (a - 1)) & 7) s = -s;
-        std::swap(p %= a, a);
-    }
-    return s;
-}
-
-inline int32_t quad_residue(int32_t n, int32_t p) {
-    struct GaussInt {
-        int32_t real, imag;
-        const int32_t i_sqr, mod;
-        constexpr GaussInt &operator*=(GaussInt rhs) {
-            const int64_t _r = real, _i = imag;
-            real = (int32_t)((_r * rhs.real % mod + i_sqr * _i % mod * rhs.imag % mod) % mod);
-            imag = (int32_t)((_i * rhs.real % mod + _r * rhs.imag % mod) % mod);
-            return *this;
-        }
-    };
-    static std::mt19937 eng__(time(nullptr));
-    if (n == 0 || n == 1 || n == p - 1) return n;
-    if (legendre_symbol(n, p) != 1) return -1;
-    std::uniform_int_distribution<int64_t> u(2, p - 1);
-    int64_t a = u(eng__);
-    while (legendre_symbol((a * a % p + p - n) % p, p) == 1) a = u(eng__);
-    int32_t ret = [](GaussInt a, uint32_t b) {
-        GaussInt res{1, 0, a.i_sqr, a.mod};
-        for (; b; b >>= 1, a *= a)
-            if (b & 1) res *= a;
-        return res.real;
-    }(GaussInt{(int32_t)a, 1, (int32_t)(a * a % p + p - n) % p, p}, (p + 1) / 2);
-    return std::min(ret, p - ret);
+constexpr int64_t quad_residue(uint64_t a, uint64_t p) {
+    auto euler_judge = [](uint64_t a, uint64_t p) -> bool { return qpow(a, p / 2, p) == 1; };
+    if (!euler_judge(a, p)) return -1;
+    int64_t r = 2;
+    while (euler_judge(r, p)) ++r;
+    auto n = std::countr_zero(p - 1);
+    uint64_t m = (p - 1) >> n, g = qpow(r, m, p), e = 0, b = qpow(a, m / 2, p), am = qpow(a, m, p);
+    for (decltype(n) k = 1; k < n; ++k) e |= (uint64_t)(qpow(am * inverse(qpow(g, e, p), p) % p, 1 << (n - 1 - k), p) == p - 1) << k;
+    return a * b % p * inverse(qpow(g, e / 2, p), p) % p;
 }
 
 struct FFT_INFO_ {
@@ -296,7 +267,7 @@ class Poly {
         expand_base__(
             ans,
             n,
-            inverse(p.data[0], p.mod()),
+            (uint32_t)inverse(p.data[0], p.mod()),
             [this](Poly &ans, size_t n) -> void {
                 --n;
                 uint64_t _ = 0;
@@ -332,9 +303,9 @@ class Poly {
 
     _GLIBCXX20_CONSTEXPR void sqrt_(Poly &ans, size_t n) const {
         if (n == 1) {
-            int32_t qres = quad_residue(p.data[0], p.mod());
-            assert(qres == 1);
-            ans.p.data[0] = qres;
+            int32_t qres = (int32_t)quad_residue(p.data[0], p.mod());
+            assert(qres > 0);
+            ans.p.data[0] = std::min(qres, (int32_t)(p.mod() - qres));
             return;
         }
         sqrt_(ans, (n + 1) / 2);
@@ -467,7 +438,7 @@ class Poly {
     })
     FUNC_(integral, {
         p.data.push_back(0);
-        for (size_t i = size() - 1; i; --i) p.data[i] = (uint32_t)((uint64_t)p.data[i - 1] * inverse((uint32_t)i, p.mod()) % p.mod());
+        for (size_t i = size() - 1; i; --i) p.data[i] = (uint32_t)((uint64_t)p.data[i - 1] * inverse(i, p.mod()) % p.mod());
         p.data[0] = 0;
         p.data.pop_back();
         return *this;
@@ -498,7 +469,7 @@ class Poly {
         size_t n = size();
         uint32_t i = qpow(proot(p.mod()), (p.mod() - 1) / 4, p.mod());
         *this *= i;
-        return (*this = (exp(*this) + exp(*this * (p.mod() - 1))) * inverse(2, p.mod())).do_resize(n);
+        return (*this = (exp(*this) + exp(*this * (p.mod() - 1))) * (uint32_t)inverse(2, p.mod())).do_resize(n);
     })
     FUNC_(tan, {
         size_t n = size();
