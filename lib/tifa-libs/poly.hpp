@@ -618,6 +618,43 @@ constexpr POLYT_ mpe(POLYT_ f, POLYT_ a) {
     return SegTree(a)(f).do_resize(m);
 }
 
+// Lagrange interpolation
+// @return f s.t. f(x[i]) = y[i]
+template <class T>
+constexpr POLYT_ interp(POLYT_ const &x, POLYT_ const &y) {
+    class SegTree {
+        constexpr void init_(POLYT_ const &a, size_t k, size_t l, size_t r) {
+            if (l == r) {
+                t[k] = POLYT_{a[l] ? POLYT_::base::mod() - a[l] : 0, 1};
+                return;
+            }
+            size_t m = l + (r - l) / 2;
+            init_(a, k * 2, l, m);
+            init_(a, k * 2 + 1, m + 1, r);
+            t[k] = t[k * 2] * t[k * 2 + 1];
+        }
+        constexpr POLYT_ calc_(POLYT_ const &f, size_t k, size_t l, size_t r) const {
+            if (l == r) return POLYT_{f[l]};
+            size_t m = l + (r - l) / 2;
+            return calc_(f, k * 2, l, m) * t[2 * k + 1] + calc_(f, k * 2 + 1, m + 1, r) * t[2 * k];
+        }
+
+      public:
+        std::vector<POLYT_> t;
+
+        explicit constexpr SegTree(POLYT_ const &a): t(a.size() * 4) { init_(a, 1, 0, a.size() - 1); }
+
+        constexpr POLYT_ operator()(POLYT_ const &f) const { return calc_(f, 1, 0, t.size() / 4 - 1); }
+    };
+
+    assert(x.size() == y.size());
+    size_t n = x.size();
+    SegTree sgt(x);
+    POLYT_ t = mpe(sgt.t[1].do_derivative(), x);
+    for (size_t i = 0; i < n; ++i) t[i] = (uint32_t)(y[i] * detail__::inverse(t[i], POLYT_::base::mod()) % POLYT_::base::mod());
+    return sgt(t);
+}
+
 #undef POLYT_
 
 //! MOD MUST be prime with 4k+1
