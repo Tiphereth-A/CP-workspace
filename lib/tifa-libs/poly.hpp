@@ -364,6 +364,10 @@ class Poly {
         if (p.data.empty()) p.data.push_back(0);
         return *this;
     }
+    constexpr Poly &do_reverse() {
+        std::reverse(p.data.begin(), p.data.end());
+        return *this;
+    }
 
     constexpr Poly &operator*=(uint32_t c) {
         for (uint32_t &val : p.data) val = (uint32_t)((uint64_t)val * c % p.mod());
