@@ -552,6 +552,7 @@ class Poly {
 
     // Chirp Z-Transform
     // @return {f(c^0), f(c^1), ..., f(c^{m-1})}
+    //? return value should be std::vector, but it cannot be used in constexpr function in GCC 11
     constexpr friend Poly czt(Poly const &f, uint32_t c, size_t m) {
         uint32_t mod = f.p.mod();
         c %= mod;
