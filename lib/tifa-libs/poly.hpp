@@ -542,13 +542,13 @@ class Poly {
 // @return {f(c^0), f(c^1), ..., f(c^{m-1})}
 template <class T>
 constexpr POLYT_ czt(POLYT_ const &f, uint32_t c, size_t m) {
-    class RPOW_ {
+    class Rpow_ {
         uint32_t a, mod;
         std::array<uint32_t, 65536> block1, block2;
 
       public:
-        explicit constexpr RPOW_(): a(0), mod(0) {}
-        constexpr RPOW_(uint32_t a, uint32_t p): RPOW_() { reset(a, p); }
+        explicit constexpr Rpow_(): a(0), mod(0) {}
+        constexpr Rpow_(uint32_t a, uint32_t p): Rpow_() { reset(a, p); }
         constexpr void reset(uint32_t a_, uint32_t p_) {
             assert(p_ > 1);
             if (a == a_ && mod == p_) return;
@@ -564,7 +564,7 @@ constexpr POLYT_ czt(POLYT_ const &f, uint32_t c, size_t m) {
 
     uint32_t mod = POLYT_::base::mod();
     c %= mod;
-    RPOW_ rp(c, mod);
+    Rpow_ rp(c, mod);
     size_t n = f.size();
     POLYT_ cc(n + m - 1), g(n);
     for (size_t i = 0; i < n + m - 1; ++i) cc[n + m - 2 - i] = rp((uint64_t)(i - 1) * i / 2 % (mod - 1));
