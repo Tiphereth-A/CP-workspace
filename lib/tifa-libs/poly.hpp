@@ -67,38 +67,6 @@ constexpr uint32_t proot(uint32_t m) {
     }
 }
 
-constexpr int64_t quad_residue(uint64_t a, uint64_t p) {
-    auto euler_judge = [](uint64_t a, uint64_t p) -> bool { return qpow(a, p / 2, p) == 1; };
-    if (!euler_judge(a, p)) return -1;
-    int64_t r = 2;
-    while (euler_judge(r, p)) ++r;
-    auto n = std::countr_zero(p - 1);
-    uint64_t m = (p - 1) >> n, g = qpow(r, m, p), e = 0, b = qpow(a, m / 2, p), am = qpow(a, m, p);
-    for (decltype(n) k = 1; k < n; ++k) e |= (uint64_t)(qpow(am * inverse(qpow(g, e, p), p) % p, 1 << (n - 1 - k), p) == p - 1) << k;
-    return a * b % p * inverse(qpow(g, e / 2, p), p) % p;
-}
-
-class RPOW_ {
-    uint32_t a, mod;
-    std::array<uint32_t, 65536> block1, block2;
-
-  public:
-    constexpr RPOW_(): a(0), mod(0) {}
-    constexpr RPOW_(uint32_t a, uint32_t p) { reset(a, p); }
-    constexpr void reset(uint32_t a_, uint32_t p_) {
-        assert(p_ > 1);
-        if (a == a_ && mod == p_) return;
-        a = a_;
-        mod = p_;
-        block1[0] = block2[0] = 1;
-        for (uint32_t i = 1; i < 65536; i++) block1[i] = (uint32_t)((uint64_t)block1[i - 1] * a % mod);
-        uint32_t _ = (uint32_t)((uint64_t)block1.back() * a % mod);
-        for (uint32_t i = 1; i < 65536; i++) block2[i] = (uint32_t)((uint64_t)block2[i - 1] * _ % mod);
-    }
-    constexpr uint32_t operator()(size_t exponent) { return (uint32_t)((uint64_t)block1[exponent & 65535] * block2[exponent >> 16] % mod); }
-};
-
-
 struct FFT_INFO_ {
     static inline std::vector<size_t> root;
 
@@ -345,7 +313,16 @@ class Poly {
 
     constexpr void sqrt_(Poly &ans, size_t n) const {
         if (n == 1) {
-            int32_t qres = (int32_t)quad_residue(p.data[0], p.mod());
+            int32_t qres = [](uint64_t a, uint64_t p) -> int32_t {
+                auto f = [](uint64_t a, uint64_t p) { return qpow(a, p / 2, p) == 1; };
+                if (!f(a, p)) return -1;
+                int64_t r = 2;
+                while (f(r, p)) ++r;
+                auto n = std::countr_zero(p - 1);
+                uint64_t m = (p - 1) >> n, g = qpow(r, m, p), e = 0, b = qpow(a, m / 2, p), am = qpow(a, m, p);
+                for (decltype(n) k = 1; k < n; ++k) e |= (uint64_t)(qpow(am * inverse(qpow(g, e, p), p) % p, 1 << (n - 1 - k), p) == p - 1) << k;
+                return (int32_t)(a * b % p * inverse(qpow(g, e / 2, p), p) % p);
+            }(p.data[0], p.mod());
             assert(qres > 0);
             ans.p.data[0] = std::min(qres, (int32_t)(p.mod() - qres));
             return;
@@ -554,6 +531,26 @@ class Poly {
     // @return {f(c^0), f(c^1), ..., f(c^{m-1})}
     //? return value should be std::vector, but it cannot be used in constexpr function in GCC 11
     constexpr friend Poly czt(Poly const &f, uint32_t c, size_t m) {
+        class RPOW_ {
+            uint32_t a, mod;
+            std::array<uint32_t, 65536> block1, block2;
+
+          public:
+            constexpr RPOW_(): a(0), mod(0) {}
+            constexpr RPOW_(uint32_t a, uint32_t p) { reset(a, p); }
+            constexpr void reset(uint32_t a_, uint32_t p_) {
+                assert(p_ > 1);
+                if (a == a_ && mod == p_) return;
+                a = a_;
+                mod = p_;
+                block1[0] = block2[0] = 1;
+                for (uint32_t i = 1; i < 65536; i++) block1[i] = (uint32_t)((uint64_t)block1[i - 1] * a % mod);
+                uint32_t _ = (uint32_t)((uint64_t)block1.back() * a % mod);
+                for (uint32_t i = 1; i < 65536; i++) block2[i] = (uint32_t)((uint64_t)block2[i - 1] * _ % mod);
+            }
+            constexpr uint32_t operator()(size_t exponent) { return (uint32_t)((uint64_t)block1[exponent & 65535] * block2[exponent >> 16] % mod); }
+        };
+
         uint32_t mod = f.p.mod();
         c %= mod;
         RPOW_ rp(c, mod);
