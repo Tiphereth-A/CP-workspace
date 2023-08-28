@@ -254,7 +254,6 @@ template <class PBase>
 class Poly {
     static_assert(std::is_base_of_v<PolyBase__, PBase>);
 
-  private:
     PBase p;
 
     template <class Fodd, class Feven>
@@ -526,45 +525,46 @@ class Poly {
 
 #undef FUNC_
 #undef FUNCP1_
-
-    // Chirp Z-Transform
-    // @return {f(c^0), f(c^1), ..., f(c^{m-1})}
-    //? return value should be std::vector, but it cannot be used in constexpr function in GCC 11
-    constexpr friend Poly czt(Poly const &f, uint32_t c, size_t m) {
-        class RPOW_ {
-            uint32_t a, mod;
-            std::array<uint32_t, 65536> block1, block2;
-
-          public:
-            constexpr RPOW_(): a(0), mod(0) {}
-            constexpr RPOW_(uint32_t a, uint32_t p) { reset(a, p); }
-            constexpr void reset(uint32_t a_, uint32_t p_) {
-                assert(p_ > 1);
-                if (a == a_ && mod == p_) return;
-                a = a_;
-                mod = p_;
-                block1[0] = block2[0] = 1;
-                for (uint32_t i = 1; i < 65536; i++) block1[i] = (uint32_t)((uint64_t)block1[i - 1] * a % mod);
-                uint32_t _ = (uint32_t)((uint64_t)block1.back() * a % mod);
-                for (uint32_t i = 1; i < 65536; i++) block2[i] = (uint32_t)((uint64_t)block2[i - 1] * _ % mod);
-            }
-            constexpr uint32_t operator()(size_t exponent) { return (uint32_t)((uint64_t)block1[exponent & 65535] * block2[exponent >> 16] % mod); }
-        };
-
-        uint32_t mod = f.p.mod();
-        c %= mod;
-        RPOW_ rp(c, mod);
-        size_t n = f.size();
-        std::remove_cvref_t<decltype(f)> cc(n + m - 1), g(n);
-        for (size_t i = 0; i < n + m - 1; ++i) cc[n + m - 2 - i] = rp((uint64_t)(i - 1) * i / 2 % (mod - 1));
-        for (size_t i = 0; i < n; ++i) g[i] = (uint32_t)((uint64_t)rp(mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1)) * f[i] % mod);
-        cc *= g;
-        std::remove_cvref_t<decltype(f)> ans(m);
-        for (size_t i = 0; i < m; ++i) ans[i] = (uint32_t)((uint64_t)cc[n + m - 2 - i] * rp(mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1)) % mod);
-        return ans;
-    }
 };
 }  // namespace detail__
+
+// Chirp Z-Transform
+// @return {f(c^0), f(c^1), ..., f(c^{m-1})}
+//? return value should be std::vector, but it cannot be used in constexpr function in GCC 11
+template <class T>
+constexpr detail__::Poly<T> czt(detail__::Poly<T> const &f, uint32_t c, size_t m) {
+    class RPOW_ {
+        uint32_t a, mod;
+        std::array<uint32_t, 65536> block1, block2;
+
+      public:
+        explicit constexpr RPOW_(): a(0), mod(0) {}
+        constexpr RPOW_(uint32_t a, uint32_t p): RPOW_() { reset(a, p); }
+        constexpr void reset(uint32_t a_, uint32_t p_) {
+            assert(p_ > 1);
+            if (a == a_ && mod == p_) return;
+            a = a_;
+            mod = p_;
+            block1[0] = block2[0] = 1;
+            for (uint32_t i = 1; i < 65536; i++) block1[i] = (uint32_t)((uint64_t)block1[i - 1] * a % mod);
+            uint32_t _ = (uint32_t)((uint64_t)block1.back() * a % mod);
+            for (uint32_t i = 1; i < 65536; i++) block2[i] = (uint32_t)((uint64_t)block2[i - 1] * _ % mod);
+        }
+        constexpr uint32_t operator()(size_t exponent) { return (uint32_t)((uint64_t)block1[exponent & 65535] * block2[exponent >> 16] % mod); }
+    };
+
+    uint32_t mod = detail__::Poly<T>::base::mod();
+    c %= mod;
+    RPOW_ rp(c, mod);
+    size_t n = f.size();
+    detail__::Poly<T> cc(n + m - 1), g(n);
+    for (size_t i = 0; i < n + m - 1; ++i) cc[n + m - 2 - i] = rp((uint64_t)(i - 1) * i / 2 % (mod - 1));
+    for (size_t i = 0; i < n; ++i) g[i] = (uint32_t)((uint64_t)rp(mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1)) * f[i] % mod);
+    cc *= g;
+    detail__::Poly<T> ans(m);
+    for (size_t i = 0; i < m; ++i) ans[i] = (uint32_t)((uint64_t)cc[n + m - 2 - i] * rp(mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1)) % mod);
+    return ans;
+}
 
 //! MOD MUST be prime with 4k+1
 template <int32_t MOD>
