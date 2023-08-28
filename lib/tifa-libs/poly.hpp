@@ -402,10 +402,10 @@ class Poly {
         return *this;
     })
     OO_(/, {
-        size_t n_ = size(), m_ = rhs.size();
+        size_t n = size(), m = rhs.size();
         std::reverse(p.data.begin(), p.data.end());
         std::reverse(rhs.p.data.begin(), rhs.p.data.end());
-        (*this *= rhs.do_resize(n_ - m_ + 1).do_inverse()).do_resize(n_ - m_ + 1);
+        (*this *= rhs.do_resize(n - m + 1).do_inverse()).do_resize(n - m + 1);
         std::reverse(p.data.begin(), p.data.end());
         return *this;
     })
@@ -533,10 +533,11 @@ class Poly {
 
 #define POLYT_ detail__::Poly<T>
 
+// @return {q, r} s.t. f = qg + r && deg(r) < deg(g)
 template <class T>
-constexpr std::pair<POLYT_, POLYT_> divmod(POLYT_ const &lhs, POLYT_ const &rhs) {
-    auto div_ = lhs / rhs;
-    return {div_, (lhs - rhs * div_).do_resize(rhs.size() - 1)};
+constexpr std::pair<POLYT_, POLYT_> divmod(POLYT_ const &f, POLYT_ const &g) {
+    auto div_ = f / g;
+    return {div_, (f - g * div_).do_resize(g.size() - 1)};
 }
 
 // Chirp Z-Transform
