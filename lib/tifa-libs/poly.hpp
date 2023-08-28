@@ -353,6 +353,11 @@ class Poly {
 
     constexpr uint32_t &operator[](size_t x) { return p.data[x]; }
     constexpr uint32_t operator[](size_t x) const { return p.data[x]; }
+    [[nodiscard]] constexpr uint32_t operator()(size_t x) const {
+        uint32_t ans = 0;
+        for (size_t i = size() - 1; ~i; --i) ans = (uint32_t)(((uint64_t)ans * x + p.data[i]) % p.mod());
+        return ans;
+    }
 
     constexpr size_t size() const { return p.data.size(); }
     constexpr Poly &do_resize(size_t size) {
