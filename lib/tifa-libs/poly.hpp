@@ -417,11 +417,6 @@ class Poly {
 #undef OO_
 #undef OOCR_
 
-    constexpr friend std::pair<Poly, Poly> divmod(Poly const &lhs, Poly const &rhs) {
-        auto &&div_ = lhs / rhs;
-        return {div_, (lhs - rhs * div_).do_resize(rhs.size() - 1)};
-    }
-
     constexpr Poly &do_shl(size_t offset) {
         if (offset == 0) return *this;
         if (offset >= size()) {
@@ -537,6 +532,12 @@ class Poly {
 }  // namespace detail__
 
 #define POLYT_ detail__::Poly<T>
+
+template <class T>
+constexpr std::pair<POLYT_, POLYT_> divmod(POLYT_ const &lhs, POLYT_ const &rhs) {
+    auto div_ = lhs / rhs;
+    return {div_, (lhs - rhs * div_).do_resize(rhs.size() - 1)};
+}
 
 // Chirp Z-Transform
 // @return {f(c^0), f(c^1), ..., f(c^{m-1})}
