@@ -423,8 +423,8 @@ class Poly {
             std::fill(p.data.begin(), p.data.end(), 0);
             return *this;
         }
-        p.data.erase(std::move(p.data.begin() + offset, p.data.end(), p.data.begin()), p.data.end());
-        return do_resize(size() + offset);
+        std::fill(std::move(p.data.begin() + offset, p.data.end(), p.data.begin()), p.data.end(), 0);
+        return *this;
     }
 
     constexpr Poly &do_shr(size_t offset) {
@@ -433,9 +433,8 @@ class Poly {
             std::fill(p.data.begin(), p.data.end(), 0);
             return *this;
         }
-        do_resize(size() + offset);
         std::fill(p.data.begin(), std::move_backward(p.data.begin(), p.data.end() - offset, p.data.end()), 0);
-        return do_resize(size() - offset);
+        return *this;
     }
 
 #define FUNC_(name, ...)                                          \
@@ -570,6 +569,55 @@ constexpr POLYT_ czt(POLYT_ const &f, uint32_t c, size_t m) {
     POLYT_ ans(m);
     for (size_t i = 0; i < m; ++i) ans[i] = (uint32_t)((uint64_t)cc[n + m - 2 - i] * rp(mod - 1 - ((uint64_t)i * (i - 1) / 2) % (mod - 1)) % mod);
     return ans;
+}
+
+// Multi-point evaluation based on Tellegen's Principle
+// @return {f(a[0]), f(a[1]), ..., f(a.back())}
+//? return value should be std::vector, but it cannot be used in constexpr function in GCC 11
+template <class T>
+constexpr POLYT_ mpe(POLYT_ f, POLYT_ a) {
+    class SegTree {
+        std::vector<POLYT_> t;
+
+        constexpr void init_(POLYT_ const &a, size_t k, size_t l, size_t r) {
+            if (l == r) {
+                t[k] = POLYT_{1, a[l] ? POLYT_::base::mod() - a[l] : 0};
+                return;
+            }
+            size_t m = l + (r - l) / 2;
+            init_(a, k * 2, l, m);
+            init_(a, k * 2 + 1, m + 1, r);
+            t[k] = t[k * 2] * t[k * 2 + 1];
+        }
+        constexpr static POLYT_ mult(POLYT_ const &f, POLYT_ g) {
+            size_t m = g.size();
+            return (f * g.do_reverse()).do_shl(m - 1).do_resize(f.size());
+        }
+        constexpr void calc_(POLYT_ f, POLYT_ &res, size_t k, size_t l, size_t r) const {
+            f.do_resize(r - l + 1);
+            if (l == r) {
+                res[l] = f[0];
+                return;
+            }
+            size_t m = l + (r - l) / 2;
+            calc_(mult(f, t[k * 2 + 1]), res, k * 2, l, m);
+            calc_(mult(f, t[k * 2]), res, k * 2 + 1, m + 1, r);
+        }
+
+      public:
+        explicit constexpr SegTree(POLYT_ const &a): t(a.size() * 4) { init_(a, 1, 0, a.size() - 1); }
+
+        constexpr POLYT_ operator()(POLYT_ const &f) const {
+            POLYT_ res(f.size());
+            calc_(mult(f, inverse(t[1])), res, 1, 0, t.size() / 4 - 1);
+            return res;
+        }
+    };
+
+    size_t n = f.size(), m = a.size();
+    f.do_resize(std::max(n, m));
+    a.do_resize(std::max(n, m));
+    return SegTree(a)(f).do_resize(m);
 }
 
 #undef POLYT_
