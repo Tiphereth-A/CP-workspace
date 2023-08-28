@@ -535,7 +535,6 @@ class Poly {
 
 // Chirp Z-Transform
 // @return {f(c^0), f(c^1), ..., f(c^{m-1})}
-//? return value should be std::vector, but it cannot be used in constexpr function in GCC 11
 template <class T>
 constexpr POLYT_ czt(POLYT_ const &f, uint32_t c, size_t m) {
     class RPOW_ {
@@ -573,7 +572,6 @@ constexpr POLYT_ czt(POLYT_ const &f, uint32_t c, size_t m) {
 
 // Multi-point evaluation based on Tellegen's Principle
 // @return {f(a[0]), f(a[1]), ..., f(a.back())}
-//? return value should be std::vector, but it cannot be used in constexpr function in GCC 11
 template <class T>
 constexpr POLYT_ mpe(POLYT_ f, POLYT_ a) {
     class SegTree {
