@@ -623,7 +623,7 @@ constexpr POLYT_ mpe(POLYT_ f, POLYT_ a) {
     return SegTree(a)(f).do_resize(m);
 }
 
-// Lagrange interpolation
+// Lagrange interpolation in O(n \log^2 n)
 // @return f s.t. f(x[i]) = y[i]
 template <class T>
 constexpr POLYT_ interp(POLYT_ const &x, POLYT_ const &y) {
