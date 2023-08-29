@@ -1210,7 +1210,7 @@
             "};",
             "protected:",
             "uint32_t v_;",
-            "static Barrett_ bt_;",
+            "static inline Barrett_ bt_;",
             "public:",
             "constexpr static uint32_t mod() { return bt_.umod(); }",
             "//! MUST be called first",
