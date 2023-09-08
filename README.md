@@ -10,7 +10,7 @@ My VSCode workspace for Competitive Programming. **Only for Linux**
 - Useful C++ code snippets (see [Snippets](#Snippets))
 - Useful tools
   - Local judger
-  - C++ lib expander (inspired by [atcoder/ac-Library](https://github.com/atcoder/ac-library))
+  - ~~C++ lib expander~~ (use `oj-bundle` from [online-judge-tools/verification-helper](https://github.com/online-judge-tools/verification-helper) instead)
   - ~~C++ macro expander~~ (lack of maintenance)
 - Including third C++ library support (see [Third library support](#Third%20library%20support))
 
