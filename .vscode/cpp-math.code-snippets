@@ -1279,16 +1279,6 @@
             "// }  // namespace std"
         ]
     },
-    "mul-mod": {
-        "scope": "cpp",
-        "prefix": "mul-mod",
-        "body": [
-            "constexpr int64_t mul_mod(int64_t a, int64_t b, const int64_t& mod) {",
-            "int64_t d = (int64_t)std::floor(1.0l * a * b / mod + 0.5l), ret = a * b - d * mod;",
-            "return ret < 0 ? ret + mod : ret;",
-            "}"
-        ]
-    },
     "newton-interpolation": {
         "scope": "cpp",
         "prefix": [
@@ -1339,19 +1329,6 @@
             "};"
         ]
     },
-    "pow-mod": {
-        "scope": "cpp",
-        "prefix": "pow-mod",
-        "body": [
-            "constexpr int64_t pow_mod(int64_t a, int64_t b, const int64_t& mod) {",
-            "int64_t res(1);",
-            "a %= mod;",
-            "for (; b; b >>= 1, a = mul_mod(a, a, mod))",
-            "if (b & 1) res = mul_mod(res, a, mod);",
-            "return res;",
-            "}"
-        ]
-    },
     "prime": {
         "scope": "cpp",
         "prefix": "prime",
@@ -1397,25 +1374,6 @@
             "using primes::init_prime, primes::prime, primes::min_pfactor, primes::mu, primes::phi, primes::sigma;"
         ]
     },
-    "prime-factors": {
-        "scope": "cpp",
-        "prefix": "prime-factors",
-        "body": [
-            "// @param n n > 0",
-            "// @return {(p_i, a_i)} in ascending order, which p_i is prime factor and a_i is exponements",
-            "std::vector<std::pair<uint64_t, uint32_t>> prime_factors(uint64_t n) {",
-            "vector<std::pair<uint64_t, uint32_t>> ret;",
-            "for (uint64_t i = 2; i * i <= n; ++i) {",
-            "if (n % i) continue;",
-            "uint32_t cnt = 0;",
-            "while (++cnt, n % i == 0) n /= i;",
-            "ret.emplace_back(i, cnt - 1);",
-            "}",
-            "if (n > 1) ret.emplace_back(n, 1);",
-            "return ret;",
-            "}"
-        ]
-    },
     "primitive-root-i32": {
         "scope": "cpp",
         "prefix": [
@@ -1437,39 +1395,6 @@
             "}",
             "}",
             "template <int M> constexpr int proot = proot_impl_(M);"
-        ]
-    },
-    "quad-residue": {
-        "scope": "cpp",
-        "prefix": [
-            "quadr",
-            "quad-residue"
-        ],
-        "body": [
-            "//! @return one of the quad_residue (NOT THE SMALLER ONE) of a if exists, otherwise -1",
-            "constexpr int64_t quad_residue(uint64_t a, uint64_t p) {",
-            "auto euler_judge = [](uint64_t a, uint64_t p) -> bool { return qpow(a, p / 2, p) == 1; };",
-            "if (!euler_judge(a, p)) return -1;",
-            "int64_t r = 2;",
-            "while (euler_judge(r, p)) ++r;",
-            "auto n = __builtin_ctzll(p - 1);",
-            "uint64_t m = (p - 1) >> n, g = qpow(r, m, p), e = 0, b = qpow(a, m / 2, p), am = qpow(a, m, p);",
-            "for (decltype(n) k = 1; k < n; ++k) e |= (uint64_t)(qpow(am * inverse(qpow(g, e, p), p) % p, 1 << (n - 1 - k), p) == p - 1) << k;",
-            "return a * b % p * inverse(qpow(g, e / 2, p), p) % p;",
-            "}"
-        ]
-    },
-    "qwick-pow": {
-        "scope": "cpp",
-        "prefix": "qpow",
-        "body": [
-            "constexpr int64_t qpow(int64_t a, int64_t b, int64_t mod) {",
-            "int64_t res(1);",
-            "a %= mod;",
-            "for (; b; b >>= 1, (a *= a) %= mod)",
-            "if (b & 1) (res *= a) %= mod;",
-            "return res;",
-            "}"
         ]
     },
     "real-basis": {

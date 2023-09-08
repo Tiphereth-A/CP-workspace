@@ -105,7 +105,6 @@ code .
 | manacher                            | `manacher`                                                         |
 | matrix                              | `mat`, `mat`                                                       |
 | mod-int                             | `mod-int`                                                          |
-| mul-mod                             | `mul-mod`                                                          |
 | ndvector                            | `ndvector`, `n-dim-vector`                                         | See [this blog](https://blog.tifa-233.com/archives/draft-025/), use `std::mdspan` instead of this in C++23 |
 | newton-interpolation                | `newton-interpolation`, `newton-interp`, `interpolation`, `interp` |
 | ostream-int128                      | `os128`, `out128`, `cout128`                                       | `__int128_t` and `___uint128_t` support for `std::cout`                                                    |
@@ -113,10 +112,7 @@ code .
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
 | pow-mod                             | `pow-mod`                                                          |
 | prime                               | `prime`                                                            | Euler seive                                                                                                |
-| prime-factors                       | `prime-factors`                                                    |
 | primitive-root-i32                  | `proot32`, `primitive-root-i32`                                    |
-| quad-residue                        | `quadr`, `quad-residue`                                            |
-| qwick-pow                           | `qpow`                                                             |
 | real-basis                          | `real-basis`                                                       |
 | reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
 | radix-sort-u32                      | `rsortu32`, `radix-sort-u32`                                       |
