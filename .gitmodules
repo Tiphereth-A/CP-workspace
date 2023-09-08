@@ -7,3 +7,6 @@
 [submodule "lib/ac-library"]
 	path = lib/ac-library
 	url = git@github.com:atcoder/ac-library.git
+[submodule "lib/tifa-lib"]
+	path = lib/tifa-lib
+	url = git@github.com:Tiphereth-A/CP-lib.git
