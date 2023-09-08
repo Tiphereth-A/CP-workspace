@@ -104,7 +104,6 @@ code .
 | lucas                               | `lucas`                                                            | Calculating combination num using Lucas theorem                                                            |
 | manacher                            | `manacher`                                                         |
 | matrix                              | `mat`, `mat`                                                       |
-| miller-rabin                        | `miller-rabin`, `is-prime`                                         |
 | mod-int                             | `mod-int`                                                          |
 | mul-mod                             | `mul-mod`                                                          |
 | ndvector                            | `ndvector`, `n-dim-vector`                                         | See [this blog](https://blog.tifa-233.com/archives/draft-025/), use `std::mdspan` instead of this in C++23 |
@@ -112,7 +111,6 @@ code .
 | ostream-int128                      | `os128`, `out128`, `cout128`                                       | `__int128_t` and `___uint128_t` support for `std::cout`                                                    |
 | pair-useful-func                    | `pair-func`, `pair-useful-func`                                    |
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
-| pollard-rho                         | `pollard-rho`                                                      |
 | pow-mod                             | `pow-mod`                                                          |
 | prime                               | `prime`                                                            | Euler seive                                                                                                |
 | prime-factors                       | `prime-factors`                                                    |

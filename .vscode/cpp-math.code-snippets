@@ -1051,38 +1051,6 @@
             "#undef ASSERTT_"
         ]
     },
-    "miller-rabin": {
-        "scope": "cpp",
-        "prefix": [
-            "miller-rabin",
-            "is-prime"
-        ],
-        "body": [
-            "namespace miller_rabin {",
-            "using data_t = uint64_t;",
-            "using sdata_t = std::make_signed_t<data_t>;",
-            "using udata_t = std::make_unsigned_t<data_t>;",
-            "// for int32",
-            "// constexpr udata_t bases[] = {2, 7, 61};",
-            "// for int64",
-            "constexpr udata_t bases[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};",
-            "constexpr bool is_prime(udata_t n) {",
-            "if (n <= 1) return false;",
-            "for (udata_t a : bases) if (n == a) return true;",
-            "if (n % 2 == 0) return false;",
-            "udata_t d = n - 1;",
-            "while (d % 2 == 0) d /= 2;",
-            "for (udata_t a : bases) {",
-            "udata_t t = d, y = pow_mod(a, t, n);",
-            "while (t != n - 1 && y != 1 && y != n - 1) { y = mul_mod(y, y, n); t <<= 1; }",
-            "if (y != n - 1 && t % 2 == 0) return false;",
-            "}",
-            "return true;",
-            "}",
-            "}",
-            "using miller_rabin::is_prime;"
-        ]
-    },
     "mod-int": {
         "scope": "cpp",
         "prefix": "mod-int",
@@ -1369,40 +1337,6 @@
             "return ans;",
             "}",
             "};"
-        ]
-    },
-    "pollard-rho": {
-        "scope": "cpp",
-        "prefix": "pollard-rho",
-        "body": [
-            "namespace pollard_rho {",
-            "using data_t = uint64_t;",
-            "using sdata_t = std::make_signed_t<data_t>;",
-            "using udata_t = std::make_unsigned_t<data_t>;",
-            "std::default_random_engine e(time(nullptr));",
-            "std::uniform_int_distribution<data_t> u;",
-            "data_t pollard_rho(const data_t x, const data_t y) {",
-            "data_t t = 0, k = 1;",
-            "sdata_t v0 = u(e) % (x - 1), v = v0;",
-            "data_t d, s = 1;",
-            "while (true) {",
-            "v = (mul_mod(v, v, x) + y) % x;",
-            "s = mul_mod(s, decltype(s)(std::abs(v - v0)), x);",
-            "if (!(v ^ v0) || !s) return x;",
-            "if (++t == k) { if ((d = std::gcd(s, x)) ^ 1) return d; v0 = v; k <<= 1; }",
-            "}",
-            "}",
-            "void resolve(data_t x, data_t &ans) {",
-            "if (!(x ^ 1) || x <= ans) return;",
-            "if (/* miller_rabin:: */ is_prime(x)) { if (ans < x) ans = x; return; }",
-            "data_t y = x;",
-            "while ((y = pollard_rho(x, u(e) % x + 1)) == x);",
-            "while (x % y == 0) x /= y;",
-            "resolve(x, ans); resolve(y, ans);",
-            "}",
-            "data_t get_max_prime_divisor(data_t x) { data_t ans = 0; resolve(x, ans); return ans; }",
-            "}",
-            "using pollard_rho::get_max_prime_divisor;",
         ]
     },
     "pow-mod": {
