@@ -39,69 +39,6 @@
         ],
         "description": "Fast modular multiplication by barrett reduction"
     },
-    "bsgs": {
-        "scope": "cpp",
-        "prefix": [
-            "BSGS",
-            "EXBSGS"
-        ],
-        "body": [
-            "namespace EXBSGS {",
-            "constexpr int64_t qpow(int64_t a, int64_t b, int64_t mod) {",
-            "int64_t res(1);",
-            "a %= mod;",
-            "for (; b; b >>= 1, (a *= a) %= mod)",
-            "if (b & 1) (res *= a) %= mod;",
-            "return res;",
-            "};",
-            "//! gcd(n, mod) = 1 required",
-            "constexpr int64_t inverse(int64_t n, const int64_t &mod) {",
-            "int64_t b = mod, m0 = 0;",
-            "for (int64_t q = 0, _ = 0, m1 = 1; n;) {",
-            "_ = b - n * (q = b / n);",
-            "b = n;",
-            "n = _;",
-            "_ = m0 - m1 * q;",
-            "m0 = m1;",
-            "m1 = _;",
-            "}",
-            "return (m0 + (m0 < 0 ? mod / b : 0)) % mod;",
-            "}",
-            "// solve a^x=b (mod m), return -1 if not exist",
-            "//! gcd(a, m) == 1 required",
-            "int64_t bsgs(int64_t a, int64_t b, int64_t m) {",
-            "std::unordered_map<int64_t, int64_t> hmp;",
-            "int64_t sqrt_m = std::ceil(std::sqrt(m)), s = b % m * a % m;",
-            "for (int64_t i = 1; i <= sqrt_m; ++i, (s *= a) %= m) hmp[s] = i;",
-            "int64_t _ = qpow(a, sqrt_m, m);",
-            "s = _;",
-            "for (int64_t i = 1; i <= sqrt_m; ++i, (s *= _) %= m)",
-            "if (hmp[s] && i * sqrt_m >= hmp[s]) return i * sqrt_m - hmp[s];",
-            "return -1;",
-            "}",
-            "// solve a^x=b (mod m), return -1 if not exist",
-            "int64_t exbsgs(int64_t a, int64_t b, int64_t m) {",
-            "if (m == 0) return -1;",
-            "a %= m;",
-            "if ((b %= m) == 1 || m == 1) return 0;",
-            "uint64_t cnt = 0;",
-            "int64_t t = 1;",
-            "for (int64_t d = std::gcd(a, m); d != 1; d = std::gcd(a, m)) {",
-            "if (b % d) return -1;",
-            "++cnt;",
-            "b /= d;",
-            "m /= d;",
-            "(t *= a / d) %= m;",
-            "if (b == t) return cnt;",
-            "}",
-            "auto &&ans = bsgs(a, b * inverse(t, m) % m, m);",
-            "return ~ans ? ans + cnt : -1;",
-            "}",
-            "}  // namespace EXBSGS",
-            "using EXBSGS::bsgs;",
-            "using EXBSGS::exbsgs;"
-        ]
-    },
     "crt": {
         "scope": "cpp",
         "prefix": [
@@ -345,27 +282,6 @@
             "}  // namespace exEuclid"
         ]
     },
-    "exgcd": {
-        "scope": "cpp",
-        "prefix": "exgcd",
-        "body": [
-            "// @param b `1 <= b`",
-            "// @return tuple(g, x, y) s.t. g = gcd(a, b), xa + yb = g, 0 <= x < b/g",
-            "constexpr std::tuple<int64_t, int64_t, int64_t> exgcd(int64_t a, int64_t b) {",
-            "int64_t b_ = b, m0 = 0;",
-            "for (int64_t q = 0, _ = 0, a_ = a, m1 = 1; a_;) {",
-            "_ = b_ - a_ * (q = b_ / a_);",
-            "b_ = a_;",
-            "a_ = _;",
-            "_ = m0 - m1 * q;",
-            "m0 = m1;",
-            "m1 = _;",
-            "}",
-            "m0 = (m0 + (m0 < 0 ? b / b_ : 0)) % b;",
-            "return {b_, m0, (b_ - m0 * a) / b};",
-            "}"
-        ]
-    },
     "exlucas": {
         "scope": "cpp",
         "prefix": [
@@ -461,24 +377,6 @@
             "inv_fact[i] = _ * ffact[i - 1] % mod;",
             "_ = _ * fact[i] % mod;",
             "}",
-            "}"
-        ]
-    },
-    "factors": {
-        "scope": "cpp",
-        "prefix": "factors",
-        "body": [
-            "// @param n n > 0",
-            "// @return {f_i} in ascending order, which f_i is factor",
-            "std::vector<uint64_t> factors(uint64_t n) {",
-            "vector<uint64_t> ret;",
-            "ret.reserve((size_t)sqrtl(n) * 2);",
-            "for (uint64_t i = 1; i * i <= n; ++i) {",
-            "if (n % i) continue;",
-            "ret.push_back(i);",
-            "if (uint64_t j = n / i; i != j) ret.push_back(j);",
-            "}",
-            "return ret;",
             "}"
         ]
     },
@@ -661,24 +559,6 @@
             "}"
         ]
     },
-    "inverse": {
-        "scope": "cpp",
-        "prefix": [
-            "inv",
-            "inverse"
-        ],
-        "body": [
-            "//! gcd(n, mod) = 1 required",
-            "constexpr int64_t inverse(int64_t n, int64_t mod) {",
-            "int64_t b = mod, m0 = 0;",
-            "for (int64_t q = 0, _ = 0, m1 = 1; n;) {",
-            "_ = b - n * (q = b / n); b = n; n = _;",
-            "_ = m0 - m1 * q; m0 = m1; m1 = _;",
-            "}",
-            "return (m0 + (m0 < 0 ? mod / b : 0)) % mod;",
-            "}"
-        ]
-    },
     "inverse-gcd": {
         "scope": "cpp",
         "prefix": [
@@ -750,17 +630,6 @@
             "}",
             "return ans;",
             "}"
-        ]
-    },
-    "legendre-symbol": {
-        "scope": "cpp",
-        "prefix": [
-            "legendre",
-            "legendre-symbol"
-        ],
-        "body": [
-            "//! p must be odd prime",
-            "constexpr int32_t legendre_symbol(uint64_t a, uint64_t p) { return a % p == 0 ? 0 : qpow(a, p / 2, p) == 1 ? 1 : -1; }"
         ]
     },
     "lucas": {
@@ -1374,29 +1243,6 @@
             "using primes::init_prime, primes::prime, primes::min_pfactor, primes::mu, primes::phi, primes::sigma;"
         ]
     },
-    "primitive-root-i32": {
-        "scope": "cpp",
-        "prefix": [
-            "proot32",
-            "primitive-root-i32"
-        ],
-        "body": [
-            "constexpr int proot_impl_(int m) {",
-            "if (m == 2) return 1; if (m == 3 || m == 5) return 2; if (m == 104857601 || m == 167772161 || m == 469762049 || m == 998244353 || m == 1004535809) return 3; if (m == 754974721) return 11;",
-            "int divs[20] = {2};",
-            "int cnt = 1, x = (m - 1) / 2;",
-            "while (!(x & 1)) x >>= 1;",
-            "for (int i = 3; (int64_t)i * i <= x; i += 2) if (x % i == 0) { divs[++cnt] = i; while (x % i == 0) x /= i; }",
-            "if (x > 1) divs[++cnt] = x;",
-            "for (int g = 2;; ++g) {",
-            "bool ok = true;",
-            "for (int i = 0; i < cnt; ++i) if (qpow(g, (m - 1) / divs[i], m) == 1) { ok = false; break; }",
-            "if (ok) return g;",
-            "}",
-            "}",
-            "template <int M> constexpr int proot = proot_impl_(M);"
-        ]
-    },
     "real-basis": {
         "scope": "cpp",
         "prefix": "real-basis",
@@ -1521,28 +1367,6 @@
             "if (std::abs(R1 - (R2 = (64 * (C2 = (16 * (S2 = (4 * (T2 = (T1 + h * ctqf(a, b, h)) * .5) - T1) / 3) - S1) / 15) - C1) / 63)) < eps) break;",
             "return R2;",
             "}",
-            "};"
-        ]
-    },
-    "rpow": {
-        "scope": "cpp",
-        "prefix": "rpow",
-        "body": [
-            "class rpow {",
-            "uint32_t m_;",
-            "uint64_t b_;",
-            "std::array<uint64_t, 65536> b0, b1;",
-            "public:",
-            "explicit rpow() = default;",
-            "rpow(uint64_t base_, uint32_t mod_): b_(base_ % mod_), m_(mod_) {",
-            "b0[0] = b1[0] = 1;",
-            "for (size_t i = 1; i < 65536; i++) b0[i] = b0[i - 1] * b_ % m_;",
-            "uint64_t _(b0.back() * b_ % m_);",
-            "for (size_t i = 1; i < 65536; i++) b1[i] = b1[i - 1] * _ % m_;",
-            "}",
-            "constexpr uint64_t base() const { return b_; }",
-            "constexpr uint64_t mod() const { return m_; }",
-            "uint32_t operator()(uint64_t x) const { return b0[x & 0xff] * b1[x >> 16] % m_; }",
             "};"
         ]
     },

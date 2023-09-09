@@ -50,7 +50,6 @@ code .
 | binary-search                       | `binary-search`                                                    |
 | bitset-AVX                          | `bitset-avx`                                                       | bitset under AVX                                                                                           |
 | barrett                             | `barrett`                                                          | Fast modular multiplication by barrett reduction                                                           |
-| bsgs                                | `BSGS`, `EXBSGS`                                                   |
 | bellman-ford                        | `bellman-ford`, `spfa`, `bford`                                    |
 | bipartitle-graph-coloring           | `bipartitle-graph-coloring`                                        |
 | cantor-expansion                    | `cantor`, `cantor-exp`                                             |
@@ -69,10 +68,8 @@ code .
 | euler-phi                           | `phi`, `euler-phi`                                                 |
 | excrt                               | `excrt`                                                            |
 | exeuclid                            | `exeuclid`                                                         |
-| exgcd                               | `exgcd`                                                            |
 | exlucas                             | `exlucas`                                                          |
 | factorial-and-inverse               | `fact`, `factorial`                                                |
-| factors                             | `factors`                                                          |
 | fast-max                            | `max-fast`, `fast-max`                                             |
 | fast-min                            | `min-fast`, `fast-min`                                             |
 | fast-str2uint                       | `str2uint-fast`, `fast-str2uint`                                   |
@@ -93,14 +90,12 @@ code .
 | hoverline                           | `hoverline`                                                        |
 | huffman-tree                        | `huffman`, `huffman-tree`                                          |
 | init-cpp-simple                     | `iis`, `init-simple`                                               |
-| inverse                             | `inv`, `inverse`                                                   |
 | inverse-gcd                         | `inv-gcd`, `inverse-gcd`                                           |
 | inverse-linear-gen                  | `linv-gen`, `inv-linear-gen`, `inverse-linear-gen`                 |
 | johnson                             | `johnson`                                                          |
 | KMP-FFT                             | `kmp-fft`, `fft-kmp`                                               |
 | kruakal                             | `kruskal`                                                          |
 | lagrange-interpolation-fixed-key    | `lagrange-interpolation-fixed-key`                                 |
-| legendre-symbol                     | `legendre`, `legendre-symbol`                                      |
 | lucas                               | `lucas`                                                            | Calculating combination num using Lucas theorem                                                            |
 | manacher                            | `manacher`                                                         |
 | matrix                              | `mat`, `mat`                                                       |
@@ -112,13 +107,11 @@ code .
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
 | pow-mod                             | `pow-mod`                                                          |
 | prime                               | `prime`                                                            | Euler seive                                                                                                |
-| primitive-root-i32                  | `proot32`, `primitive-root-i32`                                    |
 | real-basis                          | `real-basis`                                                       |
 | reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
 | radix-sort-u32                      | `rsortu32`, `radix-sort-u32`                                       |
 | RMQ-ST                              | `rmq`, `rmq-st`                                                    |
 | RMQ-ST-2D                           | `rmq-2d`, `rmq-st-2d`                                              |
-| rpow                                | `rpow`                                                             |
 | romberg                             | `romberg`                                                          | Romberg integration                                                                                        |
 | safe-mod                            | `safe-mod`                                                         |
 | simpson                             | `simpson`                                                          | Adaptive Simpson integration                                                                               |
