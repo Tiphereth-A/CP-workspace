@@ -56,7 +56,6 @@ code .
 | chtholly                            | `chtholly-tree`, `old-driver-tree`                                 |
 | combination                         | `comb`, `combination`, `m-choose-n`                                |
 | convolution-fft                     | `conv`, `convolution`, `convolution-fft`, `fft-double`             |
-| crt                                 | `crt`                                                              |
 | dijkstra                            | `dijkstra`, `dijk`                                                 |
 | discretization                      | `discretization`                                                   |
 | DLX                                 | `dancing-link-x`, `dlx`                                            |
@@ -66,9 +65,7 @@ code .
 | euler-path-graph                    | `euler-path-graph`                                                 | Find Euler path (undirection graph)                                                                        |
 | euler-path-digraph                  | `euler-path-digraph`                                               | Find Euler path (digraph)                                                                                  |
 | euler-phi                           | `phi`, `euler-phi`                                                 |
-| excrt                               | `excrt`                                                            |
 | exeuclid                            | `exeuclid`                                                         |
-| exlucas                             | `exlucas`                                                          |
 | factorial-and-inverse               | `fact`, `factorial`                                                |
 | fast-max                            | `max-fast`, `fast-max`                                             |
 | fast-min                            | `min-fast`, `fast-min`                                             |
@@ -96,7 +93,6 @@ code .
 | KMP-FFT                             | `kmp-fft`, `fft-kmp`                                               |
 | kruakal                             | `kruskal`                                                          |
 | lagrange-interpolation-fixed-key    | `lagrange-interpolation-fixed-key`                                 |
-| lucas                               | `lucas`                                                            | Calculating combination num using Lucas theorem                                                            |
 | manacher                            | `manacher`                                                         |
 | matrix                              | `mat`, `mat`                                                       |
 | mod-int                             | `mod-int`                                                          |
