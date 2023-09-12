@@ -98,26 +98,6 @@
             "using FFT::conv;"
         ]
     },
-    "euler-phi": {
-        "scope": "cpp",
-        "prefix": [
-            "phi",
-            "euler-phi"
-        ],
-        "body": [
-            "template <typename Tp = int64_t>",
-            "constexpr Tp euler_phi(Tp n) {",
-            "Tp ans = n;",
-            "for (Tp i = 2; i <= sqrt(n); ++i)",
-            "if (n % i == 0) {",
-            "ans = ans / i * (i - 1);",
-            "while (n % i == 0) n /= i;",
-            "}",
-            "if (n > 1) ans = ans / n * (n - 1);",
-            "return ans;",
-            "}"
-        ]
-    },
     "exeuclid": {
         "scope": "cpp",
         "prefix": [
@@ -332,27 +312,6 @@
             "return ans;",
             "}",
             "}",
-        ]
-    },
-    "gcd-real": {
-        "scope": "cpp",
-        "prefix": [
-            "gcd-real",
-            "real-gcd"
-        ],
-        "body": [
-            "template <class Tp, std::enable_if_t<std::is_floating_point<Tp>::value> * = nullptr>",
-            "constexpr Tp real_gcd(Tp a, Tp b, Tp eps = 1e-2) {",
-            "a = std::abs(a);",
-            "b = std::abs(b);",
-            "if (a < b) std::swap(a, b);",
-            "while (a - b > eps) {",
-            "if (b < eps) return a;",
-            "a = std::fmod(a, b);",
-            "std::swap(a, b);",
-            "}",
-            "return a;",
-            "}"
         ]
     },
     "lagrange-interpolation-fixed-key": {

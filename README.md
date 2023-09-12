@@ -63,7 +63,6 @@ code .
 | enumerate-cpp17                     | `enumerate-cpp17`                                                  | Implement of enumerate in C++17                                                                            |
 | euler-path-graph                    | `euler-path-graph`                                                 | Find Euler path (undirection graph)                                                                        |
 | euler-path-digraph                  | `euler-path-digraph`                                               | Find Euler path (digraph)                                                                                  |
-| euler-phi                           | `phi`, `euler-phi`                                                 |
 | exeuclid                            | `exeuclid`                                                         |
 | fast-max                            | `max-fast`, `fast-max`                                             |
 | fast-min                            | `min-fast`, `fast-min`                                             |
@@ -76,7 +75,6 @@ code .
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
 | gcd-lambda                          | `gcd-lambda`                                                       |
 | gcd-O1                              | `gcd-O1`                                                           |
-| gcd-real                            | `gcd-real`, `real-gcd`                                             |
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | gray-code                           | `gray-code`                                                        |
 | hash-splitmix64                     | `custom-hash`, `hash-splitmix64`                                   | See [this blog](https://codeforces.com/blog/entry/62393)                                                   |
