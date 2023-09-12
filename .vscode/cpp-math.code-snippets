@@ -263,17 +263,6 @@
             "};",
         ]
     },
-    "gcd-lambda": {
-        "scope": "cpp",
-        "prefix": "gcd-lambda",
-        "body": [
-            "template <typename T>",
-            "auto gcd = [](T n, T m) -> T {",
-            "while (m ^= n ^= m ^= n %= m)\n;",
-            "return n;",
-            "};"
-        ]
-    },
     "gcd-O1": {
         "scope": "cpp",
         "prefix": "gcd-O1",

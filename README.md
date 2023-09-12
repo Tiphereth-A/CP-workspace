@@ -73,7 +73,6 @@ code .
 | gauss-bitset                        | `gauss-bitset`                                                     | Gauss' method on bool matrix                                                                               |
 | gauss-int                           | `gauss-int`                                                        | Gauss int $Z[\sqrt{-p}]$, $p>0$ (NO overflow protect)                                                      |
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
-| gcd-lambda                          | `gcd-lambda`                                                       |
 | gcd-O1                              | `gcd-O1`                                                           |
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | gray-code                           | `gray-code`                                                        |
