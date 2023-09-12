@@ -39,17 +39,6 @@
         ],
         "description": "Fast modular multiplication by barrett reduction"
     },
-    "combination": {
-        "scope": "cpp",
-        "prefix": [
-            "comb",
-            "combination",
-            "m-choose-n"
-        ],
-        "body": [
-            "constexpr int64_t mCn(int m, int n, int64_t mod = MOD) { return m < n || n < 0 ? 0 : fact[m] * inv_fact[n] % mod * inv_fact[m - n] % mod; }"
-        ]
-    },
     "convolution-fft": {
         "scope": "cpp",
         "prefix": [
@@ -185,30 +174,6 @@
             "}",
             "};",
             "}  // namespace exEuclid"
-        ]
-    },
-    "factorial-and-inverse": {
-        "scope": "cpp",
-        "prefix": [
-            "fact",
-            "factorial"
-        ],
-        "body": [
-            "std::vector<int64_t> fact, inv_fact;",
-            "//! Call this first before using @fact and @inv_fact",
-            "void init_fact(int64_t n = N, int64_t mod = MOD) {",
-            "std::vector<int64_t> ffact(n);",
-            "fact.resize(n * 2);",
-            "inv_fact.resize(n);",
-            "ffact[0] = fact[0] = inv_fact[0] = fact[1] = inv_fact[1] = 1;",
-            "for (size_t i = 2; i < std::min(mod, n * 2); ++i) fact[i] = fact[i - 1] * i % mod;",
-            "for (size_t i = 1; i < std::min(mod, n); ++i) ffact[i] = ffact[i - 1] * fact[i] % mod;",
-            "int64_t _ = inverse(ffact[std::min(mod, n) - 1], mod);",
-            "for (ptrdiff_t i = std::min(mod, n) - 1; i > 1; --i) {",
-            "inv_fact[i] = _ * ffact[i - 1] % mod;",
-            "_ = _ * fact[i] % mod;",
-            "}",
-            "}"
         ]
     },
     "gauss-bitset": {
@@ -388,41 +353,6 @@
             "}",
             "return a;",
             "}"
-        ]
-    },
-    "inverse-gcd": {
-        "scope": "cpp",
-        "prefix": [
-            "inv-gcd",
-            "inverse-gcd"
-        ],
-        "body": [
-            "// @return {gcd(a,b), solution of $ax \\equiv 1 \\pmod b$ when gcd(a,b) = 1}",
-            "constexpr std::pair<int64_t, int64_t> invgcd(int64_t a, int64_t b) {",
-            "if ((a = safe_mod(a, b)) == 0) return {b, 0};",
-            "int64_t s = b, m0 = 0;",
-            "for (int64_t q = 0, _ = 0, m1 = 1; a;) {",
-            "_ = s - a * (q = s / a); s = a; a = _;",
-            "_ = m0 - m1 * q; m0 = m1; m1 = _;",
-            "}",
-            "return {s, m0 + (m0 < 0 ? b / s : 0)};",
-            "}"
-        ]
-    },
-    "inverse-linear-gen": {
-        "scope": "cpp",
-        "prefix": [
-            "linv-gen",
-            "inv-linear-gen",
-            "inverse-linear-gen"
-        ],
-        "body": [
-            "//! @return \\{i^{-1} \\pmod m : i = 1..n \\\\}",
-            "auto inv_linear_gen = [](size_t n, i64 m) -> std::vector<i64> {",
-            "std::vector<i64> inv(n + 1, 1);",
-            "for (int i = 2; i <= n; ++i) inv[i] = (m - m / i) * inv[m % i] % m;",
-            "return inv;",
-            "};"
         ]
     },
     "lagrange-interpolation-fixed-key": {
@@ -1189,13 +1119,6 @@
             "return R2;",
             "}",
             "};"
-        ]
-    },
-    "safe-mod": {
-        "scope": "cpp",
-        "prefix": "safe-mod",
-        "body": [
-            "template <class Tp = int64_t> constexpr Tp safe_mod(Tp x, const Tp& m) { return (x %= m) < 0 ? x + m : x; }"
         ]
     },
     "simpson": {

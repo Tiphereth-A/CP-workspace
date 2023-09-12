@@ -54,7 +54,6 @@ code .
 | bipartitle-graph-coloring           | `bipartitle-graph-coloring`                                        |
 | cantor-expansion                    | `cantor`, `cantor-exp`                                             |
 | chtholly                            | `chtholly-tree`, `old-driver-tree`                                 |
-| combination                         | `comb`, `combination`, `m-choose-n`                                |
 | convolution-fft                     | `conv`, `convolution`, `convolution-fft`, `fft-double`             |
 | dijkstra                            | `dijkstra`, `dijk`                                                 |
 | discretization                      | `discretization`                                                   |
@@ -66,7 +65,6 @@ code .
 | euler-path-digraph                  | `euler-path-digraph`                                               | Find Euler path (digraph)                                                                                  |
 | euler-phi                           | `phi`, `euler-phi`                                                 |
 | exeuclid                            | `exeuclid`                                                         |
-| factorial-and-inverse               | `fact`, `factorial`                                                |
 | fast-max                            | `max-fast`, `fast-max`                                             |
 | fast-min                            | `min-fast`, `fast-min`                                             |
 | fast-str2uint                       | `str2uint-fast`, `fast-str2uint`                                   |
@@ -87,7 +85,6 @@ code .
 | hoverline                           | `hoverline`                                                        |
 | huffman-tree                        | `huffman`, `huffman-tree`                                          |
 | init-cpp-simple                     | `iis`, `init-simple`                                               |
-| inverse-gcd                         | `inv-gcd`, `inverse-gcd`                                           |
 | inverse-linear-gen                  | `linv-gen`, `inv-linear-gen`, `inverse-linear-gen`                 |
 | johnson                             | `johnson`                                                          |
 | KMP-FFT                             | `kmp-fft`, `fft-kmp`                                               |
@@ -109,7 +106,6 @@ code .
 | RMQ-ST                              | `rmq`, `rmq-st`                                                    |
 | RMQ-ST-2D                           | `rmq-2d`, `rmq-st-2d`                                              |
 | romberg                             | `romberg`                                                          | Romberg integration                                                                                        |
-| safe-mod                            | `safe-mod`                                                         |
 | simpson                             | `simpson`                                                          | Adaptive Simpson integration                                                                               |
 | simpson-dep-limit                   | `simpson-with-min-depth-limit`                                     | Slower but maybe more accurate for discret function                                                        |
 | simulated-annealing                 | `simulated-annealing`                                              |
