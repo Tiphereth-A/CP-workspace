@@ -86,7 +86,6 @@ code .
 | kruakal                             | `kruskal`                                                          |
 | lagrange-interpolation-fixed-key    | `lagrange-interpolation-fixed-key`                                 |
 | manacher                            | `manacher`                                                         |
-| matrix                              | `mat`, `mat`                                                       |
 | mod-int                             | `mod-int`                                                          |
 | ndvector                            | `ndvector`, `n-dim-vector`                                         | See [this blog](https://blog.tifa-233.com/archives/draft-025/), use `std::mdspan` instead of this in C++23 |
 | newton-interpolation                | `newton-interpolation`, `newton-interp`, `interpolation`, `interp` |
