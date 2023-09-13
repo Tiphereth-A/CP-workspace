@@ -71,9 +71,7 @@ code .
 | foreach                             | `fors`, `foreach`                                                  | Some for macros                                                                                            |
 | fenwick-tree                        | `fenwick`, `fenwick-tree`                                          |
 | gauss-bitset                        | `gauss-bitset`                                                     | Gauss' method on bool matrix                                                                               |
-| gauss-int                           | `gauss-int`                                                        | Gauss int $Z[\sqrt{-p}]$, $p>0$ (NO overflow protect)                                                      |
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
-| gcd-O1                              | `gcd-O1`                                                           |
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | gray-code                           | `gray-code`                                                        |
 | hash-splitmix64                     | `custom-hash`, `hash-splitmix64`                                   | See [this blog](https://codeforces.com/blog/entry/62393)                                                   |
