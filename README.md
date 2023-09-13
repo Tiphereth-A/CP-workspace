@@ -93,8 +93,6 @@ code .
 | ostream-int128                      | `os128`, `out128`, `cout128`                                       | `__int128_t` and `___uint128_t` support for `std::cout`                                                    |
 | pair-useful-func                    | `pair-func`, `pair-useful-func`                                    |
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
-| pow-mod                             | `pow-mod`                                                          |
-| prime                               | `prime`                                                            | Euler seive                                                                                                |
 | real-basis                          | `real-basis`                                                       |
 | reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
 | radix-sort-u32                      | `rsortu32`, `radix-sort-u32`                                       |
