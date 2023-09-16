@@ -22,15 +22,12 @@ My VSCode workspace for Competitive Programming. **Only for Linux**
 
 ```bash
 # Clone repo
-git clone git@github.com:Tiphereth-A/CP-workspace.git
+git clone --recursive git@github.com:Tiphereth-A/CP-workspace.git
 
 # Fix paths
 cd CP-workspace
 mkdir bin
 touch data/in.in
-
-# Install submodules
-git submodule update --init
 
 # Run VSCode
 code .
