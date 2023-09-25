@@ -156,34 +156,6 @@
             "}  // namespace exEuclid"
         ]
     },
-    "gauss-bitset": {
-        "scope": "cpp",
-        "prefix": "gauss-bitset",
-        "body": [
-            "template <size_t N>",
-            "int64_t gauss_bitset(std::vector<std::bitset<N>> &mat, bool clear_all = true) {",
-            "int64_t rk = 0;",
-            "bool neg = false;",
-            "for (size_t i = 0; i < std::min(mat.size(), N); ++i) {",
-            "if (!mat[rk][i]) {",
-            "for (size_t j = rk + 1; j < mat.size(); ++j)",
-            "if (mat[j][i]) {",
-            "std::swap(mat[j], mat[rk]);",
-            "neg ^= true;",
-            "break;",
-            "}",
-            "if (!mat[rk][i]) continue;",
-            "}",
-            "for (int64_t j = clear_all ? 0 : rk + 1; j < mat.size(); ++j) {",
-            "if (j == rk || !mat[j][i]) continue;",
-            "mat[j] ^= mat[rk];",
-            "}",
-            "++rk;",
-            "}",
-            "return neg ? -rk : rk;",
-            "}"
-        ]
-    },
     "lagrange-interpolation-fixed-key": {
         "scope": "cpp",
         "prefix": [

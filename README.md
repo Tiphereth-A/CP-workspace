@@ -67,7 +67,6 @@ code .
 | floyd                               | `floyd`                                                            |
 | foreach                             | `fors`, `foreach`                                                  | Some for macros                                                                                            |
 | fenwick-tree                        | `fenwick`, `fenwick-tree`                                          |
-| gauss-bitset                        | `gauss-bitset`                                                     | Gauss' method on bool matrix                                                                               |
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | gray-code                           | `gray-code`                                                        |
