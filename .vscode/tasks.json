@@ -16,7 +16,7 @@
                 "-Ilib/testlib",
                 "-Ilib/dbg-macro",
                 "-Ilib/ac-library",
-                "-std=c++20"
+                "-std=c++17"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
