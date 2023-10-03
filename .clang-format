@@ -96,6 +96,7 @@ ForEachMacros:
   - rforit_
   - rforitr_
   - Rep
+  - REP
   - rep
 IfMacros:
   - KJ_IF_MAYBE
