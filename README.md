@@ -46,7 +46,6 @@ code .
 | balanced-tree-based-on-fenwick-tree | `bst-bit`, `bt-bit`                                                |
 | binary-search                       | `binary-search`                                                    |
 | bitset-AVX                          | `bitset-avx`                                                       | bitset under AVX                                                                                           |
-| barrett                             | `barrett`                                                          | Fast modular multiplication by barrett reduction                                                           |
 | bellman-ford                        | `bellman-ford`, `spfa`, `bford`                                    |
 | bipartitle-graph-coloring           | `bipartitle-graph-coloring`                                        |
 | cantor-expansion                    | `cantor`, `cantor-exp`                                             |
@@ -92,9 +91,6 @@ code .
 | radix-sort-u32                      | `rsortu32`, `radix-sort-u32`                                       |
 | RMQ-ST                              | `rmq`, `rmq-st`                                                    |
 | RMQ-ST-2D                           | `rmq-2d`, `rmq-st-2d`                                              |
-| romberg                             | `romberg`                                                          | Romberg integration                                                                                        |
-| simpson                             | `simpson`                                                          | Adaptive Simpson integration                                                                               |
-| simpson-dep-limit                   | `simpson-with-min-depth-limit`                                     | Slower but maybe more accurate for discret function                                                        |
 | simulated-annealing                 | `simulated-annealing`                                              |
 | sqrt-bucket                         | `blocking`, `sqrt-blocking`, `sqrt-bucket`                         |
 | stdc++11                            | `stdc++11`                                                         | Standard libs (C++11)                                                                                      |
