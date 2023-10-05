@@ -54,8 +54,6 @@ code .
 | dijkstra                            | `dijkstra`, `dijk`                                                 |
 | discretization                      | `discretization`                                                   |
 | DLX                                 | `dancing-link-x`, `dlx`                                            |
-| dsu-basic                           | `dsu-basic`                                                        |
-| dsu-weighted                        | `dsu-weighted`                                                     |
 | enumerate-cpp17                     | `enumerate-cpp17`                                                  | Implement of enumerate in C++17                                                                            |
 | euler-path-graph                    | `euler-path-graph`                                                 | Find Euler path (undirection graph)                                                                        |
 | euler-path-digraph                  | `euler-path-digraph`                                               | Find Euler path (digraph)                                                                                  |
@@ -65,7 +63,6 @@ code .
 | fast-str2uint                       | `str2uint-fast`, `fast-str2uint`                                   |
 | floyd                               | `floyd`                                                            |
 | foreach                             | `fors`, `foreach`                                                  | Some for macros                                                                                            |
-| fenwick-tree                        | `fenwick`, `fenwick-tree`                                          |
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | gray-code                           | `gray-code`                                                        |
@@ -88,7 +85,6 @@ code .
 | real-basis                          | `real-basis`                                                       |
 | reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
 | radix-sort-u32                      | `rsortu32`, `radix-sort-u32`                                       |
-| RMQ-ST                              | `rmq`, `rmq-st`                                                    |
 | RMQ-ST-2D                           | `rmq-2d`, `rmq-st-2d`                                              |
 | simulated-annealing                 | `simulated-annealing`                                              |
 | sqrt-bucket                         | `blocking`, `sqrt-blocking`, `sqrt-bucket`                         |

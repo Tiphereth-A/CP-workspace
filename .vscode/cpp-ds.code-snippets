@@ -45,77 +45,6 @@
             "};"
         ]
     },
-    "dsu-basic": {
-        "scope": "cpp",
-        "prefix": "dsu-basic",
-        "body": [
-            "class DsuBasic {",
-            "protected:",
-            "std::vector<size_t> fa;",
-            "public:",
-            "explicit DsuBasic(size_t size): fa(size) { std::iota(fa.begin(), fa.end(), 0); }",
-            "size_t find(size_t x) { return x == fa[x] ? fa[x] : fa[x] = find(fa[x]); }",
-            "bool merge(size_t x, size_t y) {",
-            "size_t fx = find(x), fy = find(y);",
-            "return fx == fy ? false : (fa[fx] = fy, true);",
-            "}",
-            "};"
-        ]
-    },
-    "dsu-weighted": {
-        "scope": "cpp",
-        "prefix": "dsu-weighted",
-        "body": [
-            "struct DSUWeighted {",
-            "struct Node { size_t fa, dep, sz; explicit Node(size_t fa, size_t depth = 0, size_t size = 1): fa(fa), dep(dep), sz(size) {} };",
-            "std::vector<Node> data;",
-            "DSUWeighted() = default;",
-            "void init(size_t n) { data.clear(); data.reserve(n); for (size_t i = 0; i < n; ++i) data.emplace_back(i); data.shrink_to_fit(); }",
-            "size_t find(size_t x) {",
-            "if (x == data[x].fa) return x;",
-            "size_t fx = find(data[x].fa);",
-            "data[x].dep += data[data[x].fa].dep;",
-            "return data[x].fa = fx;",
-            "}",
-            "void merge(size_t x, size_t y) {",
-            "size_t fx = find(x), fy = find(y);",
-            "data[fx].dep += data[fy].sz; data[fy].sz += data[fx].sz; data[fx].sz = 0; data[fx].fa = fy;",
-            "}",
-            "};"
-        ]
-    },
-    "fenwick-tree": {
-        "scope": "cpp",
-        "prefix": [
-            "fenwick",
-            "fenwick-tree"
-        ],
-        "body": [
-            "template <typename Tp>",
-            "class BIT {",
-            "protected:",
-            "std::vector<Tp> tree;",
-            "constexpr ptrdiff_t lowbit(ptrdiff_t x) const { return x & (-x); }",
-            "public:",
-            "// @param sz max index may occur",
-            "explicit BIT(size_t sz): tree(sz) {}",
-            "// @param sz max index may occur",
-            "void reset(size_t sz) { tree.resize(sz, 0); }",
-            "void modify(ptrdiff_t pos, Tp val = 1) {",
-            "if (pos < 1) return;",
-            "pos = std::clamp(pos, ptrdiff_t(1), ptrdiff_t(tree.size()) - 1);",
-            "for (ptrdiff_t i = pos; i < ptrdiff_t(tree.size()); i += lowbit(i)) tree[i] += val;",
-            "}",
-            "Tp query(ptrdiff_t pos) const {",
-            "Tp ret = 0;",
-            "if (pos < 1) return 0;",
-            "pos = std::clamp(pos, ptrdiff_t(1), ptrdiff_t(tree.size()) - 1);",
-            "for (ptrdiff_t i = pos; i; i = i - lowbit(i)) ret += tree[i];",
-            "return ret;",
-            "}",
-            "};"
-        ]
-    },
     "huffman-tree": {
         "scope": "cpp",
         "prefix": [
@@ -259,42 +188,6 @@
             "}",
             "size_t memory_used() const { return sizeof(nodes[0]) * nodes.capacity() + sizeof(roots[0]) * roots.capacity(); }",
             "};"
-        ]
-    },
-    "RMQ-ST": {
-        "scope": "cpp",
-        "prefix": [
-            "rmq",
-            "rmq-st"
-        ],
-        "body": [
-            "template <typename data_t, typename query_func = std::function<data_t(const data_t &, const data_t &)>>",
-            "class RMQ_ST {",
-            "protected:",
-            "query_func qfunc;",
-            "std::vector<std::vector<data_t>> f;",
-            "public:",
-            "RMQ_ST() = delete;",
-            "RMQ_ST(query_func qfunc): qfunc(qfunc), f() {}",
-            "//! [0, n)",
-            "// @param ifunc ifunc(x) = value in x",
-            "template <typename init_func = std::function<data_t(size_t)>>",
-            "void init(size_t n, init_func ifunc) {",
-            "const size_t K = (size_t)std::log2(n) + 1;",
-            "f.resize(K);",
-            "for (auto &i : f) i.resize(n);",
-            "for (size_t i = 0; i < n; ++i) f[0][i] = ifunc(i);",
-            "for (size_t i = 1; i < K; ++i)",
-            "for (size_t j = 0; j + (1 << i) - 1 < n; ++j)",
-            "f[i][j] = qfunc(f[i - 1][j], f[i - 1][j + (1 << (i - 1))]);",
-            "}",
-            "//! [l, r)",
-            "data_t query(size_t l, size_t r) const {",
-            "assert(l < r);",
-            "size_t _ = (size_t)std::log2(r - l);",
-            "return qfunc(f[_][l], f[_][r - (1 << _)]);",
-            "}",
-            "};",
         ]
     },
     "RMQ-ST-2D": {
