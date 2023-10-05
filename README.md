@@ -69,7 +69,6 @@ code .
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | gray-code                           | `gray-code`                                                        |
-| hash-splitmix64                     | `custom-hash`, `hash-splitmix64`                                   | See [this blog](https://codeforces.com/blog/entry/62393)                                                   |
 | hash-str                            | `hash-str`                                                         | Rolling hash                                                                                               |
 | hash-str2                           | `hash-str2`                                                        | Rolling hash with 2 Modules                                                                                |
 | hoverline                           | `hoverline`                                                        |
