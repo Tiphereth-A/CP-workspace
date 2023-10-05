@@ -102,7 +102,6 @@ code .
 | Trie                                | `trie`                                                             |
 | tuple-useful-func                   | `tuple-func`, `tuple-useful-func`                                  | See [this blog](https://blog.tifa-233.com/archives/draft-020/)                                             |
 | UDHeap                              | `udheap`                                                           |
-| untie                               | `fast-ios`, `fast-cin-cout`                                        |
 | xor-basis                           | `xor-basis`                                                        |
 
 ## Third library support

@@ -92,16 +92,5 @@
             "return ans;",
             "}"
         ]
-    },
-    "untie": {
-        "scope": "cpp",
-        "prefix": [
-            "fast-ios",
-            "fast-cin-cout"
-        ],
-        "body": [
-            "ios::sync_with_stdio(false);",
-            "cin.tie(nullptr);"
-        ]
     }
 }
