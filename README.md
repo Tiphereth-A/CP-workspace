@@ -66,8 +66,6 @@ code .
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | gray-code                           | `gray-code`                                                        |
-| hash-str                            | `hash-str`                                                         | Rolling hash                                                                                               |
-| hash-str2                           | `hash-str2`                                                        | Rolling hash with 2 Modules                                                                                |
 | hoverline                           | `hoverline`                                                        |
 | huffman-tree                        | `huffman`, `huffman-tree`                                          |
 | init-cpp-simple                     | `iis`, `init-simple`                                               |
