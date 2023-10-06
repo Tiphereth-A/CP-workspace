@@ -80,7 +80,6 @@ code .
 | ostream-int128                      | `os128`, `out128`, `cout128`                                       | `__int128_t` and `___uint128_t` support for `std::cout`                                                    |
 | pair-useful-func                    | `pair-func`, `pair-useful-func`                                    |
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
-| real-basis                          | `real-basis`                                                       |
 | reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
 | radix-sort-u32                      | `rsortu32`, `radix-sort-u32`                                       |
 | RMQ-ST-2D                           | `rmq-2d`, `rmq-st-2d`                                              |
@@ -100,7 +99,6 @@ code .
 | Trie                                | `trie`                                                             |
 | tuple-useful-func                   | `tuple-func`, `tuple-useful-func`                                  | See [this blog](https://blog.tifa-233.com/archives/draft-020/)                                             |
 | UDHeap                              | `udheap`                                                           |
-| xor-basis                           | `xor-basis`                                                        |
 
 ## Third library support
 
