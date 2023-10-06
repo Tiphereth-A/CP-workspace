@@ -66,7 +66,6 @@ code .
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | gray-code                           | `gray-code`                                                        |
 | hoverline                           | `hoverline`                                                        |
-| huffman-tree                        | `huffman`, `huffman-tree`                                          |
 | init-cpp-simple                     | `iis`, `init-simple`                                               |
 | inverse-linear-gen                  | `linv-gen`, `inv-linear-gen`, `inverse-linear-gen`                 |
 | johnson                             | `johnson`                                                          |
