@@ -50,7 +50,6 @@ code .
 | bipartitle-graph-coloring           | `bipartitle-graph-coloring`                                        |
 | cantor-expansion                    | `cantor`, `cantor-exp`                                             |
 | chtholly                            | `chtholly-tree`, `old-driver-tree`                                 |
-| convolution-fft                     | `conv`, `convolution`, `convolution-fft`, `fft-double`             |
 | dijkstra                            | `dijkstra`, `dijk`                                                 |
 | discretization                      | `discretization`                                                   |
 | DLX                                 | `dancing-link-x`, `dlx`                                            |
