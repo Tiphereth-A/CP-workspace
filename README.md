@@ -82,7 +82,6 @@ code .
 | reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
 | radix-sort-u32                      | `rsortu32`, `radix-sort-u32`                                       |
 | RMQ-ST-2D                           | `rmq-2d`, `rmq-st-2d`                                              |
-| simulated-annealing                 | `simulated-annealing`                                              |
 | sqrt-bucket                         | `blocking`, `sqrt-blocking`, `sqrt-bucket`                         |
 | stdc++11                            | `stdc++11`                                                         | Standard libs (C++11)                                                                                      |
 | stdc++98                            | `stdc++98`                                                         | Standard libs (C++98)                                                                                      |
