@@ -124,46 +124,6 @@
             "};"
         ]
     },
-    "RMQ-ST-2D": {
-        "scope": "cpp",
-        "prefix": [
-            "rmq-2d",
-            "rmq-st-2d"
-        ],
-        "body": [
-            "template <typename data_t, typename query_func = std::function<data_t(const data_t &, const data_t &)>>",
-            "class RMQ_ST_2D {",
-            "protected:",
-            "query_func qfunc;",
-            "std::vector<std::vector<std::vector<data_t>>> f;",
-            "public:",
-            "RMQ_ST_2D() = delete;",
-            "// @param ifunc ifunc(x, y) = value in (x, y)",
-            "RMQ_ST_2D(query_func qfunc): qfunc(qfunc), f() {}",
-            "//! [0, n) * [0, m)",
-            "template <typename init_func = std::function<data_t(size_t, size_t)>>",
-            "void init(size_t n, size_t m, init_func ifunc) {",
-            "const size_t K = (size_t)std::log2(std::max(n, m)) + 1;",
-            "f.resize(K);",
-            "for (auto &i : f) {",
-            "i.resize(n);",
-            "for (auto &j : i) j.resize(m);",
-            "}",
-            "for (size_t i = 0; i < n; ++i)",
-            "for (size_t j = 0; j < m; ++j) f[0][i][j] = ifunc(i, j);",
-            "for (size_t k = 1, p = 1, q = 2; k < K; ++k, p = q, q *= 2)",
-            "for (int i = 0; i + q - 1 < n; ++i)",
-            "for (int j = 0; j + q - 1 < m; ++j)",
-            "f[k][i][j] = qfunc(qfunc(f[k - 1][i][j], f[k - 1][i + p][j]), qfunc(f[k - 1][i][j + p], f[k - 1][i + p][j + p]));",
-            "}",
-            "//! [x, x + l) * [y, y + l)",
-            "data_t query(size_t x, size_t y, size_t l) const {",
-            "size_t _ = (size_t)std::log2(l);",
-            "return qfunc(qfunc(f[_][x][y], f[_][x + l - (1 << _)][y]), qfunc(f[_][x][y + l - (1 << _)], f[_][x + l - (1 << _)][y + l - (1 << _)]));",
-            "}",
-            "};"
-        ]
-    },
     "sqrt-bucket": {
         "scope": "cpp",
         "prefix": [
