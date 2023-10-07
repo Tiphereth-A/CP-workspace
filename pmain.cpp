@@ -11,14 +11,14 @@ using ldb = long double;
 using pii = std::pair<int, int>;
 using pll = std::pair<ll, ll>;
 
-template <class Tp>
-using vc = std::vector<Tp>;
-template <class Tp>
-using vvc = std::vector<std::vector<Tp>>;
-template <class Tp>
-using pq = std::priority_queue<Tp>;
-template <class Tp>
-using pqg = std::priority_queue<Tp, std::vector<Tp>, std::greater<Tp>>;
+template <class T>
+using vc = std::vector<T>;
+template <class T>
+using vvc = std::vector<std::vector<T>>;
+template <class T>
+using pq = std::priority_queue<T>;
+template <class T>
+using pqg = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
 
 #define for_(i, l, r, v...) for (ll i = (l), i##e = (r), ##v; i <= i##e; ++i)
@@ -37,14 +37,14 @@ template <typename... Ts>
 void inc(Ts &...x) { ((++x), ...); }
 
 
-template <class Tp>
-void debug(Tp x) {
+template <class T>
+void debug(T x) {
 #ifdef LOCAL_
     std::cerr << x << std::endl;
 #endif
 }
-template <class Tp, class... Ts>
-void debug(Tp x, Ts... args) {
+template <class T, class... Ts>
+void debug(T x, Ts... args) {
 #ifdef LOCAL_
     std::cerr << x << ' ';
     debug(args...);
