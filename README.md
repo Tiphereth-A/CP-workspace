@@ -48,7 +48,6 @@ code .
 | bitset-AVX                          | `bitset-avx`                                                       | bitset under AVX                                                                                           |
 | bellman-ford                        | `bellman-ford`, `spfa`, `bford`                                    |
 | bipartitle-graph-coloring           | `bipartitle-graph-coloring`                                        |
-| cantor-expansion                    | `cantor`, `cantor-exp`                                             |
 | chtholly                            | `chtholly-tree`, `old-driver-tree`                                 |
 | dijkstra                            | `dijkstra`, `dijk`                                                 |
 | discretization                      | `discretization`                                                   |

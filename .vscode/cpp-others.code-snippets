@@ -41,30 +41,6 @@
             "}"
         ]
     },
-    "cantor-expansion": {
-        "scope": "cpp",
-        "prefix": [
-            "cantor",
-            "cantor-exp"
-        ],
-        "body": [
-            "namespace Cantor_expansion {",
-            "const uint64_t N = 1e6 + 5;",
-            "const uint64_t MOD = ULLONG_MAX;",
-            "uint64_t n, p[N];",
-            "BIT<N, int64_t> tr;",
-            "uint64_t frac[N] = {1};",
-            "void init(uint64_t n) { tr.clear(); for (uint64_t i = 1; i <= n; ++i) frac[i] = i * frac[i - 1] % MOD; }",
-            "uint64_t main(uint64_t n, const uint64_t a[]) {",
-            "init(n);",
-            "uint64_t ret = 1;",
-            "for (uint64_t i = n; i; --i) { p[i] = tr.query(a[i]); tr.modify(a[i]); }",
-            "for (uint64_t i = 1; i <= n; ++i) ret = (ret + p[i] * frac[n - i] % MOD) % MOD;",
-            "return ret;",
-            "}",
-            "}"
-        ]
-    },
     "chtholly": {
         "scope": "cpp",
         "prefix": [
