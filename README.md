@@ -49,7 +49,6 @@ code .
 | bellman-ford                        | `bellman-ford`, `spfa`, `bford`                                    |
 | bipartitle-graph-coloring           | `bipartitle-graph-coloring`                                        |
 | chtholly                            | `chtholly-tree`, `old-driver-tree`                                 |
-| dijkstra                            | `dijkstra`, `dijk`                                                 |
 | discretization                      | `discretization`                                                   |
 | DLX                                 | `dancing-link-x`, `dlx`                                            |
 | enumerate-cpp17                     | `enumerate-cpp17`                                                  | Implement of enumerate in C++17                                                                            |

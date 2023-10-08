@@ -110,29 +110,6 @@
             "using BipartiteGraphColoring::bpgclr;"
         ]
     },
-    "dijkstra": {
-        "scope": "cpp",
-        "prefix": [
-            "dijkstra",
-            "dijk"
-        ],
-        "body": [
-            "template <class Wt = int>",
-            "std::vector<Wt> dijkstra(std::vector<std::vector<std::pair<int, Wt>>> const &g, int s) {",
-            "std::vector<Wt> dis(g.size(), std::numeric_limits<Wt>::max() / 2 - 1);",
-            "std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> q;",
-            "q.emplace(dis[s] = 0, s);",
-            "while (!q.empty()) {",
-            "auto [dis_now, now] = q.top();",
-            "q.pop();",
-            "if (dis[now] < dis_now) continue;",
-            "for (auto [to, w] : g[now])",
-            "if (dis[to] > dis[now] + w) q.emplace(dis[to] = dis[now] + w, to);",
-            "}",
-            "return dis;",
-            "}"
-        ]
-    },
     "euler-path-graph": {
         "scope": "cpp",
         "prefix": "euler-path-graph",
