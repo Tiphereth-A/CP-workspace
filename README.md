@@ -50,7 +50,6 @@ code .
 | bipartitle-graph-coloring           | `bipartitle-graph-coloring`                                        |
 | chtholly                            | `chtholly-tree`, `old-driver-tree`                                 |
 | discretization                      | `discretization`                                                   |
-| DLX                                 | `dancing-link-x`, `dlx`                                            |
 | enumerate-cpp17                     | `enumerate-cpp17`                                                  | Implement of enumerate in C++17                                                                            |
 | euler-path-graph                    | `euler-path-graph`                                                 | Find Euler path (undirection graph)                                                                        |
 | euler-path-digraph                  | `euler-path-digraph`                                               | Find Euler path (digraph)                                                                                  |
@@ -81,7 +80,6 @@ code .
 | sqrt-bucket                         | `blocking`, `sqrt-blocking`, `sqrt-bucket`                         |
 | stdc++11                            | `stdc++11`                                                         | Standard libs (C++11)                                                                                      |
 | stdc++98                            | `stdc++98`                                                         | Standard libs (C++98)                                                                                      |
-| Sudoku                              | `sudoku`                                                           |
 | suffix-array                        | `sa`, `suffix-array`                                               |
 | tarjan-scc                          | `scc`, `tarjan-scc`                                                | Find all SCC based on Tarjan algorithm                                                                     |
 | Texas Hold'em Poker                 | `thpoker`, `texas`, `texas-holdem`, `texas-poker`                  |
