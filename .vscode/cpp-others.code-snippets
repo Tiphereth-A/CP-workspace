@@ -123,22 +123,6 @@
             "};"
         ]
     },
-    "discretization": {
-        "scope": "cpp",
-        "prefix": [
-            "discretization"
-        ],
-        "body": [
-            "template <class Tp = std::vector<int>>",
-            "auto discretization(Tp &var) -> Tp {",
-            "Tp d__(var);",
-            "std::sort(d__.begin(), d__.end());",
-            "d__.erase(std::unique(d__.begin(), d__.end()), d__.end());",
-            "for (auto &i : var) i = std::distance(d__.begin(), std::lower_bound(d__.begin(), d__.end(), i));",
-            "return d__;",
-            "}"
-        ]
-    },
     "enumerate-cpp17": {
         "scope": "cpp",
         "prefix": [
