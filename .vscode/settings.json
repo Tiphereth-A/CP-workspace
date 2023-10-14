@@ -21,5 +21,8 @@
         "*.hpp": "cpp",
         "**/include/c++/**": "cpp",
         "${workspaceFolder}/lib/**": "cpp"
-    }
+    },
+    "clangd.arguments": [
+        "--header-insertion=never"
+    ]
 }
