@@ -211,23 +211,6 @@
             "#pragma GCC diagnostic pop"
         ]
     },
-    "gray-code": {
-        "scope": "cpp",
-        "prefix": [
-            "gray-code"
-        ],
-        "body": [
-            "// k-th n-digit Gray code",
-            "template <size_t N = 64, class = typename std::enable_if<0 < N && N <= 64>::type>",
-            "std::bitset<N> gray_code(size_t n, uint64_t k) {",
-            "assert(0 < n && n <= N && k < (1ull << n));",
-            "std::bitset<N> res;",
-            "k ^= k >> 1;",
-            "while (~--n) res.set(n, k >> n & 1);",
-            "return res;",
-            "}"
-        ]
-    },
     "init-cpp-simple": {
         "scope": "cpp",
         "prefix": [

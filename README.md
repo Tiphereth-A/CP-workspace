@@ -60,7 +60,6 @@ code .
 | foreach                             | `fors`, `foreach`                                                  | Some for macros                                                                                            |
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
-| gray-code                           | `gray-code`                                                        |
 | hoverline                           | `hoverline`                                                        |
 | init-cpp-simple                     | `iis`, `init-simple`                                               |
 | inverse-linear-gen                  | `linv-gen`, `inv-linear-gen`, `inverse-linear-gen`                 |
