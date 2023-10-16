@@ -285,30 +285,6 @@
             "using ndvc = NdVector::ndvector<N, Tp>;"
         ]
     },
-    "ostream-int128": {
-        "scope": "cpp",
-        "prefix": [
-            "os128",
-            "out128",
-            "cout128"
-        ],
-        "body": [
-            "ostream& operator<<(ostream& os, i128 n) {",
-            "if (n < 0) {",
-            "os << '-';",
-            "n = -n;",
-            "}",
-            "if (n > 9) os << (i128)(n / 10);",
-            "os << (uint_fast32_t)(n % 10);",
-            "return os;",
-            "}",
-            "ostream& operator<<(ostream& os, u128 n) {",
-            "if (n > 9) os << (u128)(n / 10);",
-            "os << (uint_fast32_t)(n % 10);",
-            "return os;",
-            "}"
-        ]
-    },
     "pair-useful-func": {
         "scope": "cpp",
         "prefix": [

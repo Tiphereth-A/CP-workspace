@@ -70,7 +70,6 @@ code .
 | manacher                            | `manacher`                                                         |
 | ndvector                            | `ndvector`, `n-dim-vector`                                         | See [this blog](https://blog.tifa-233.com/archives/draft-025/), use `std::mdspan` instead of this in C++23 |
 | newton-interpolation                | `newton-interpolation`, `newton-interp`, `interpolation`, `interp` |
-| ostream-int128                      | `os128`, `out128`, `cout128`                                       | `__int128_t` and `___uint128_t` support for `std::cout`                                                    |
 | pair-useful-func                    | `pair-func`, `pair-useful-func`                                    |
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
 | reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
