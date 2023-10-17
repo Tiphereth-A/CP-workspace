@@ -58,18 +58,15 @@ code .
 | graph                               | `graph`, `edges`                                                   | Adjacency list                                                                                             |
 | hoverline                           | `hoverline`                                                        |
 | init-cpp-simple                     | `iis`, `init-simple`                                               |
-| inverse-linear-gen                  | `linv-gen`, `inv-linear-gen`, `inverse-linear-gen`                 |
 | johnson                             | `johnson`                                                          |
 | KMP-FFT                             | `kmp-fft`, `fft-kmp`                                               |
 | kruakal                             | `kruskal`                                                          |
 | lagrange-interpolation-fixed-key    | `lagrange-interpolation-fixed-key`                                 |
-| manacher                            | `manacher`                                                         |
 | ndvector                            | `ndvector`, `n-dim-vector`                                         | See [this blog](https://blog.tifa-233.com/archives/draft-025/), use `std::mdspan` instead of this in C++23 |
 | newton-interpolation                | `newton-interpolation`, `newton-interp`, `interpolation`, `interp` |
 | pair-useful-func                    | `pair-func`, `pair-useful-func`                                    |
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
 | reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
-| radix-sort-u32                      | `rsortu32`, `radix-sort-u32`                                       |
 | sqrt-bucket                         | `blocking`, `sqrt-blocking`, `sqrt-bucket`                         |
 | stdc++11                            | `stdc++11`                                                         | Standard libs (C++11)                                                                                      |
 | stdc++98                            | `stdc++98`                                                         | Standard libs (C++98)                                                                                      |
