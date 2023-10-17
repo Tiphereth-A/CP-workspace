@@ -44,7 +44,6 @@ code .
 | ----------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | 2-sat                               | `2-sat`, `sat`, `sat-2`                                            |
 | balanced-tree-based-on-fenwick-tree | `bst-bit`, `bt-bit`                                                |
-| binary-search                       | `binary-search`                                                    |
 | bitset-AVX                          | `bitset-avx`                                                       | bitset under AVX                                                                                           |
 | bellman-ford                        | `bellman-ford`, `spfa`, `bford`                                    |
 | bipartitle-graph-coloring           | `bipartitle-graph-coloring`                                        |

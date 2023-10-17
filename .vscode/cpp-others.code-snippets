@@ -15,32 +15,6 @@
     // 	],
     // 	"description": "Log output to console"
     // }
-    "binary-search": {
-        "scope": "cpp",
-        "prefix": [
-            "binary-search"
-        ],
-        "body": [
-            "template <class Tp, class Pred>",
-            "Tp binary_search(Pred check, Tp ok, Tp ng) {",
-            "REif_(!check(ok));",
-            "while (std::abs(ok - ng) > 1) {",
-            "Tp x = (ng + ok) / 2;",
-            "(check(x) ? ok : ng) = x;",
-            "}",
-            "return ok;",
-            "}",
-            "template <class Tp, class Pred, std::enable_if_t<std::is_floating_point_v<Tp>> * = nullptr>",
-            "Tp binary_search_real(Pred check, Tp ok, Tp ng, Tp eps) {",
-            "REif_(!check(ok));",
-            "while (std::abs(ok - ng) > eps) {",
-            "Tp x = (ng + ok) / 2;",
-            "(check(x) ? ok : ng) = x;",
-            "}",
-            "return (ng + ok) / 2;",
-            "}"
-        ]
-    },
     "chtholly": {
         "scope": "cpp",
         "prefix": [
