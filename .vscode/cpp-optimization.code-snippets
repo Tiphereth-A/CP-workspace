@@ -41,56 +41,5 @@
             "size_t count(bool x) const { return x ? cnt : N - cnt; }",
             "};"
         ]
-    },
-    "fast-max": {
-        "scope": "cpp",
-        "prefix": [
-            "max-fast",
-            "fast-max"
-        ],
-        "body": [
-            "constexpr int max(int x, int y) {",
-            "int m = (x - y) >> 31;",
-            "return x & ~m | y & m;",
-            "}"
-        ]
-    },
-    "fast-min": {
-        "scope": "cpp",
-        "prefix": [
-            "min-fast",
-            "fast-min"
-        ],
-        "body": [
-            "constexpr int min(int x, int y) {",
-            "int m = (x - y) >> 31;",
-            "return x & m | y & ~m;",
-            "}"
-        ]
-    },
-    "fast-str2uint": {
-        "scope": "cpp",
-        "prefix": [
-            "str2uint-fast",
-            "fast-str2uint"
-        ],
-        "body": [
-            "//! only works properly on little-endian CPU such as Intel CPU",
-            "//! works better on 64-bit CPU",
-            "constexpr uint64_t dec2uint_mod(const char* const num, const uint64_t mod) {",
-            "size_t len = strlen(num);",
-            "if (len == 0) return 0;",
-            "u128 ans = 0;",
-            "for (size_t i = 0; i + 8 <= len; i += 8) {",
-            "uint64_t res = *((uint64_t*)(num + i));",
-            "res = (res & 0x0F0F0F0F0F0F0F0F) * 2561 >> 8;",
-            "res = (res & 0x00FF00FF00FF00FF) * 6553601 >> 16;",
-            "res = (res & 0x0000FFFF0000FFFF) * 42949672960001 >> 32;",
-            "ans = (ans * 100000000 + res) % mod;",
-            "}",
-            "for (auto pch = num + (len / 8 * 8); pch < num + len;) ans = (ans * 10 + (*(pch++) & '\\x0f')) % mod;",
-            "return ans;",
-            "}"
-        ]
     }
 }

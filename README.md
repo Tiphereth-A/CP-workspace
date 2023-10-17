@@ -53,9 +53,6 @@ code .
 | euler-path-graph                    | `euler-path-graph`                                                 | Find Euler path (undirection graph)                                                                        |
 | euler-path-digraph                  | `euler-path-digraph`                                               | Find Euler path (digraph)                                                                                  |
 | exeuclid                            | `exeuclid`                                                         |
-| fast-max                            | `max-fast`, `fast-max`                                             |
-| fast-min                            | `min-fast`, `fast-min`                                             |
-| fast-str2uint                       | `str2uint-fast`, `fast-str2uint`                                   |
 | floyd                               | `floyd`                                                            |
 | foreach                             | `fors`, `foreach`                                                  | Some for macros                                                                                            |
 | gcc-temp-ignore-warning             | `gcc-ignore-warning`, `ignore-warning`                             |
