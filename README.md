@@ -66,7 +66,6 @@ code .
 | newton-interpolation                | `newton-interpolation`, `newton-interp`, `interpolation`, `interp` |
 | pair-useful-func                    | `pair-func`, `pair-useful-func`                                    |
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
-| reverse-cantor-expansion            | `rcantor`, `rcantor-exp`                                           |
 | sqrt-bucket                         | `blocking`, `sqrt-blocking`, `sqrt-bucket`                         |
 | stdc++11                            | `stdc++11`                                                         | Standard libs (C++11)                                                                                      |
 | stdc++98                            | `stdc++98`                                                         | Standard libs (C++98)                                                                                      |
