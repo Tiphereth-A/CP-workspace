@@ -47,7 +47,6 @@ code .
 | bellman-ford                     | `bellman-ford`, `spfa`, `bford`                                    |
 | bipartitle-graph-coloring        | `bipartitle-graph-coloring`                                        |
 | chtholly                         | `chtholly-tree`, `old-driver-tree`                                 |
-| enumerate-cpp17                  | `enumerate-cpp17`                                                  | Implement of enumerate in C++17        |
 | euler-path-graph                 | `euler-path-graph`                                                 | Find Euler path (undirection graph)    |
 | euler-path-digraph               | `euler-path-digraph`                                               | Find Euler path (digraph)              |
 | exeuclid                         | `exeuclid`                                                         |
