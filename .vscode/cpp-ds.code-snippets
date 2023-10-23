@@ -15,36 +15,6 @@
     // 	],
     // 	"description": "Log output to console"
     // }
-    "balanced-tree-based-on-fenwick-tree": {
-        "scope": "cpp",
-        "prefix": [
-            "bst-bit",
-            "bt-bit"
-        ],
-        "body": [
-            "//! based on BIT, need discretization before using",
-            "template <uint64_t N>",
-            "class BT: public BIT<N, uint64_t> {",
-            "protected:",
-            "const static uint64_t LOG_N = std::ceil(std::log2(N));",
-            "uint64_t sum(uint64_t pos) const { uint64_t ret = 0; for (uint64_t i = pos; i; i = (int64_t)i - lowbit(i)) ret += tree[i]; return ret; }",
-            "uint64_t query_rk(uint64_t pos) const {",
-            "uint64_t idx = 0;",
-            "for (uint64_t i = LOG_N; ~i; --i) {",
-            "idx += 1 << i;",
-            "if (idx >= N || tree[idx] >= pos idx -= 1 << i;",
-            "else pos -= tree[idx];",
-            "}",
-            "return idx + 1;",
-            "}",
-            "public:",
-            "BT() = default;",
-            "void insert(uint64_t pos) { modify(pos); }",
-            "void remove(uint64_t pos) { modify(pos, -1); }",
-            "uint64_t kth_num(uint64_t k) const { return query_rk(k); }",
-            "};"
-        ]
-    },
     "persistable-segtree": {
         "scope": "cpp",
         "prefix": [
