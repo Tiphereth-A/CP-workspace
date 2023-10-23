@@ -64,7 +64,6 @@ code .
 | lagrange-interpolation-fixed-key    | `lagrange-interpolation-fixed-key`                                 |
 | ndvector                            | `ndvector`, `n-dim-vector`                                         | See [this blog](https://blog.tifa-233.com/archives/draft-025/), use `std::mdspan` instead of this in C++23 |
 | newton-interpolation                | `newton-interpolation`, `newton-interp`, `interpolation`, `interp` |
-| pair-useful-func                    | `pair-func`, `pair-useful-func`                                    |
 | persistable-segtree                 | `psegtree`, `p-segtree`                                            |
 | sqrt-bucket                         | `blocking`, `sqrt-blocking`, `sqrt-bucket`                         |
 | stdc++11                            | `stdc++11`                                                         | Standard libs (C++11)                                                                                      |
@@ -78,7 +77,6 @@ code .
 | treap-no-rotate                     | `fhqtreap`, `treap-nr`, `treap-no-rotate`                          | FHQTreap (rank)                                                                                            |
 | treap-no-rotate-flip                | `fhqtreap-flip`, `treap-nr-flip`, `treap-no-rotate-flip`           | FHQTreap (flip)                                                                                            |
 | Trie                                | `trie`                                                             |
-| tuple-useful-func                   | `tuple-func`, `tuple-useful-func`                                  | See [this blog](https://blog.tifa-233.com/archives/draft-020/)                                             |
 | UDHeap                              | `udheap`                                                           |
 
 ## Third library support
