@@ -70,7 +70,6 @@ code .
 | stdc++98                            | `stdc++98`                                                         | Standard libs (C++98)                                                                                      |
 | suffix-array                        | `sa`, `suffix-array`                                               |
 | tarjan-scc                          | `scc`, `tarjan-scc`                                                | Find all SCC based on Tarjan algorithm                                                                     |
-| Texas Hold'em Poker                 | `thpoker`, `texas`, `texas-holdem`, `texas-poker`                  |
 | tree-centroid                       | `centroid`, `tcent`, `tree-centroid`                               |
 | tree-hash-rooted                    | `rooted-tree-hash`, `tree-hash-rooted`                             |
 | tree-hash-unrooted                  | `unrooted-tree-hash`, `tree-hash-unrooted`                         |
