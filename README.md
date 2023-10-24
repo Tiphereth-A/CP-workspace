@@ -44,13 +44,11 @@ code .
 | -------------------------------- | -------------------------------------------------------- | -------------------------------------- |
 | 2-sat                            | `2-sat`, `sat`, `sat-2`                                  |
 | bitset-AVX                       | `bitset-avx`                                             | bitset under AVX                       |
-| bellman-ford                     | `bellman-ford`, `spfa`, `bford`                          |
 | bipartitle-graph-coloring        | `bipartitle-graph-coloring`                              |
 | chtholly                         | `chtholly-tree`, `old-driver-tree`                       |
 | euler-path-graph                 | `euler-path-graph`                                       | Find Euler path (undirection graph)    |
 | euler-path-digraph               | `euler-path-digraph`                                     | Find Euler path (digraph)              |
 | exeuclid                         | `exeuclid`                                               |
-| floyd                            | `floyd`                                                  |
 | foreach                          | `fors`, `foreach`                                        | Some for macros                        |
 | gcc-temp-ignore-warning          | `gcc-ignore-warning`, `ignore-warning`                   |
 | graph                            | `graph`, `edges`                                         | Adjacency list                         |

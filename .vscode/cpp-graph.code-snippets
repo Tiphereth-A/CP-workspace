@@ -44,39 +44,6 @@
             "}  // namespace SAT_2"
         ]
     },
-    "bellman-ford": {
-        "scope": "cpp",
-        "prefix": [
-            "bellman-ford",
-            "spfa",
-            "bford"
-        ],
-        "body": [
-            "int dis[N], dep[N];",
-            "bool vis[N];",
-            "bool bellman_ford(int n, int s) {",
-            "memset(dis, 0x3f, sizeof(dis[0]) * (n + 1));",
-            "dis[s] = 0;",
-            "vis[s] = true;",
-            "dep[s] = 1;",
-            "queue<int> q;",
-            "q.push(s);",
-            "while (!q.empty()) {",
-            "int now = q.front();",
-            "q.pop();",
-            "vis[now] = false;",
-            "for_graph_(head, e, i, now) if (dis[to] > dis[now] + e[i].w) {",
-            "dis[to] = dis[now] + e[i].w;",
-            "if (vis[to]) continue;",
-            "if (++dep[to] > n) return false;",
-            "vis[to] = true;",
-            "q.push(to);",
-            "}",
-            "}",
-            "return true;",
-            "}"
-        ]
-    },
     "bipartitle-graph-coloring": {
         "scope": "cpp",
         "prefix": [
@@ -219,38 +186,6 @@
             "}",
             "}  // namespace Euler_path_digraph",
             "using Euler_path_digraph::euler_path;"
-        ]
-    },
-    "floyd": {
-        "scope": "cpp",
-        "prefix": "floyd",
-        "body": [
-            "template <class Tp>",
-            "class FloydSolver {",
-            "protected:",
-            "std::vector<std::vector<Tp>> spath;",
-            "constexpr static Tp INF = std::numeric_limits<Tp>::max() / 4;",
-            "public:",
-            "using self = FloydSolver<Tp>;",
-            "explicit FloydSolver(size_t _n): spath(_n, std::vector<Tp>(_n, INF)) {",
-            "assert(_n > 0);",
-            "for (size_t i = 0; i < _n; ++i) spath[i][i] = 0;",
-            "}",
-            "self &addedge(size_t from, size_t to, Tp const &w = Tp{1}) {",
-            "spath[from][to] = w;",
-            "return *this;",
-            "}",
-            "self &run(size_t bgn, size_t end) {",
-            "assert(bgn < end && end <= spath.size());",
-            "for (size_t k = bgn; k < end; ++k)",
-            "for (size_t i = bgn; i < end; ++i)",
-            "for (size_t j = bgn; j < end; ++j)",
-            "if (spath[i][k] + spath[k][j] < spath[i][j]) spath[i][j] = spath[i][k] + spath[k][j];",
-            "return *this;",
-            "}",
-            "Tp const &query(size_t from, size_t to) const { return spath[from][to]; }",
-            "bool reachable(size_t from, size_t to) const { return query(from, to) != INF; }",
-            "};",
         ]
     },
     "graph": {
