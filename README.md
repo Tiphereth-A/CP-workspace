@@ -40,35 +40,33 @@ code .
 
 ## Snippets
 
-| name                             | prefix                                                   | introduction                           |
-| -------------------------------- | -------------------------------------------------------- | -------------------------------------- |
+| name                             | prefix                                                   | introduction                        |
+| -------------------------------- | -------------------------------------------------------- | ----------------------------------- |
 | 2-sat                            | `2-sat`, `sat`, `sat-2`                                  |
-| bitset-AVX                       | `bitset-avx`                                             | bitset under AVX                       |
+| bitset-AVX                       | `bitset-avx`                                             | bitset under AVX                    |
 | bipartitle-graph-coloring        | `bipartitle-graph-coloring`                              |
 | chtholly                         | `chtholly-tree`, `old-driver-tree`                       |
-| euler-path-graph                 | `euler-path-graph`                                       | Find Euler path (undirection graph)    |
-| euler-path-digraph               | `euler-path-digraph`                                     | Find Euler path (digraph)              |
+| euler-path-graph                 | `euler-path-graph`                                       | Find Euler path (undirection graph) |
+| euler-path-digraph               | `euler-path-digraph`                                     | Find Euler path (digraph)           |
 | exeuclid                         | `exeuclid`                                               |
-| foreach                          | `fors`, `foreach`                                        | Some for macros                        |
+| foreach                          | `fors`, `foreach`                                        | Some for macros                     |
 | gcc-temp-ignore-warning          | `gcc-ignore-warning`, `ignore-warning`                   |
-| graph                            | `graph`, `edges`                                         | Adjacency list                         |
+| graph                            | `graph`, `edges`                                         | Adjacency list                      |
 | hoverline                        | `hoverline`                                              |
 | init-cpp-simple                  | `iis`, `init-simple`                                     |
 | johnson                          | `johnson`                                                |
 | KMP-FFT                          | `kmp-fft`, `fft-kmp`                                     |
-| kruakal                          | `kruskal`                                                |
 | lagrange-interpolation-fixed-key | `lagrange-interpolation-fixed-key`                       |
 | persistable-segtree              | `psegtree`, `p-segtree`                                  |
 | sqrt-bucket                      | `blocking`, `sqrt-blocking`, `sqrt-bucket`               |
-| stdc++11                         | `stdc++11`                                               | Standard libs (C++11)                  |
-| stdc++98                         | `stdc++98`                                               | Standard libs (C++98)                  |
+| stdc++11                         | `stdc++11`                                               | Standard libs (C++11)               |
+| stdc++98                         | `stdc++98`                                               | Standard libs (C++98)               |
 | suffix-array                     | `sa`, `suffix-array`                                     |
-| tarjan-scc                       | `scc`, `tarjan-scc`                                      | Find all SCC based on Tarjan algorithm |
 | tree-centroid                    | `centroid`, `tcent`, `tree-centroid`                     |
 | tree-hash-rooted                 | `rooted-tree-hash`, `tree-hash-rooted`                   |
 | tree-hash-unrooted               | `unrooted-tree-hash`, `tree-hash-unrooted`               |
-| treap-no-rotate                  | `fhqtreap`, `treap-nr`, `treap-no-rotate`                | FHQTreap (rank)                        |
-| treap-no-rotate-flip             | `fhqtreap-flip`, `treap-nr-flip`, `treap-no-rotate-flip` | FHQTreap (flip)                        |
+| treap-no-rotate                  | `fhqtreap`, `treap-nr`, `treap-no-rotate`                | FHQTreap (rank)                     |
+| treap-no-rotate-flip             | `fhqtreap-flip`, `treap-nr-flip`, `treap-no-rotate-flip` | FHQTreap (flip)                     |
 | Trie                             | `trie`                                                   |
 | UDHeap                           | `udheap`                                                 |
 
