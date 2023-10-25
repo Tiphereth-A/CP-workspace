@@ -294,34 +294,6 @@
             "}"
         ]
     },
-    "tree-centroid": {
-        "scope": "cpp",
-        "prefix": [
-            "centroid",
-            "tcent",
-            "tree-centroid"
-        ],
-        "body": [
-            "// @param g graph",
-            "// @param size_ size_[i]: size of each subtree rooted in i",
-            "// @param ans all the centroids, `ans.size() <= 2`, must give an empty vector when calling",
-            "// @param now root",
-            "// @param fa fathor of `now`, keep same to `now` when calling this",
-            "//! vertex ID start from 0",
-            "template <class Tp>",
-            "void tree_centroid(std::vector<std::vector<Tp>> const &g, std::vector<size_t> &size_, std::vector<size_t> &ans, size_t now = 0, size_t fa = 0) {",
-            "size_[now] = 1;",
-            "size_t max_sz = 0;",
-            "for (auto to : g[now])",
-            "if (to != fa) {",
-            "tree_centroid(g, size_, ans, to, now);",
-            "size_[now] += size_[to];",
-            "max_sz = max(max_sz, size_[to]);",
-            "}",
-            "if ((max_sz = max(max_sz, g.size() - size_[now])) <= g.size() / 2) ans.push_back(now);",
-            "}"
-        ]
-    },
     "tree-hash-rooted": {
         "scope": "cpp",
         "prefix": [

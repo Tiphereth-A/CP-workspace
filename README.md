@@ -62,7 +62,6 @@ code .
 | stdc++11                         | `stdc++11`                                               | Standard libs (C++11)               |
 | stdc++98                         | `stdc++98`                                               | Standard libs (C++98)               |
 | suffix-array                     | `sa`, `suffix-array`                                     |
-| tree-centroid                    | `centroid`, `tcent`, `tree-centroid`                     |
 | tree-hash-rooted                 | `rooted-tree-hash`, `tree-hash-rooted`                   |
 | tree-hash-unrooted               | `unrooted-tree-hash`, `tree-hash-unrooted`               |
 | treap-no-rotate                  | `fhqtreap`, `treap-nr`, `treap-no-rotate`                | FHQTreap (rank)                     |
