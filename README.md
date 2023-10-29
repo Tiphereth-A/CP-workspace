@@ -48,7 +48,6 @@ code .
 | chtholly                         | `chtholly-tree`, `old-driver-tree`                       |
 | euler-path-graph                 | `euler-path-graph`                                       | Find Euler path (undirection graph) |
 | euler-path-digraph               | `euler-path-digraph`                                     | Find Euler path (digraph)           |
-| exeuclid                         | `exeuclid`                                               |
 | foreach                          | `fors`, `foreach`                                        | Some for macros                     |
 | gcc-temp-ignore-warning          | `gcc-ignore-warning`, `ignore-warning`                   |
 | graph                            | `graph`, `edges`                                         | Adjacency list                      |
