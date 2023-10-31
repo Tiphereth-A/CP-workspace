@@ -293,50 +293,5 @@
             "int64_t distance(int x, int y) { return ans[x][y]; }",
             "}"
         ]
-    },
-    "tree-hash-rooted": {
-        "scope": "cpp",
-        "prefix": [
-            "rooted-tree-hash",
-            "tree-hash-rooted"
-        ],
-        "body": [
-            "// @param g graph",
-            "// @param now root",
-            "// @param fa fathor of `now`, keep same to `now` when calling this",
-            "//! vertex ID start from 0",
-            "template <class Tp>",
-            "uint64_t rooted_tree_hash(std::vector<std::vector<Tp>> const &g, size_t now = 0, size_t fa = 0) {",
-            "auto f = [](uint64_t x) {",
-            "x += 0x9e3779b97f4a7c15;",
-            "x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;",
-            "x = (x ^ (x >> 27)) * 0x94d049bb133111eb;",
-            "return x ^ (x >> 31);",
-            "};",
-            "uint64_t ans = 1;",
-            "for (auto to : g[now])",
-            "if (to != fa) ans += f(rooted_tree_hash(g, to, now));",
-            "return ans;",
-            "}"
-        ]
-    },
-    "tree-hash-unrooted": {
-        "scope": "cpp",
-        "prefix": [
-            "unrooted-tree-hash",
-            "tree-hash-unrooted"
-        ],
-        "body": [
-            "// @param g graph",
-            "//! vertex ID start from 0",
-            "template <class Tp>",
-            "uint64_t unrooted_tree_hash(std::vector<std::vector<Tp>> const &g) {",
-            "std::vector<size_t> sz(g.size()), c;",
-            "tree_centroid(g, sz, c);",
-            "uint64_t ans = 0;",
-            "for (auto root : c) ans += rooted_tree_hash(g, root, root);",
-            "return ans;",
-            "}"
-        ]
     }
 }

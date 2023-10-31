@@ -61,8 +61,6 @@ code .
 | stdc++11                         | `stdc++11`                                               | Standard libs (C++11)               |
 | stdc++98                         | `stdc++98`                                               | Standard libs (C++98)               |
 | suffix-array                     | `sa`, `suffix-array`                                     |
-| tree-hash-rooted                 | `rooted-tree-hash`, `tree-hash-rooted`                   |
-| tree-hash-unrooted               | `unrooted-tree-hash`, `tree-hash-unrooted`               |
 | treap-no-rotate                  | `fhqtreap`, `treap-nr`, `treap-no-rotate`                | FHQTreap (rank)                     |
 | treap-no-rotate-flip             | `fhqtreap-flip`, `treap-nr-flip`, `treap-no-rotate-flip` | FHQTreap (flip)                     |
 | Trie                             | `trie`                                                   |
