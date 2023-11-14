@@ -1,30 +1,61 @@
 // #pragma comment(linker, "/STACK:102400000,102400000")
 #include <bits/stdc++.h>
-using ll = long long;
-using i64 = ll;
-using ull = unsigned long long;
-using u64 = ull;
+
+using i8 = int8_t;
+using i16 = int16_t;
+using i32 = int32_t;
+using i64 = int64_t;
 using i128 = __int128_t;
+using isz = ptrdiff_t;
+
+using u8 = uint8_t;
+using u16 = uint16_t;
+using u32 = uint32_t;
+using u64 = uint64_t;
 using u128 = __uint128_t;
-using ldb = long double;
+using usz = size_t;
 
-using pii = std::pair<int, int>;
-using pll = std::pair<ll, ll>;
+using f32 = float;
+using f64 = double;
+using f128 = long double;
 
 template <class T>
-using vc = std::vector<T>;
+using ptt = std::pair<T, T>;
 template <class T>
-using vvc = std::vector<std::vector<T>>;
+using pt3 = std::tuple<T, T, T>;
+template <class T>
+using pt4 = std::tuple<T, T, T, T>;
+
+template <class T>
+using vec = std::vector<T>;
+template <class T>
+using vvec = vec<vec<T>>;
+template <class T>
+using vvvec = vec<vvec<T>>;
+template <class U, class T>
+using vvp = vvec<std::pair<U, T>>;
+
 template <class T>
 using pq = std::priority_queue<T>;
 template <class T>
-using pqg = std::priority_queue<T, std::vector<T>, std::greater<T>>;
+using pqg = std::priority_queue<T, vec<T>, std::greater<T>>;
 
+constexpr i8 operator""_i8(unsigned long long x) { return (i8)x; }
+constexpr i16 operator""_i16(unsigned long long x) { return (i16)x; }
+constexpr i32 operator""_i32(unsigned long long x) { return (i32)x; }
+constexpr i64 operator""_i64(unsigned long long x) { return (i64)x; }
+constexpr isz operator""_iz(unsigned long long x) { return (isz)x; }
 
-#define for_(i, l, r, v...) for (ll i = (l), i##e = (r), ##v; i <= i##e; ++i)
-#define fors_(i, l, r, s, v...) for (ll i = (l), i##e = (r), ##v; i <= i##e; i += s)
-#define rfor_(i, r, l, v...) for (ll i = (r), i##e = (l), ##v; i >= i##e; --i)
-#define rfors_(i, r, l, s, v...) for (ll i = (r), i##e = (l), ##v; i >= i##e; i -= s)
+constexpr u8 operator""_u8(unsigned long long x) { return (u8)x; }
+constexpr u16 operator""_u16(unsigned long long x) { return (u16)x; }
+constexpr u32 operator""_u32(unsigned long long x) { return (u32)x; }
+constexpr u64 operator""_u64(unsigned long long x) { return (u64)x; }
+constexpr usz operator""_uz(unsigned long long x) { return (usz)x; }
+
+#define for_(i, l, r, v...) for (i64 i = (l), i##e = (r), ##v; i <= i##e; ++i)
+#define fors_(i, l, r, s, v...) for (i64 i = (l), i##e = (r), ##v; i <= i##e; i += s)
+#define rfor_(i, r, l, v...) for (i64 i = (r), i##e = (l), ##v; i >= i##e; --i)
+#define rfors_(i, r, l, s, v...) for (i64 i = (r), i##e = (l), ##v; i >= i##e; i -= s)
 #define forit_(it, cont) for (auto it = (cont).begin(); it != (cont).end(); ++it)
 #define foritr_(it, cont, l, r) for (auto it = (cont).begin() + l; it != (cont).begin() + r; ++it)
 #define rforit_(it, cont) for (auto it = (cont).rbegin(); it != (cont).rend(); ++it)
