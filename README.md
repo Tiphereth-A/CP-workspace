@@ -8,6 +8,8 @@ My VSCode workspace for Competitive Programming. **Only for Linux**
 
 - C++ Compile & Debug
 - Useful C++ code snippets (see [Snippets](#Snippets))
+
+  NOTE: most of snippets have been moved to [Tiphereth-A/CP-lib](https://github.com/Tiphereth-A/CP-lib).
 - Useful tools
   - Local judger
   - ~~C++ lib expander~~ (use `oj-bundle` from [online-judge-tools/verification-helper](https://github.com/online-judge-tools/verification-helper) instead)
