@@ -165,17 +165,11 @@ std::ostream &operator<<(std::ostream &os, const T &x) {
 }
 
 
-template <class T>
-void debug(T x) {
+template <class... Ts>
+void debug(Ts const &...args) {
 #ifdef LOCAL_
-    std::cerr << x << std::endl;
-#endif
-}
-template <class T, class... Ts>
-void debug(T x, Ts... args) {
-#ifdef LOCAL_
-    std::cerr << x << ' ';
-    debug(args...);
+    size_t n = 0;
+    ((std::cerr << args << (++n != sizeof...(Ts) ? " " : "\n")), ...);
 #endif
 }
 #define debug_line_ (std::cerr << __LINE__ << ' ' << __FUNCTION__ << std::endl)
