@@ -25,8 +25,7 @@ void inc(Ts &...x) { ((++x), ...); }
 template <class... Ts>
 void dbg(Ts const &...args) {
 #ifdef LOCAL_
-    size_t n = 0;
-    ((cerr << args << (++n != sizeof...(Ts) ? " " : "\n")), ...);
+    ((cerr << args << '\n'), ...);
 #endif
 }
 #define dbgl_ (cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << endl)
