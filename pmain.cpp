@@ -25,8 +25,8 @@ void inc(Ts &...x) { ((++x), ...); }
 template <class... Ts>
 void dbg(Ts const &...args) {
 #ifdef LOCAL_
-  size_t n = 0;
-  ((cerr << args << (++n != sizeof...(Ts) ? " " : "\n")), ...);
+    size_t n = 0;
+    ((cerr << args << (++n != sizeof...(Ts) ? " " : "\n")), ...);
 #endif
 }
 #define dbgl_ (cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << endl)
@@ -38,22 +38,22 @@ void solve(int t_ = 0) {
 
 signed main() {
 #ifdef LOCAL_
-  auto CLOCK_ST_ = chrono::high_resolution_clock::now();
+    auto CLOCK_ST_ = chrono::high_resolution_clock::now();
 #endif
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cerr << fixed << setprecision(6);
-  int i_ = 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cerr << fixed << setprecision(6);
+    int i_ = 0;
 #ifdef MCAS
-  int t_ = 0;
-  cin >> t_;
-  for (i_ = 0; i_ < t_; ++i_)
+    int t_ = 0;
+    cin >> t_;
+    for (i_ = 0; i_ < t_; ++i_)
 #endif
-    dbg("Case", i_), solve(i_);
+        dbg("Case", i_), solve(i_);
 #ifdef LOCAL_
-  auto CLOCK_ED_ = chrono::high_resolution_clock::now();
-  clog << "\n---\n"
-       << chrono::duration_cast<chrono::nanoseconds>(CLOCK_ED_ - CLOCK_ST_).count() * 1e-6l << " ms" << endl;
+    auto CLOCK_ED_ = chrono::high_resolution_clock::now();
+    clog << "\n---\n"
+         << chrono::duration_cast<chrono::nanoseconds>(CLOCK_ED_ - CLOCK_ST_).count() * 1e-6l << " ms" << endl;
 #endif
-  return 0;
+    return 0;
 }
