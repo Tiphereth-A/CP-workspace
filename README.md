@@ -10,6 +10,7 @@ My VSCode workspace for Competitive Programming. **Only for Linux**
 - Useful C++ code snippets (see [Snippets](#Snippets))
 
   NOTE: most of snippets have been moved to [Tiphereth-A/CP-lib](https://github.com/Tiphereth-A/CP-lib).
+
 - Useful tools
   - Local judger
   - ~~C++ lib expander~~ (use `oj-bundle` from [online-judge-tools/verification-helper](https://github.com/online-judge-tools/verification-helper) instead)
@@ -47,7 +48,6 @@ code .
 | 2-sat                     | `2-sat`, `sat`, `sat-2`                                  |
 | bitset-AVX                | `bitset-avx`                                             | bitset under AVX                    |
 | bipartitle-graph-coloring | `bipartitle-graph-coloring`                              |
-| chtholly                  | `chtholly-tree`, `old-driver-tree`                       |
 | euler-path-graph          | `euler-path-graph`                                       | Find Euler path (undirection graph) |
 | euler-path-digraph        | `euler-path-digraph`                                     | Find Euler path (digraph)           |
 | foreach                   | `fors`, `foreach`                                        | Some for macros                     |
