@@ -30,6 +30,7 @@ void dbg(Ts const &...args) {
     ((cerr << args << '\n'), ...);
 #endif
 }
+#define debug dbg
 #define dbgl_ (cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << endl)
 #define dbgn_(var) dbg(#var, var)
 
