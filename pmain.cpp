@@ -27,7 +27,8 @@ void inc(Ts &...x) { ((++x), ...); }
 template <class... Ts>
 void dbg(Ts const &...args) {
 #ifdef LOCAL_
-    ((cerr << args << '\n'), ...);
+    ((cerr << args << ' '), ...);
+    cerr << '\n';
 #endif
 }
 #define debug dbg
