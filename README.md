@@ -51,9 +51,8 @@ code .
 | euler-path-graph          | `euler-path-graph`                         | Find Euler path (undirection graph) |
 | euler-path-digraph        | `euler-path-digraph`                       | Find Euler path (digraph)           |
 | foreach                   | `fors`, `foreach`                          | Some for macros                     |
-| gcc-temp-ignore-warning   | `gcc-ignore-warning`, `ignore-warning`     |
+| gcc-ignore-warning        | `gcc-ignore-warning`, `ignore-warning`     |
 | hoverline                 | `hoverline`                                |
-| init-cpp-simple           | `iis`, `init-simple`                       |
 | johnson                   | `johnson`                                  |
 | KMP-FFT                   | `kmp-fft`, `fft-kmp`                       |
 | persistable-segtree       | `psegtree`, `p-segtree`                    |

@@ -57,54 +57,16 @@
             "}"
         ]
     },
-    "gcc-temp-ignore-warning": {
+    "gcc-ignore-warning": {
         "scope": "cpp",
         "prefix": [
             "gcc-ignore-warning",
             "ignore-warning"
         ],
         "body": [
-            "#pragma GCC diagnostic push",
             "#pragma GCC diagnostic ignored \"${1:-Wconversion}\"",
             "$2",
-            "#pragma GCC diagnostic pop"
-        ]
-    },
-    "init-cpp-simple": {
-        "scope": "cpp",
-        "prefix": [
-            "iis",
-            "init-simple"
-        ],
-        "body": [
-            "#include <bits/stdc++.h>",
-            "using namespace std;",
-            "using i64 = int64_t;",
-            "using u64 = uint64_t;",
-            "\n// #define MULTI_CASES",
-            "auto solve([[maybe_unused]] int t_ = 0) -> void {",
-            "$0",
-            "}",
-            "\nint main() {",
-            "#ifdef LOCAL_",
-            "auto CLOCK_ST_ = std::chrono::high_resolution_clock::now();",
-            "std::cerr << std::boolalpha << std::fixed << std::setprecision(6);",
-            "#endif",
-            "std::ios::sync_with_stdio(false);",
-            "std::cin.tie(nullptr);",
-            "int i_ = 0;",
-            "#ifdef MULTI_CASES",
-            "int t_ = 0;",
-            "std::cin >> t_;",
-            "for (i_ = 0; i_ < t_; ++i_)",
-            "#endif",
-            "solve(i_);",
-            "#ifdef LOCAL_",
-            "auto CLOCK_ED_ = std::chrono::high_resolution_clock::now();",
-            "std::clog << \"\\n---\\nTime used: \" << std::chrono::duration_cast<std::chrono::nanoseconds>(CLOCK_ED_ - CLOCK_ST_).count() * 1e-6l << \" ms\" << std::endl;",
-            "#endif",
-            "return 0;",
-            "}",
+            "#pragma GCC diagnostic warning \"${1:-Wconversion}\""
         ]
     },
     "stdc++11": {
