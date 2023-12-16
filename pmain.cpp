@@ -17,23 +17,16 @@ using vvec = vector<vector<Tp>>;
 #define fors_(i, l, r, s, v...) for (i64 i = (l), i##e = (r), ##v; i <= i##e; i += s)
 #define rfor_(i, r, l, v...) for (i64 i = (r), i##e = (l), ##v; i >= i##e; --i)
 #define rfors_(i, r, l, s, v...) for (i64 i = (r), i##e = (l), ##v; i >= i##e; i -= s)
-#define Rep for_
-#define rep rfor_
 
 template <class... Ts>
-void dec(Ts &...x) { ((--x), ...); }
-template <class... Ts>
-void inc(Ts &...x) { ((++x), ...); }
-template <class... Ts>
-void dbg(Ts const &...args) {
+void debug(Ts const &...args) {
 #ifdef LOCAL_
     ((cerr << args << ' '), ...);
     cerr << '\n';
 #endif
 }
-#define debug dbg
 #define dbgl_ (cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << endl)
-#define dbgn_(var) dbg(#var, var)
+#define dbgn_(var) debug(#var, var)
 
 // #define MCAS
 void solve(int t_ = 0) {
@@ -52,7 +45,7 @@ signed main() {
     cin >> t_;
     for (i_ = 0; i_ < t_; ++i_)
 #endif
-        dbg("Case", i_), solve(i_);
+        debug("Case", i_), solve(i_);
 #ifdef LOCAL_
     auto CLOCK_ED_ = chrono::high_resolution_clock::now();
     clog << "\n---\n"
