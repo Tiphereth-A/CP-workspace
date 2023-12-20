@@ -13,10 +13,10 @@ using vec = vector<Tp>;
 template <class Tp>
 using vvec = vector<vector<Tp>>;
 
-#define for_(i, l, r, v...) for (i64 i = (l), i##e = (r), ##v; i <= i##e; ++i)
-#define fors_(i, l, r, s, v...) for (i64 i = (l), i##e = (r), ##v; i <= i##e; i += s)
-#define rfor_(i, r, l, v...) for (i64 i = (r), i##e = (l), ##v; i >= i##e; --i)
-#define rfors_(i, r, l, s, v...) for (i64 i = (r), i##e = (l), ##v; i >= i##e; i -= s)
+#define for_(i, l, r, ...) for (i64 i = (l), i##e = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##e; ++i)
+#define fors_(i, l, r, s, ...) for (i64 i = (l), i##e = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##e; i += s)
+#define rfor_(i, r, l, ...) for (i64 i = (r), i##e = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##e; --i)
+#define rfors_(i, r, l, s, ...) for (i64 i = (r), i##e = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##e; i -= s)
 
 template <class... Ts>
 void debug(Ts const &...args) {
@@ -29,7 +29,8 @@ void debug(Ts const &...args) {
 #define dbgn_(var) debug(#var, var)
 
 // #define MCAS
-void solve(int t_ = 0) {
+void solve([[maybe_unused]] int t_ = 0) {
+    for_(i, 1, 10) cout << "114514\n";
 }
 
 signed main() {

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -o errexit
 
 TIME_LIMIT=2
@@ -78,7 +78,7 @@ On_IWhite='\033[0;107m'   # White
 
 workspaceFolder="$1" srcName="$2" dataFolder="$3"
 
-g++ $workspaceFolder/$srcName.cpp -o bin/$srcName \
+g++ "$workspaceFolder/$srcName.cpp" -o "bin/$srcName" \
 -DLOCAL_ -DDBG_MACRO_FORCE_COLOR -DDBG_MACRO_NO_WARNING \
 -O2 -std=c++20 \
 -Ilib -Ilib/testlib -Ilib/dbg-macro -Ilib/ac-library \
@@ -86,13 +86,13 @@ g++ $workspaceFolder/$srcName.cpp -o bin/$srcName \
 -Wall -Wextra -Wconversion -Wpedantic -Wparentheses -Wzero-as-null-pointer-constant -Wregister -Wvolatile -Wredundant-tags -Wmismatched-tags -Wextra-semi -Wstrict-null-sentinel -Wuseless-cast -Woverloaded-virtual -Wenum-conversion -Wcomma-subscript -Wno-variadic-macros \
 && echo "Compile finished" || (echo -e ${BYellow}"Compile error"${Color_Off}; exit 1)
 
-./bin/$srcName \
-< $dataFolder/in.in \
-> $dataFolder/out.out \
+time ./"bin/$srcName" \
+< "$dataFolder/in.in" \
+> "$dataFolder/out.out" \
 & sleep $TIME_LIMIT
 
 state=$(jobs)
-[[ -n $(echo $state | grep -i Exit) ]] && (echo -e ${BPurple}"Runtime error"${Color_Off}; echo $state; rm bin/$srcName; exit 1)
-[[ -n $(echo $state | grep -i Running) ]] && (echo -e ${BRed}"Time limit exceed"${Color_Off}" ($TIME_LIMIT s)"; killall bin/$srcName; rm bin/$srcName; exit 1)
+[[ -n $(echo $state | grep -i Exit) ]] && (echo -e ${BPurple}"Runtime error"${Color_Off}; echo $state; rm "bin/$srcName"; exit 1)
+[[ -n $(echo $state | grep -i Running) ]] && (echo -e ${BRed}"Time limit exceed"${Color_Off}" ($TIME_LIMIT s)"; killall "bin/$srcName"; rm "bin/$srcName"; exit 1)
 echo "OK"
-rm bin/$srcName
+rm "bin/$srcName"
