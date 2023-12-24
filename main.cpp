@@ -93,7 +93,7 @@ constexpr u64 operator""_u64(unsigned long long x) { return (u64)x; }
 constexpr usz operator""_uz(unsigned long long x) { return (usz)x; }
 
 
-#define for_(i, l, r, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__ i <= i##end; ++i)
+#define for_(i, l, r, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; ++i)
 #define for_step_(i, l, r, s, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; i += s)
 #define rfor_(i, r, l, ...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##end; --i)
 #define rfor_step_(i, r, l, s, ...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##end; i -= s)
