@@ -25,8 +25,8 @@ void debug(Ts const &...args) {
     cerr << '\n';
 #endif
 }
-#define dbgl_ (cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << endl)
-#define dbgn_(var) debug(#var, var)
+#define debugl_ (cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << endl)
+#define debugn_(var) debug(#var, var)
 
 // #define MCAS
 void solve([[maybe_unused]] int t_ = 0) {
