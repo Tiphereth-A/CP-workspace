@@ -2,6 +2,7 @@
 #ifndef DISABLE_PRAGMA_
 #pragma GCC optimize("Ofast,no-stack-protector,unroll-loops,fast-math")
 #pragma GCC target("avx,avx2,popcnt,tune=native")
+#include <immintrin.h>
 #endif
 
 #include <bits/stdc++.h>
