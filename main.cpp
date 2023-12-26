@@ -23,16 +23,13 @@
 #include <dbg.h>
 #endif
 
-
-template <typename T>
-using remove_cvref_t = typename std::remove_cv_t<typename std::remove_reference_t<T>>;
-
 template <class T>
-using is_iterable = typename std::conditional_t<std::is_same_v<decltype(std::declval<remove_cvref_t<T>>().begin()), typename remove_cvref_t<T>::iterator> && std::is_same_v<decltype(std::declval<remove_cvref_t<T>>().end()), typename remove_cvref_t<T>::iterator>, std::true_type, std::false_type>;
-
+concept iterable = requires(T v) {
+    { v.begin() } -> std::same_as<typename std::remove_cvref_t<T>::iterator>;
+    { v.end() } -> std::same_as<typename std::remove_cvref_t<T>::iterator>;
+};
 template <class T>
-using is_container = typename std::conditional_t<is_iterable<T>::value && !std::is_base_of_v<T, std::basic_string<typename T::value_type>>, std::true_type, std::false_type>;
-
+concept container = iterable<T> && !std::derived_from<T, std::basic_string<typename T::value_type>>;
 
 template <class T>
 using vec = std::vector<T>;
@@ -94,27 +91,15 @@ constexpr usz operator""_uz(unsigned long long x) { return (usz)x; }
 
 
 #define for_(i, l, r, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; ++i)
-#define for_step_(i, l, r, s, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; i += s)
+#define fors_(i, l, r, s, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; i += s)
 #define rfor_(i, r, l, ...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##end; --i)
-#define rfor_step_(i, r, l, s, ...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##end; i -= s)
-#define foreach_val_(i, container) for (auto i : container)
-#define foreach_ref_(i, container) for (auto &i : container)
-#define foreach_cref_(i, container) for (const auto &i : container)
-#define foreach_rref_(i, container) for (auto &&i : container)
-#define foreach_binding_(container, vars...) for (auto &&[vars] : container)
-#define foreach_iter_(it, container) for (auto it = (container).begin(); it != (container).end(); ++it)
-#define foreach_iter_range_(it, container, l, r) for (auto it = (container).begin() + l; it != (container).begin() + r; ++it)
-#define foreach_riter_(it, container) for (auto it = (container).rbegin(); it != (container).rend(); ++it)
-#define foreach_riter_range_(it, container, l, r) for (auto it = (container).rbegin() + l; it != (container).rbegin() + r; ++it)
+#define rfors_(i, r, l, s, ...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##end; i -= s)
+#define fori_(it, l, r) for (auto it = (l); it != (r); ++it)
 #define ins_(a) std::inserter((a), (a).begin())
 #define all_(a) (a).begin(), (a).end()
 #define rall_(a) (a).rbegin(), (a).rend()
 #define range_(a, l, r) ((a).begin() + (l)), ((a).begin() + (r))
 #define rrange_(a, l, r) ((a).rbegin() + (l)), ((a).rbegin() + (r))
-#define set_nul_(a) memset(a, 0, sizeof(a))
-#define set_inf_(a) memset(a, 0x3f, sizeof(a))
-#define set_nul_n_(a, n) memset(a, 0, sizeof(*(a)) * (n))
-#define set_inf_n_(a, n) memset(a, 0x3f, sizeof(*(a)) * (n))
 #define run_exec_(expressions, post_process) \
     {                                        \
         expressions;                         \
@@ -128,24 +113,18 @@ constexpr usz operator""_uz(unsigned long long x) { return (usz)x; }
 #define read_var_(type, name) \
     type name;                \
     std::cin >> name
-#define read_container_(type, name, size) \
-    type name(size);                      \
-    foreach_ref_(i, name) std::cin >> i
 #define intlt2str_(s) STR_____(s)
 #define STR_____(s) #s
 #define REif_(expression) \
     if (expression) throw std::runtime_error("Line " intlt2str_(__LINE__) ": やだもやだ、無理も無理〜")
 
-template <class T>
-constexpr auto chkmin(T &a, T b) -> bool { return b < a ? a = b, true : false; }
-template <class T>
-constexpr auto chkmax(T &a, T b) -> bool { return a < b ? a = b, true : false; }
-template <class T>
-constexpr auto ispow2(T i) -> bool { return i && (i & -i) == i; }
-
-
-template <class T, std::enable_if_t<is_container<T>::value> * = nullptr>
-std::ostream &operator<<(std::ostream &os, const T &x) {
+template <container T>
+std::istream &operator<<(std::istream &is, T &x) {
+    for (auto &i : x) is >> x;
+    return is;
+}
+template <container T>
+std::ostream &operator<<(std::ostream &os, T const &x) {
 #ifdef LOCAL_
     if (&os == &std::cerr && x.begin() == x.end()) return os << "[]";
 #endif
@@ -164,6 +143,10 @@ std::ostream &operator<<(std::ostream &os, const T &x) {
     return os;
 }
 
+template <class T>
+constexpr auto chkmin(T &a, T b) -> bool { return b < a ? a = b, true : false; }
+template <class T>
+constexpr auto chkmax(T &a, T b) -> bool { return a < b ? a = b, true : false; }
 
 template <class... Ts>
 void debug(Ts const &...args) {
@@ -179,10 +162,7 @@ void debug(Ts const &...args) {
 
 // constexpr i64 MOD = 998244353;
 constexpr i64 MOD = 1e9 + 7;
-constexpr double EPS = 1e-6;
-constexpr i32 INF = 0x3f3f3f3f;
-constexpr i64 INF64 = 0x3f3f3f3f3f3f3f3f;
-const double PI = acos(-1.);
+constexpr f64 EPS = 1e-8;
 constexpr char DIR_DRUL[4] = {'D', 'R', 'U', 'L'};
 constexpr char DIR_SENW[4] = {'S', 'E', 'N', 'W'};
 constexpr pii DIR4[4] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
@@ -195,22 +175,22 @@ const std::string RES_POSS[2] = {"IMPOSSIBLE", "POSSIBLE"};
 const std::string RES_Poss[2] = {"Impossible", "Possible"};
 const std::string RES_poss[2] = {"impossible", "possible"};
 const std::string RES_Ab[2] = {"Bob", "Alice"};
-// const int64_t EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
-// const int64_t FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
+// const i64 EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
+// const i64 FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
 
 template <size_t N_>
-constexpr int64_t EXP10_impl_() { return EXP10_impl_<N_ - 1>() * 10; }
+constexpr i64 EXP10_impl_() { return EXP10_impl_<N_ - 1>() * 10; }
 template <>
-constexpr int64_t EXP10_impl_<0>() { return 1; }
+constexpr i64 EXP10_impl_<0>() { return 1; }
 template <size_t N_>
-constexpr int64_t EXP10 = EXP10_impl_<N_>();
+constexpr i64 EXP10 = EXP10_impl_<N_>();
 
 template <size_t N_>
-constexpr int64_t FACT10_impl_() { return FACT10_impl_<N_ - 1>() * N_; }
+constexpr i64 FACT10_impl_() { return FACT10_impl_<N_ - 1>() * N_; }
 template <>
-constexpr int64_t FACT10_impl_<0>() { return 1; }
+constexpr i64 FACT10_impl_<0>() { return 1; }
 template <size_t N_>
-constexpr int64_t FACT = FACT10_impl_<N_>();
+constexpr i64 FACT = FACT10_impl_<N_>();
 
 
 using namespace std;

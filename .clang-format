@@ -75,29 +75,9 @@ ForEachMacros:
   - BOOST_FOREACH
   - for_
   - fors_
-  - for_step_
   - rfor_
   - rfors_
-  - rfor_step_
-  - foreach_binding_
-  - foreach_cref_
-  - foreach_iter_
-  - foreach_iter_range_
-  - foreach_riter_
-  - foreach_riter_range_
-  - foreach_ref_
-  - foreach_rref_
-  - foreach_val_
-  - for_graph_
-  - forit_
-  - foritr_
-  - forrit_
-  - forritr_
-  - rforit_
-  - rforitr_
-  - Rep
-  - REP
-  - rep
+  - fori_
 IfMacros:
   - KJ_IF_MAYBE
 IncludeBlocks: Preserve
