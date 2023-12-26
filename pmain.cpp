@@ -30,7 +30,6 @@ void debug(Ts const &...args) {
 
 // #define MCAS
 void solve([[maybe_unused]] int t_ = 0) {
-    for_(i, 1, 10) cout << "114514\n";
 }
 
 signed main() {
