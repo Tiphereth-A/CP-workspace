@@ -149,10 +149,10 @@ template <std::floating_point T>
 constexpr int sgn(T x, double EPS = 1e-8) { return (x > EPS) - (x < -EPS); }
 
 #ifndef LOCAL_
-#define dbg(...)
-#define debug(...)
+#define dbg(...) 42
+#define debug(...) 42
 #define debugl_ 42
-#define debugn_(...)
+#define debugn_(...) 42
 #else
 template <class... Ts>
 void debug(Ts const &...args) { ((std::cerr << args << ' '), ...), std::cerr << std::endl; }
