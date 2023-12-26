@@ -22,6 +22,7 @@
 #endif
 #ifdef LOCAL_
 #include <dbg.h>
+#include <magic/type.h>
 #endif
 
 template <class T>

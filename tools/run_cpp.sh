@@ -81,7 +81,7 @@ workspaceFolder="$1" srcName="$2" dataFolder="$3"
 g++ "$workspaceFolder/$srcName.cpp" -o "bin/$srcName" \
 -DLOCAL_ -DDBG_MACRO_FORCE_COLOR -DDBG_MACRO_NO_WARNING \
 -O2 -std=c++20 \
--Ilib -Ilib/testlib -Ilib/dbg-macro -Ilib/ac-library \
+-Ilib -Ilib/testlib -Ilib/dbg-macro -Ilib/ac-library -Ilib/magic-cpp/include \
 -fdiagnostics-color=always -ftrapv -fsanitize=address,undefined,leak \
 -Wall -Wextra -Wconversion -Wpedantic -Wparentheses -Wzero-as-null-pointer-constant -Wregister -Wvolatile -Wredundant-tags -Wmismatched-tags -Wextra-semi -Wstrict-null-sentinel -Wuseless-cast -Woverloaded-virtual -Wenum-conversion -Wcomma-subscript -Wno-variadic-macros \
 && echo "Compile finished" || (echo -e ${BYellow}"Compile error"${Color_Off}; exit 1)
