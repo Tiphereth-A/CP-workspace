@@ -151,12 +151,12 @@ constexpr int sgn(T x, double EPS = 1e-8) { return (x > EPS) - (x < -EPS); }
 #ifndef LOCAL_
 #define dbg(...)
 #define debug(...)
-#define debugl_
+#define debugl_ 42
 #define debugn_(...)
 #else
 template <class... Ts>
-void debug(Ts const &...args) { ((std::cerr << args << '\n'), ...); }
-#define debugl_ (std::cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << std::endl)
+void debug(Ts const &...args) { ((std::cerr << args << ' '), ...), std::cerr << std::endl; }
+#define debugl_ debug(__LINE__, __PRETTY_FUNCTION__)
 #define debugn_(name) debug(#name, name)
 #endif
 
