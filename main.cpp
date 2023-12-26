@@ -22,11 +22,11 @@
 #endif
 #ifdef LOCAL_
 #include <dbg.h>
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wextra-semi"
 #pragma GCC diagnostic ignored "-Wconversion"
 #include <magic/type.h>
-#pragma GCC diagnostic warning "-Wextra-semi"
-#pragma GCC diagnostic warning "-Wconversion"
+#pragma GCC diagnostic pop
 #endif
 
 template <class T>
