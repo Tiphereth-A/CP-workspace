@@ -25,8 +25,8 @@
 
 template <class T>
 concept iterable = requires(T v) {
-    { v.begin() } -> std::same_as<typename std::remove_cvref_t<T>::iterator>;
-    { v.end() } -> std::same_as<typename std::remove_cvref_t<T>::iterator>;
+    { v.begin() } -> std::same_as<typename T::iterator>;
+    { v.end() } -> std::same_as<typename T::iterator>;
 };
 template <class T>
 concept container = iterable<T> && !std::derived_from<T, std::basic_string<typename T::value_type>>;
@@ -100,23 +100,15 @@ constexpr usz operator""_uz(unsigned long long x) { return (usz)x; }
 #define rall_(a) (a).rbegin(), (a).rend()
 #define range_(a, l, r) ((a).begin() + (l)), ((a).begin() + (r))
 #define rrange_(a, l, r) ((a).rbegin() + (l)), ((a).rbegin() + (r))
-#define run_exec_(expressions, post_process) \
-    {                                        \
-        expressions;                         \
-        post_process;                        \
+#define run_(cmd, post_cmd) \
+    {                       \
+        cmd;                \
+        post_cmd;           \
     }
-#define run_exit_(expressions) run_exec_(expressions, exit(0))
-#define run_return_(expressions, val) run_exec_(expressions, return val)
-#define run_return_void_(expressions) run_exec_(expressions, return )
-#define run_break_(expressions) run_exec_(expressions, break)
-#define run_continue_(expressions) run_exec_(expressions, continue)
-#define read_var_(type, name) \
-    type name;                \
-    std::cin >> name
-#define intlt2str_(s) STR_____(s)
-#define STR_____(s) #s
-#define REif_(expression) \
-    if (expression) throw std::runtime_error("Line " intlt2str_(__LINE__) ": やだもやだ、無理も無理〜")
+#define runexit_(cmd) run_(cmd, exit(0))
+#define runreturn_(cmd, ...) run_(cmd, return __VA_OPT__((__VA_ARGS__)))
+#define runbreak_(cmd) run_(cmd, break)
+#define runcontinue_(cmd) run_(cmd, continue)
 
 template <container T>
 std::istream &operator<<(std::istream &is, T &x) {
@@ -178,19 +170,19 @@ const std::string RES_Ab[2] = {"Bob", "Alice"};
 // const i64 EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 // const i64 FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
 
-template <size_t N_>
-constexpr i64 EXP10_impl_() { return EXP10_impl_<N_ - 1>() * 10; }
+template <u32 n>
+constexpr i64 EXP10_impl_() { return EXP10_impl_<n - 1>() * 10; }
 template <>
 constexpr i64 EXP10_impl_<0>() { return 1; }
-template <size_t N_>
-constexpr i64 EXP10 = EXP10_impl_<N_>();
+template <u32 n>
+constexpr i64 EXP10 = EXP10_impl_<n>();
 
-template <size_t N_>
-constexpr i64 FACT10_impl_() { return FACT10_impl_<N_ - 1>() * N_; }
+template <u32 n>
+constexpr i64 FACT10_impl_() { return FACT10_impl_<n - 1>() * n; }
 template <>
 constexpr i64 FACT10_impl_<0>() { return 1; }
-template <size_t N_>
-constexpr i64 FACT = FACT10_impl_<N_>();
+template <u32 n>
+constexpr i64 FACT = FACT10_impl_<n>();
 
 
 using namespace std;
