@@ -154,8 +154,8 @@ void debug(Ts const &...args) {
     ((std::cerr << args << '\n'), ...);
 #endif
 }
-#define debug_line_ (std::cerr << __LINE__ << ' ' << __FUNCTION__ << std::endl)
-#define debug_withname_(var) debug(#var, var)
+#define debugl_ (std::cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << std::endl)
+#define debugn_(name) debug(#name, name)
 #ifndef LOCAL_
 #define dbg(...)
 #endif
