@@ -22,7 +22,11 @@
 #endif
 #ifdef LOCAL_
 #include <dbg.h>
+#pragma GCC diagnostic ignored "-Wextra-semi"
+#pragma GCC diagnostic ignored "-Wconversion"
 #include <magic/type.h>
+#pragma GCC diagnostic warning "-Wextra-semi"
+#pragma GCC diagnostic warning "-Wconversion"
 #endif
 
 template <class T>
@@ -151,11 +155,11 @@ void debug(Ts const &...args) {
 #define debug_line_ (std::cerr << __LINE__ << ' ' << __FUNCTION__ << std::endl)
 #define debug_withname_(var) debug(#var, var)
 #ifndef LOCAL_
-#define dbg(...) (__VA_ARGS__)
+#define dbg(...)
 #endif
 
 // constexpr i64 MOD = 998244353;
-constexpr i64 MOD = 1e9 + 7;
+constexpr i64 MOD = 1'000'000'007;
 constexpr f64 EPS = 1e-8;
 constexpr char DIR_DRUL[4] = {'D', 'R', 'U', 'L'};
 constexpr char DIR_SENW[4] = {'S', 'E', 'N', 'W'};
