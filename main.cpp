@@ -145,6 +145,8 @@ template <class T>
 constexpr auto chkmin(T &a, T b) -> bool { return b < a ? a = b, true : false; }
 template <class T>
 constexpr auto chkmax(T &a, T b) -> bool { return a < b ? a = b, true : false; }
+template <std::floating_point T>
+constexpr int sgn(T x, double EPS = 1e-8) { return (x > EPS) - (x < -EPS); }
 
 template <class... Ts>
 void debug(Ts const &...args) {
@@ -160,12 +162,10 @@ void debug(Ts const &...args) {
 
 // constexpr i64 MOD = 998244353;
 constexpr i64 MOD = 1'000'000'007;
-constexpr f64 EPS = 1e-8;
 constexpr char DIR_DRUL[4] = {'D', 'R', 'U', 'L'};
 constexpr char DIR_SENW[4] = {'S', 'E', 'N', 'W'};
 constexpr pii DIR4[4] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 constexpr pii DIR8[8] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
-constexpr pii DIRH[8] = {{2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}};
 const std::string RES_YN[2] = {"NO", "YES"};
 const std::string RES_Yn[2] = {"No", "Yes"};
 const std::string RES_yn[2] = {"no", "yes"};
