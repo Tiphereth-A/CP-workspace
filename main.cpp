@@ -148,16 +148,16 @@ constexpr auto chkmax(T &a, T b) -> bool { return a < b ? a = b, true : false; }
 template <std::floating_point T>
 constexpr int sgn(T x, double EPS = 1e-8) { return (x > EPS) - (x < -EPS); }
 
-template <class... Ts>
-void debug(Ts const &...args) {
-#ifdef LOCAL_
-    ((std::cerr << args << '\n'), ...);
-#endif
-}
-#define debugl_ (std::cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << std::endl)
-#define debugn_(name) debug(#name, name)
 #ifndef LOCAL_
 #define dbg(...)
+#define debug(...)
+#define debugl_
+#define debugn_(...)
+#else
+template <class... Ts>
+void debug(Ts const &...args) { ((std::cerr << args << '\n'), ...); }
+#define debugl_ (std::cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << std::endl)
+#define debugn_(name) debug(#name, name)
 #endif
 
 // constexpr i64 MOD = 998244353;
