@@ -82,7 +82,6 @@ using compd = std::complex<double>;
 using pii = ptt<int>;
 using pii64 = ptt<i64>;
 
-
 constexpr i8 operator""_i8(unsigned long long x) { return (i8)x; }
 constexpr i16 operator""_i16(unsigned long long x) { return (i16)x; }
 constexpr i32 operator""_i32(unsigned long long x) { return (i32)x; }
@@ -94,7 +93,6 @@ constexpr u16 operator""_u16(unsigned long long x) { return (u16)x; }
 constexpr u32 operator""_u32(unsigned long long x) { return (u32)x; }
 constexpr u64 operator""_u64(unsigned long long x) { return (u64)x; }
 constexpr usz operator""_uz(unsigned long long x) { return (usz)x; }
-
 
 #define for_(i, l, r, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; ++i)
 #define fors_(i, l, r, s, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; i += s)
@@ -175,14 +173,12 @@ const std::string RES_poss[2] = {"impossible", "possible"};
 const std::string RES_Ab[2] = {"Bob", "Alice"};
 // const i64 EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 // const i64 FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
-
 template <u32 n>
 constexpr i64 EXP10_impl_() { return EXP10_impl_<n - 1>() * 10; }
 template <>
 constexpr i64 EXP10_impl_<0>() { return 1; }
 template <u32 n>
 constexpr i64 EXP10 = EXP10_impl_<n>();
-
 template <u32 n>
 constexpr i64 FACT10_impl_() { return FACT10_impl_<n - 1>() * n; }
 template <>
@@ -192,8 +188,6 @@ constexpr i64 FACT = FACT10_impl_<n>();
 
 
 using namespace std;
-
-
 const auto STATIC__ = []() {
     return 0;
 }();
