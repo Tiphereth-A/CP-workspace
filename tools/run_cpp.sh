@@ -86,7 +86,7 @@ g++-12 "$workspaceFolder/$srcName.cpp" -o "bin/$srcName" \
 -Wall -Wextra -Wconversion -Wpedantic -Wparentheses -Wzero-as-null-pointer-constant -Wregister -Wvolatile -Wredundant-tags -Wmismatched-tags -Wextra-semi -Wstrict-null-sentinel -Wuseless-cast -Woverloaded-virtual -Wenum-conversion -Wcomma-subscript -Wno-variadic-macros \
 && echo "Compile finished" || (echo -e ${BYellow}"Compile error"${Color_Off}; exit 1)
 
-time ./"bin/$srcName" \
+time UBSAN_OPTIONS=print_stacktrace=1 ./"bin/$srcName" \
 < "$dataFolder/in.in" \
 > "$dataFolder/out.out" \
 & sleep $TIME_LIMIT
