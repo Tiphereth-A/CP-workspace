@@ -3,7 +3,7 @@
         {
             "type": "shell",
             "label": "C++: Generate execute file for debug",
-            "command": "g++",
+            "command": "g++-12",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -16,7 +16,7 @@
                 "-Ilib/testlib",
                 "-Ilib/dbg-macro",
                 "-Ilib/ac-library",
-                "-std=c++20"
+                "-std=gnu++20"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -46,18 +46,18 @@
         {
             "type": "shell",
             "label": "C++: Generate assembler code of current source file",
-            "command": "g++",
+            "command": "g++-12",
             "args": [
                 "-S",
                 "${file}"
             ],
             "problemMatcher": [],
-            "detail": "g++ -S"
+            "detail": "g++-12 -S"
         },
         {
             "type": "shell",
             "label": "C++: Expand current source file",
-            "command": "g++",
+            "command": "g++-12",
             "args": [
                 "${file}",
                 "-E",
@@ -65,7 +65,7 @@
                 "${fileDirname}/out/${fileBasenameNoExtension}_expand.txt"
             ],
             "problemMatcher": [],
-            "detail": "g++ -E"
+            "detail": "g++-12 -E"
         }
     ],
     "version": "2.0.0"
