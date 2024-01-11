@@ -25,7 +25,7 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wextra-semi"
 #pragma GCC diagnostic ignored "-Wconversion"
-#include <magic/type.h>
+#include <magic/visualize.h>
 #pragma GCC diagnostic pop
 #endif
 
