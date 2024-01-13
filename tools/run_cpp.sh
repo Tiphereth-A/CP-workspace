@@ -78,6 +78,7 @@ On_IWhite='\033[0;107m'   # White
 
 workspaceFolder="$1" srcName="$2" dataFolder="$3"
 
+export UBSAN_OPTIONS=print_stacktrace=1
 g++-12 "$workspaceFolder/$srcName.cpp" -o "bin/$srcName" \
 -DLOCAL_ -DDBG_MACRO_FORCE_COLOR -DDBG_MACRO_NO_WARNING \
 -O2 -std=c++20 \
@@ -86,7 +87,7 @@ g++-12 "$workspaceFolder/$srcName.cpp" -o "bin/$srcName" \
 -Wall -Wextra -Wconversion -Wpedantic -Wparentheses -Wzero-as-null-pointer-constant -Wregister -Wvolatile -Wredundant-tags -Wmismatched-tags -Wextra-semi -Wstrict-null-sentinel -Wuseless-cast -Woverloaded-virtual -Wenum-conversion -Wcomma-subscript -Wno-variadic-macros \
 && echo "Compile finished" || (echo -e ${BYellow}"Compile error"${Color_Off}; exit 1)
 
-time UBSAN_OPTIONS=print_stacktrace=1 ./"bin/$srcName" \
+time ./"bin/$srcName" \
 < "$dataFolder/in.in" \
 > "$dataFolder/out.out" \
 & sleep $TIME_LIMIT
