@@ -48,7 +48,6 @@ code .
 | 2-sat                     | `2-sat`, `sat`, `sat-2`                    |
 | bitset-AVX                | `bitset-avx`                               | bitset under AVX      |
 | bipartitle-graph-coloring | `bipartitle-graph-coloring`                |
-| foreach                   | `fors`, `foreach`                          | Some for macros       |
 | gcc-ignore-warning        | `gcc-ignore-warning`, `ignore-warning`     |
 | hoverline                 | `hoverline`                                |
 | johnson                   | `johnson`                                  |

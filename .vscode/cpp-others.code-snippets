@@ -15,28 +15,6 @@
     // 	],
     // 	"description": "Log output to console"
     // }
-    "foreach": {
-        "scope": "cpp",
-        "prefix": [
-            "fors",
-            "foreach"
-        ],
-        "body": [
-            "#define for_(i, l, r, vars...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r), ##vars; i <= i##end; ++i)",
-            "#define for_step_(i, l, r, s, vars...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r), ##vars; i <= i##end; i += s)",
-            "#define rfor_(i, r, l, vars...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l), ##vars; i >= i##end; --i)",
-            "#define rfor_step_(i, r, l, s, vars...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l), ##vars; i >= i##end; i -= s)",
-            "#define foreach_val_(i, container) for (auto i : container)",
-            "#define foreach_ref_(i, container) for (auto &i : container)",
-            "#define foreach_cref_(i, container) for (const auto &i : container)",
-            "#define foreach_rref_(i, container) for (auto &&i : container)",
-            "#define foreach_binding_(container, vars...) for (auto &&[vars] : container)",
-            "#define foreach_iter_(it, container) for (auto it = (container).begin(); it != (container).end(); ++it)",
-            "#define foreach_iter_range_(it, container, l, r) for (auto it = (container).begin() + l; it != (container).begin() + r; ++it)",
-            "#define foreach_riter_(it, container) for (auto it = (container).rbegin(); it != (container).rend(); ++it)",
-            "#define foreach_riter_range_(it, container, l, r) for (auto it = (container).rbegin() + l; it != (container).rbegin() + r; ++it)"
-        ]
-    },
     "hoverline": {
         "scope": "cpp",
         "prefix": [
