@@ -56,7 +56,6 @@ code .
 | stdc++11                  | `stdc++11`                             | Standard libs (C++11) |
 | stdc++98                  | `stdc++98`                             | Standard libs (C++98) |
 | suffix-array              | `sa`, `suffix-array`                   |
-| Trie                      | `trie`                                 |
 | UDHeap                    | `udheap`                               |
 
 ## Third library support
