@@ -114,6 +114,26 @@ constexpr usz operator""_uz(unsigned long long x) { return (usz)x; }
 #define runbreak_(cmd) run_(cmd, break)
 #define runcontinue_(cmd) run_(cmd, continue)
 
+
+template <class T, class U>
+std::istream &operator>>(std::istream &is, std::pair<T, U> &p) { return is >> p.first >> p.second; }
+template <class T, class U>
+std::ostream &operator<<(std::ostream &os, std::pair<T, U> const &p) { return os << p.first << ' ' << p.second; }
+template <class... Ts>
+std::istream &operator>>(std::istream &is, std::tuple<Ts...> &p) {
+    std::apply([&](Ts &...targs) { ((is >> targs), ...); }, p);
+    return is;
+}
+template <class... Ts>
+std::ostream &operator<<(std::ostream &os, std::tuple<Ts...> const &p) {
+    std::apply(
+        [&](Ts const &...targs) {
+            usz n = 0;
+            ((os << targs << (++n != sizeof...(Ts) ? " " : "")), ...);
+        },
+        p);
+    return os;
+}
 template <container T>
 std::istream &operator<<(std::istream &is, T &x) {
     for (auto &i : x) is >> x;
@@ -171,20 +191,6 @@ const std::string RES_POSS[2] = {"IMPOSSIBLE", "POSSIBLE"};
 const std::string RES_Poss[2] = {"Impossible", "Possible"};
 const std::string RES_poss[2] = {"impossible", "possible"};
 const std::string RES_Ab[2] = {"Bob", "Alice"};
-// const i64 EXP10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
-// const i64 FACT[11] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800};
-template <u32 n>
-constexpr i64 EXP10_impl_() { return EXP10_impl_<n - 1>() * 10; }
-template <>
-constexpr i64 EXP10_impl_<0>() { return 1; }
-template <u32 n>
-constexpr i64 EXP10 = EXP10_impl_<n>();
-template <u32 n>
-constexpr i64 FACT10_impl_() { return FACT10_impl_<n - 1>() * n; }
-template <>
-constexpr i64 FACT10_impl_<0>() { return 1; }
-template <u32 n>
-constexpr i64 FACT = FACT10_impl_<n>();
 
 
 using namespace std;

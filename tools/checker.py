@@ -38,7 +38,7 @@ def cli(level: str):
 
 DEFAULT_TESTCASE_COUNT = 5000
 DEFAULT_TIME_LIMIT = 2.0
-DEFAULT_CPP_COMPILE_ARGS = '-std=c++17 -O2 -D_CLI_ -DONLINE_JUDGE'
+DEFAULT_CPP_COMPILE_ARGS = '-std=c++20 -O2 -D_CLI_ -DONLINE_JUDGE'
 DEFAULT_TESTLIB_DIR = os.path.join('..', 'lib', 'testlib')
 DEFAULT_GEN = os.path.join('src', 'gen.cpp')
 DEFAULT_STD = os.path.join('src', 'std.cpp')
