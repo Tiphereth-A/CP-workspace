@@ -46,13 +46,11 @@ code .
 | name                      | prefix                                 | introduction          |
 | ------------------------- | -------------------------------------- | --------------------- |
 | 2-sat                     | `2-sat`, `sat`, `sat-2`                |
-| bitset-AVX                | `bitset-avx`                           | bitset under AVX      |
 | bipartitle-graph-coloring | `bipartitle-graph-coloring`            |
 | gcc-ignore-warning        | `gcc-ignore-warning`, `ignore-warning` |
 | hoverline                 | `hoverline`                            |
 | johnson                   | `johnson`                              |
 | KMP-FFT                   | `kmp-fft`, `fft-kmp`                   |
-| persistable-segtree       | `psegtree`, `p-segtree`                |
 | stdc++11                  | `stdc++11`                             | Standard libs (C++11) |
 | stdc++98                  | `stdc++98`                             | Standard libs (C++98) |
 
