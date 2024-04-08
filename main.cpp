@@ -23,8 +23,7 @@
 #ifdef LOCAL_
 #include <dbg.h>
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wextra-semi"
-#pragma GCC diagnostic ignored "-Wconversion"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <magic/visualize.h>
 #pragma GCC diagnostic pop
 #endif
