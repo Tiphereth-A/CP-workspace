@@ -15,35 +15,6 @@
     // 	],
     // 	"description": "Log output to console"
     // }
-    "2-sat": {
-        "scope": "cpp",
-        "prefix": [
-            "2-sat",
-            "sat",
-            "sat-2"
-        ],
-        "body": [
-            "namespace SAT_2 {",
-            "\nint n;",
-            "\n//! Must initialize only in once.",
-            "// return true if the restricts is legel, otherwise illegel",
-            "bool init(int _n, int m, const tuple<int, bool, int, bool> *restricts) {",
-            "n = _n;",
-            "for (int i = 1; i <= m; ++i) {",
-            "auto &[x, bit_x, y, bit_y] = restricts[i];",
-            "addEdge(x + bit_x * n, y + !bit_y * n);",
-            "addEdge(y + bit_y * n, x + !bit_x * n);",
-            "}",
-            "for (int i = 1; i <= n * 2; ++i)",
-            "if (!dfn[i]) tarjan(i);",
-            "for (int i = 1; i <= n; ++i)",
-            "if (scc_id[i] == scc_id[i + n]) return false;",
-            "return true;",
-            "}",
-            "bool possible_value(int x) { return scc_id[x] < scc_id[x + n]; }",
-            "}  // namespace SAT_2"
-        ]
-    },
     "bipartitle-graph-coloring": {
         "scope": "cpp",
         "prefix": [

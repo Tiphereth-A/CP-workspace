@@ -45,7 +45,6 @@ code .
 
 | name                      | prefix                                 | introduction          |
 | ------------------------- | -------------------------------------- | --------------------- |
-| 2-sat                     | `2-sat`, `sat`, `sat-2`                |
 | bipartitle-graph-coloring | `bipartitle-graph-coloring`            |
 | gcc-ignore-warning        | `gcc-ignore-warning`, `ignore-warning` |
 | hoverline                 | `hoverline`                            |
