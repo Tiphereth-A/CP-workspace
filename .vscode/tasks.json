@@ -11,6 +11,8 @@
                 "-o",
                 "bin/${fileBasenameNoExtension}",
                 "-DLOCAL_",
+                "-D_GLIBCXX_DEBUG",
+                "-D_GLIBCXX_DEBUG_PEDANTIC",
                 "-D_DEBUG",
                 "-Ilib",
                 "-Ilib/testlib",
