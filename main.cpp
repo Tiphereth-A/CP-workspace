@@ -93,10 +93,10 @@ constexpr u32 operator""_u32(unsigned long long x) { return (u32)x; }
 constexpr u64 operator""_u64(unsigned long long x) { return (u64)x; }
 constexpr usz operator""_uz(unsigned long long x) { return (usz)x; }
 
-#define for_(i, l, r, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; ++i)
-#define fors_(i, l, r, s, ...) for (std::make_signed_t<decltype(l + r)> i = (l), i##end = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##end; i += s)
-#define rfor_(i, r, l, ...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##end; --i)
-#define rfors_(i, r, l, s, ...) for (std::make_signed_t<decltype(r - l)> i = (r), i##end = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##end; i -= s)
+#define fors_(i, l, r, s, ...) for (i64 i = (l), i##e = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##e; i += s)
+#define for_(i, l, r, ...) fors_(i, l, r, 1 __VA_OPT__(, ) __VA_ARGS__)
+#define rfors_(i, r, l, s, ...) for (i64 i = (r), i##e = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##e; i -= s)
+#define rfor_(i, r, l, ...) rfors_(i, r, l, 1 __VA_OPT__(, ) __VA_ARGS__)
 #define fori_(it, l, r) for (auto it = (l); it != (r); ++it)
 #define ins_(a) std::inserter((a), (a).begin())
 #define all_(a) (a).begin(), (a).end()
