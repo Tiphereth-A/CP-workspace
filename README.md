@@ -43,14 +43,13 @@ code .
 
 ## Snippets
 
-| name                      | prefix                                 | introduction          |
-| ------------------------- | -------------------------------------- | --------------------- |
-| bipartitle-graph-coloring | `bipartitle-graph-coloring`            |
-| gcc-ignore-warning        | `gcc-ignore-warning`, `ignore-warning` |
-| hoverline                 | `hoverline`                            |
-| KMP-FFT                   | `kmp-fft`, `fft-kmp`                   |
-| stdc++11                  | `stdc++11`                             | Standard libs (C++11) |
-| stdc++98                  | `stdc++98`                             | Standard libs (C++98) |
+| name               | prefix                                 | introduction          |
+| ------------------ | -------------------------------------- | --------------------- |
+| gcc-ignore-warning | `gcc-ignore-warning`, `ignore-warning` |
+| hoverline          | `hoverline`                            |
+| KMP-FFT            | `kmp-fft`, `fft-kmp`                   |
+| stdc++11           | `stdc++11`                             | Standard libs (C++11) |
+| stdc++98           | `stdc++98`                             | Standard libs (C++98) |
 
 ## Third library support
 
