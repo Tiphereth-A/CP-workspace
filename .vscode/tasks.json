@@ -3,7 +3,7 @@
         {
             "type": "shell",
             "label": "C++: Generate execute file for debug",
-            "command": "g++-12",
+            "command": "g++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -49,18 +49,18 @@
         {
             "type": "shell",
             "label": "C++: Generate assembler code of current source file",
-            "command": "g++-12",
+            "command": "g++",
             "args": [
                 "-S",
                 "${file}"
             ],
             "problemMatcher": [],
-            "detail": "g++-12 -S"
+            "detail": "g++ -S"
         },
         {
             "type": "shell",
             "label": "C++: Expand current source file",
-            "command": "g++-12",
+            "command": "g++",
             "args": [
                 "${file}",
                 "-E",
@@ -68,7 +68,7 @@
                 "${fileDirname}/out/${fileBasenameNoExtension}_expand.txt"
             ],
             "problemMatcher": [],
-            "detail": "g++-12 -E"
+            "detail": "g++ -E"
         }
     ],
     "version": "2.0.0"

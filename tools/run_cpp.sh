@@ -79,7 +79,7 @@ On_IWhite='\033[0;107m'   # White
 workspaceFolder="$1" srcName="$2" dataFolder="$3"
 
 export UBSAN_OPTIONS=print_stacktrace=1
-g++-12 "$workspaceFolder/$srcName.cpp" -o "bin/$srcName" \
+g++ "$workspaceFolder/$srcName.cpp" -o "bin/$srcName" \
 -DLOCAL_ -DDBG_MACRO_FORCE_COLOR -DDBG_MACRO_NO_WARNING \
 -O2 -std=gnu++20 \
 -Ilib -Ilib/testlib -Ilib/dbg-macro -Ilib/ac-library -Ilib/magic-cpp/include \
