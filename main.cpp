@@ -1,10 +1,3 @@
-#define DISABLE_PRAGMA_
-#ifndef DISABLE_PRAGMA_
-#pragma GCC optimize("Ofast,no-stack-protector,unroll-loops,fast-math")
-#pragma GCC target("avx,avx2,popcnt,tune=native")
-#include <immintrin.h>
-#endif
-
 #include <bits/stdc++.h>
 #ifdef __GNUG__
 #include <bits/stdtr1c++.h>
@@ -206,8 +199,7 @@ int main() {
     auto CLOCK_ST_ = std::chrono::high_resolution_clock::now();
     std::cerr << std::boolalpha << std::fixed << std::setprecision(6);
 #endif
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
+    std::cin.tie(nullptr)->sync_with_stdio(false);
     int i_ = STATIC__;
     // std::cout << std::fixed << std::setprecision(12);
 
@@ -216,7 +208,7 @@ int main() {
     std::cin >> t_;
     for (i_ = 0; i_ < t_; ++i_)
 #endif
-        debug("Case", i_), solve(i_);
+        dbg(i_), solve(i_);
 #ifdef LOCAL_
     auto CLOCK_ED_ = std::chrono::high_resolution_clock::now();
     std::clog << "\n---\nTime used: " << std::chrono::duration_cast<std::chrono::nanoseconds>(CLOCK_ED_ - CLOCK_ST_).count() * 1e-6l << " ms" << std::endl;

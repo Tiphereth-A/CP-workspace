@@ -1,6 +1,11 @@
 // #pragma comment(linker, "/STACK:102400000,102400000")
 // #define _GLIBCXX_DEBUG
 #include <bits/stdc++.h>
+#ifdef LOCAL_
+#include <dbg.h>
+#else
+#define dbg(...) 42
+#endif
 using namespace std;
 using i32 = int32_t;
 using u32 = uint32_t;
@@ -18,16 +23,6 @@ using vvec = vector<vector<Tp>>;
 #define rfors_(i, r, l, s, ...) for (i64 i = (r), i##e = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##e; i -= s)
 #define rfor_(i, r, l, ...) rfors_(i, r, l, 1 __VA_OPT__(, ) __VA_ARGS__)
 
-template <class... Ts>
-void debug(Ts const &...args) {
-#ifdef LOCAL_
-    ((cerr << args << ' '), ...);
-    cerr << '\n';
-#endif
-}
-#define debugl_ (cerr << __LINE__ << ' ' << __PRETTY_FUNCTION__ << endl)
-#define debugn_(var) debug(#var, var)
-
 // #define MCAS
 void solve([[maybe_unused]] int t_ = 0) {
 }
@@ -36,8 +31,7 @@ signed main() {
 #ifdef LOCAL_
     auto CLOCK_ST_ = chrono::high_resolution_clock::now();
 #endif
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    cin.tie(nullptr)->sync_with_stdio(false);
     cerr << fixed << setprecision(6);
     int i_ = 0;
 #ifdef MCAS
@@ -45,7 +39,7 @@ signed main() {
     cin >> t_;
     for (i_ = 0; i_ < t_; ++i_)
 #endif
-        debug("Case", i_), solve(i_);
+        dbg(i_), solve(i_);
 #ifdef LOCAL_
     auto CLOCK_ED_ = chrono::high_resolution_clock::now();
     clog << "\n---\n"
