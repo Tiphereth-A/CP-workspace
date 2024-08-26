@@ -57,7 +57,7 @@ Copy your library to `lib` and start using it!
 
 Example:
 
-- [AC-library](https://github.com/atcoder/ac-library)
+- [ac-library](https://github.com/atcoder/ac-library)
 
   ```cpp
   #include <iostream>
@@ -79,3 +79,8 @@ Example:
   8
   16
   ```
+
+- [CP-lib](https://github.com/Tiphereth-A/CP-lib) from myself
+- [dbg-macro](https://github.com/sharkdp/dbg-macro)
+- [magic-cpp](https://github.com/16bit-ykiko/magic-cpp)
+- [testlib](https://github.com/MikeMirzayanov/testlib)
