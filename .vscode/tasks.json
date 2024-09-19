@@ -19,7 +19,7 @@
                 "-Ilib/dbg-macro",
                 "-Ilib/ac-library",
                 "-Ilib/magic-cpp/include",
-                "-std=gnu++20"
+                "-std=gnu++23"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
