@@ -25,7 +25,7 @@ My VSCode workspace for Competitive Programming. **Only for Linux**
 
 ```bash
 # Clone repo
-git clone --recursive git@github.com:Tiphereth-A/CP-workspace.git
+git clone --recurse-submodules git@github.com:Tiphereth-A/CP-workspace.git
 
 # Fix paths
 cd CP-workspace

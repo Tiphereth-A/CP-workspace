@@ -1,6 +1,4 @@
-// #pragma comment(linker, "/STACK:102400000,102400000")
-// #define _GLIBCXX_DEBUG
-#include <bits/stdc++.h>
+#include <bits/extc++.h>
 #ifdef LOCAL_
 #include <dbg.h>
 #else
@@ -30,9 +28,9 @@ void solve([[maybe_unused]] int t_ = 0) {
 signed main() {
 #ifdef LOCAL_
     auto CLOCK_ST_ = chrono::high_resolution_clock::now();
+    cerr << fixed << setprecision(6);
 #endif
     cin.tie(nullptr)->sync_with_stdio(false);
-    cerr << fixed << setprecision(6);
     int i_ = 0;
 #ifdef MCAS
     int t_ = 0;
