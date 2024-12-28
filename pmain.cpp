@@ -11,11 +11,6 @@ using i64 = int64_t;
 using u64 = uint64_t;
 using i128 = __int128_t;
 using u128 = __uint128_t;
-template <class Tp>
-using vec = vector<Tp>;
-template <class Tp>
-using vvec = vector<vector<Tp>>;
-
 #define fors_(i, l, r, s, ...) for (i64 i = (l), i##e = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##e; i += s)
 #define for_(i, l, r, ...) fors_(i, l, r, 1 __VA_OPT__(, ) __VA_ARGS__)
 #define rfors_(i, r, l, s, ...) for (i64 i = (r), i##e = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##e; i -= s)
@@ -34,8 +29,7 @@ signed main() {
     int i_ = 0;
 #ifdef MCAS
     int t_ = 0;
-    cin >> t_;
-    for (i_ = 0; i_ < t_; ++i_)
+    for ((cin >> t_), i_ = 0; i_ < t_; ++i_)
 #endif
         dbg(i_), solve(i_);
 #ifdef LOCAL_

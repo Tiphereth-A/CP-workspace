@@ -7,14 +7,6 @@
 #pragma GCC diagnostic pop
 #endif
 
-template <class T>
-concept iterable = requires(T v) {
-    { v.begin() } -> std::same_as<typename T::iterator>;
-    { v.end() } -> std::same_as<typename T::iterator>;
-};
-template <class T>
-concept container = iterable<T> && !std::derived_from<T, std::basic_string<typename T::value_type>>;
-
 #define int_type(w)                                                          \
     using i##w = int##w##_t;                                                 \
     using u##w = uint##w##_t;                                                \
@@ -28,34 +20,22 @@ int_type(64);
 
 using i128 = __int128_t;
 using u128 = __uint128_t;
-template <class T>
-using vec = std::vector<T>;
-template <class T>
-using vvec = vec<vec<T>>;
-template <class T, class C = std::less<T>>
-using pq = __gnu_pbds::priority_queue<T, C>;
-template <class T>
-using pqg = pq<T, std::greater<T>>;
 template <class T, bool enable_order = false, class C = std::less<T>>
 using pbds_set = __gnu_pbds::tree<T, __gnu_pbds::null_type, C, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;
 template <class K, class V, class C = std::less<K>>
 using pbds_map = __gnu_pbds::tree<K, V, C, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;
-
 #define fors_(i, l, r, s, ...) for (i64 i = (l), i##e = (r)__VA_OPT__(, ) __VA_ARGS__; i <= i##e; i += s)
 #define for_(i, l, r, ...) fors_(i, l, r, 1 __VA_OPT__(, ) __VA_ARGS__)
 #define rfors_(i, r, l, s, ...) for (i64 i = (r), i##e = (l)__VA_OPT__(, ) __VA_ARGS__; i >= i##e; i -= s)
 #define rfor_(i, r, l, ...) rfors_(i, r, l, 1 __VA_OPT__(, ) __VA_ARGS__)
 #define fori_(it, l, r) for (auto it = (l); it != (r); ++it)
-#define run_(cmd, post_cmd) \
-    {                       \
-        cmd;                \
-        post_cmd;           \
-    }
-#define runexit_(cmd) run_(cmd, exit(0))
-#define runreturn_(cmd, ...) run_(cmd, return __VA_OPT__((__VA_ARGS__)))
-#define runbreak_(cmd) run_(cmd, break)
-#define runcontinue_(cmd) run_(cmd, continue)
-
+template <class T>
+concept iterable = requires(T v) {
+    { v.begin() } -> std::same_as<typename T::iterator>;
+    { v.end() } -> std::same_as<typename T::iterator>;
+};
+template <class T>
+concept container = iterable<T> && !std::derived_from<T, std::basic_string<typename T::value_type>>;
 template <class T, class U>
 std::istream &operator>>(std::istream &is, std::pair<T, U> &p) { return is >> p.first >> p.second; }
 template <class T, class U>
@@ -69,8 +49,8 @@ std::ostream &operator<<(std::ostream &os, std::tuple<Ts...> const &p) {
     return std::apply([&, n = 0](Ts const &...targs) mutable { ((os << targs << (++n != sizeof...(Ts) ? " " : "")), ...); }, p), os;
 }
 template <container T>
-std::istream &operator<<(std::istream &is, T &x) {
-    for (auto &i : x) is >> x;
+std::istream &operator>>(std::istream &is, T &x) {
+    for (auto &i : x) is >> i;
     return is;
 }
 template <container T>
@@ -101,20 +81,11 @@ template <class... Ts>
 void debug(Ts const &...args) { ((std::cerr << args << ' '), ...), std::cerr << std::endl; }
 #endif
 
-constexpr char DIR_DRUL[4] = {'D', 'R', 'U', 'L'};
-constexpr char DIR_SENW[4] = {'S', 'E', 'N', 'W'};
+constexpr char DIR[4] = {'S', 'E', 'N', 'W'};
 constexpr std::pair<int, int> DIR4[4] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 constexpr std::pair<int, int> DIR8[8] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
-const std::string RES_YN[2] = {"NO", "YES"};
-const std::string RES_Yn[2] = {"No", "Yes"};
-const std::string RES_yn[2] = {"no", "yes"};
-const std::string RES_POSS[2] = {"IMPOSSIBLE", "POSSIBLE"};
-const std::string RES_Poss[2] = {"Impossible", "Possible"};
-const std::string RES_poss[2] = {"impossible", "possible"};
-const std::string RES_Ab[2] = {"Bob", "Alice"};
-
-
 using namespace std;
+
 const auto STATIC__ = []() {
     return 0;
 }();
@@ -131,11 +102,9 @@ int main() {
     std::cin.tie(nullptr)->sync_with_stdio(false);
     int i_ = STATIC__;
     // std::cout << std::fixed << std::setprecision(12);
-
 #ifdef MULTI_CASES
     int t_ = 0;
-    std::cin >> t_;
-    for (i_ = 0; i_ < t_; ++i_)
+    for ((std::cin >> t_), i_ = 0; i_ < t_; ++i_)
 #endif
         dbg(i_), solve(i_);
 #ifdef LOCAL_
