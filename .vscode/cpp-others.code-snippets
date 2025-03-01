@@ -15,26 +15,6 @@
     // 	],
     // 	"description": "Log output to console"
     // }
-    "hoverline": {
-        "scope": "cpp",
-        "prefix": [
-            "hoverline"
-        ],
-        "body": [
-            "// @return {leftmost, rightmost}",
-            "template <class Tp>",
-            "std::pair<std::vector<ptrdiff_t>, std::vector<ptrdiff_t>> hoverline(std::vector<Tp> const &a) {",
-            "std::vector<ptrdiff_t> l(a.size()), r(a.size());",
-            "std::iota(l.begin(), l.end(), 0);",
-            "std::iota(r.begin(), r.end(), 0);",
-            "for (size_t i = 1; i < a.size(); ++i)",
-            "while (l[i] && a[l[i] - 1] >= a[i]) l[i] = l[l[i] - 1];",
-            "for (ptrdiff_t i = (ptrdiff_t)a.size() - 2; i >= 0; --i)",
-            "while (r[i] < (ptrdiff_t)a.size() - 1 && a[r[i] + 1] >= a[i]) r[i] = r[r[i] + 1];",
-            "return {l, r};",
-            "}"
-        ]
-    },
     "gcc-ignore-warning": {
         "scope": "cpp",
         "prefix": [
