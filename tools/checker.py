@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import logging
 import os
 import secrets
 import subprocess
@@ -38,7 +39,9 @@ def cli(level: str):
 
 DEFAULT_TESTCASE_COUNT = 5000
 DEFAULT_TIME_LIMIT = 2.0
-DEFAULT_CPP_COMPILE_ARGS = '-std=c++20 -O2 -D_CLI_ -DONLINE_JUDGE'
+DEFAULT_CPP_COMPILE_ARGS = '-std=c++20 -O2 -D_CLI_'
+DEFAULT_TIME_LIMIT_DEBUG = 3.0
+DEFAULT_CPP_COMPILE_ARGS_DEBUG = '-std=c++20 -O2 -D_CLI_ -DONLINE_JUDGE -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -fsanitize=address,undefined,leak'
 DEFAULT_TESTLIB_DIR = os.path.join('..', 'lib', 'testlib')
 DEFAULT_GEN = os.path.join('src', 'gen.cpp')
 DEFAULT_STD = os.path.join('src', 'std.cpp')
@@ -49,8 +52,8 @@ DEFAULT_OUT_DIR = 'out'
 
 @cli.command('judge')
 @click.option('-n', '--num', type=int, default=DEFAULT_TESTCASE_COUNT, help=f"Number of testcases, default {DEFAULT_TESTCASE_COUNT}")
-@click.option('-t', '--time-limit', type=float, default=DEFAULT_TIME_LIMIT, help=f"Time limit (s), default {DEFAULT_TIME_LIMIT}")
-@click.option('-c', '--compile-args', type=str, default=DEFAULT_CPP_COMPILE_ARGS, help=f"C++ compile arguments, default '{DEFAULT_CPP_COMPILE_ARGS}'")
+@click.option('-t', '--time-limit', type=float, default=DEFAULT_TIME_LIMIT, help=f"Time limit (s), default {DEFAULT_TIME_LIMIT}. If default log level is DEBUG, this option will be forced to {DEFAULT_TIME_LIMIT_DEBUG}")
+@click.option('-c', '--compile-args', type=str, default=DEFAULT_CPP_COMPILE_ARGS, help=f"C++ compile arguments, default '{DEFAULT_CPP_COMPILE_ARGS}'. If default log level is DEBUG, this option will be forced to '{DEFAULT_CPP_COMPILE_ARGS_DEBUG}'")
 @click.option('-l', '--testlib-repo-dir', type=click.Path(exists=True, file_okay=False), default=DEFAULT_TESTLIB_DIR, help=f'testlib repo dir, default {DEFAULT_TESTLIB_DIR}')
 @click.option('-g', '--gen-file', type=click.Path(exists=True, dir_okay=False), default=DEFAULT_GEN, help=f"Generator source file (C++), default {DEFAULT_GEN}")
 @click.option('-s', '--std-file', type=click.Path(exists=True, dir_okay=False), default=DEFAULT_STD, help=f"Standard source file (C++), default {DEFAULT_STD}")
@@ -69,6 +72,9 @@ def _judge(num: int, time_limit: float, compile_args: str, testlib_repo_dir, gen
 
     @withlog
     def judge(_num: int, _time_limit_s: float, _compile_args: str, _testlib_repo_dir: str, _gen_file: str, _std_file: str, _my_file: str, _judger_file: str, _out_dir: str, **kwargs):
+        if kwargs.get('logger').level == logging.DEBUG:
+            _time_limit_s = DEFAULT_TIME_LIMIT_DEBUG
+            _compile_args = DEFAULT_CPP_COMPILE_ARGS_DEBUG
         _data_dir: str = os.path.join(_out_dir, 'data')
 
         wipe_folder(_out_dir)
