@@ -26,6 +26,7 @@ signed main() {
     cerr << fixed << setprecision(6);
 #endif
     cin.tie(nullptr)->sync_with_stdio(false);
+    cin.exceptions(cin.failbit);
     int i_ = 0;
 #ifdef MCAS
     int t_ = 0;

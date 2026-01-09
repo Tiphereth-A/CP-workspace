@@ -100,6 +100,7 @@ int main() {
     std::cerr << std::boolalpha << std::fixed << std::setprecision(6);
 #endif
     std::cin.tie(nullptr)->sync_with_stdio(false);
+    cin.exceptions(cin.failbit);
     int i_ = STATIC__;
     // std::cout << std::fixed << std::setprecision(12);
 #ifdef MULTI_CASES
